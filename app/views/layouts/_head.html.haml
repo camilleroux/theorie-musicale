@@ -1,0 +1,24 @@
+%head
+  %meta{charset:"utf-8"}
+  %meta{'http-equiv' => "X-UA-Compatible", content:"IE=edge"}
+  %meta{name:"viewport",content:"width=device-width, initial-scale:1"}
+  = display_meta_tags :site => 'Theorie de la musique',
+                      :description => 'Théorie musicale pour le jazz et les musiques improviées',
+                      :keywords => "gamme, accord, mode, intervalle, majeur, mineur, jazz, improvisation, théorie",
+                      :reverse => true,
+                      :open_graph => { :title => 'Theorie de la musique',
+                        :type  => :website,
+                        :site_name => 'Theorie de la musique',
+                        :locale => "fr_FR"}
+
+  -# Open Graph
+  %meta{ :property => "og:title", :content => "Theorie de la musique" }
+  %meta{ :property => "og:type", :content => "article" }
+  %meta{ :property => "og:site_name", :content => "Theorie de la musique" }
+  %meta{ :property => "og:url", :content => root_url }
+  %meta{ :property => "og:image", :content => "" }
+
+  = render :partial => 'layouts/stylesheets'
+
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags

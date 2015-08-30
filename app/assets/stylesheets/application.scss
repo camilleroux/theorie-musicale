@@ -1,0 +1,19 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-variables";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "chord";
+
+body { padding-top: 70px; }
+
+
+
+
+footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 100px;
+  color: #767676;
+  text-align: center;
+  border-top: 1px solid #e5e5e5;
+}

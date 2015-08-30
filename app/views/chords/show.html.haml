@@ -1,0 +1,28 @@
+.col-md-12
+  %ol.breadcrumb{itemprop: "breadcrumb"}
+    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to root_path, itemprop: "url", title: "Accueil" do
+        %span{itemprop: "title"}>= "Accueil"
+    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to chords_path, itemprop: "url", title: "Accords" do
+        %span{itemprop: "title"}>= "Accords"
+        %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to chords_path, itemprop: "url", title: @chord.title, class: "disable" do
+        %span{itemprop: "title"}>= title @chord.title
+
+%article#chord
+  = render "chords/header"
+  = render "chords/key_selector"
+
+  %nav.related-modes
+    %h3 Gammes et modes relatifs :
+    .row.modes-list
+      - @chord.chord_scales.each do |chord_scale|
+        = render chord_scale.mode, :key => (@chord.key || Key.default).shifted(chord_scale.offset)
+
+  -#- if @chord.voicings.present?
+  -#  %nav.related-voicings
+  -#    %h3 Popular Voicings for #{@chord} (#{link_to "See All #{@chord.voicings.count}", [@chord, :voicings]}):
+  -#    %ul.voicings-list
+  -#      = render @chord.voicings, :key => @key
+
