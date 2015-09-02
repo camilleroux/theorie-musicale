@@ -1,0 +1,18 @@
+.col-md-12
+  %ol.breadcrumb{itemprop: "breadcrumb"}
+    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to root_path, itemprop: "url", title: "Accueil" do
+        %span{itemprop: "title"}>= "Accueil"
+    %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to notes_path, itemprop: "url", title: "Notes", class: "disable" do
+        %span{itemprop: "title"}>="Notes"
+
+.page-header
+  %h1= title "Notes"
+
+%section#notes
+  %ul
+    -(0...11).each do |index|
+      %li
+        -@keys.select {|key| key.index == index}.each do |key|
+          = link_to key, note_path(key.name_for_url), title: key.long_name

@@ -7,10 +7,12 @@ class Key
   Letters = {'C' => 0, 'D' => 1, 'E' => 2, 'F' => 3, 'G' => 4, 'A' => 5, 'B' => 6}
   Steps = {'H' => 1, 'W' => 2, 'm3' => 3, 'M3' => 4, '4' => 5, '♯4' => 6, '5' => 7}
 
+  FrenchNames = {'C' => 'do', 'D' => 'ré', 'E' => 'mi', 'F' => 'fa', 'G' => 'sol', 'A' => 'la', 'B' => 'si'}
+
   Intervals = {
     'u' => 0, 'unison' => 0, '0' => 0,
     '♭2' => 1, '♭9' => 1, 'min2' => 1, 'S' => 1, 'H' => 1, 'm2' => 1,
-    'M2' => 2, '9' => 2, 'maj2' => 2, 'T' => 2, 'W' => 2, '2' => 2,
+    '2' => 2, '9' => 2, 'maj2' => 2, 'T' => 2, 'W' => 2, 'M2' => 2,
     '♭3' => 3, 'min3' => 3, '♯2' => 3, '♯9' => 3, 'm3' => 3,
     '3' => 4, 'maj3' => 4, 'M3' => 4,
     'p4' =>  5, '4' => 5,
@@ -149,6 +151,21 @@ class Key
     ]
   end
 
+  def french_name
+    french_name = self.name
+    FrenchNames.each do |english, french|
+      french_name = french_name.gsub(english,french)
+    end
+    french_name
+  end
+
+  def french_long_name
+    french_name = self.long_name
+    FrenchNames.each do |english, french|
+      french_name = french_name.gsub(english,french)
+    end
+    french_name
+  end
 
 
   def self.primaries
@@ -160,7 +177,8 @@ class Key
   end
 
   def self.from_name(value)
-    all_without_doubles.find {|k| k.name == value}
+    #all_without_doubles.find {|k| k.name == value.gsub('d','♯').gsub('b','♭')}
+    all.find {|k| k.name == value.gsub('d','♯').gsub('b','♭')}
   end
 
   def self.[](value)
@@ -169,6 +187,10 @@ class Key
 
   def self.default
     self['C']
+  end
+
+  def name_for_url
+    self.name.gsub('♯','d').gsub('♭','b')
   end
 
 

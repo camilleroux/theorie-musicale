@@ -1,5 +1,5 @@
 ChordQuality.create!(:name => 'Majeur', :code => 'MAJ').tap do |q|
-  q.chords.create!(:name => 'Triade majeure', :specify_tones => "u 3 5").tap do |c|
+  q.chords.create!(:name => 'Majeure', :specify_tones => "u 3 5").tap do |c|
     c.symbols.create!(:name => 'M', :case_sensitive => true, :primary => true)
     c.symbols.create!(:name => 'MAJ')
     c.symbols.create!(:name => 'Majeur')
@@ -16,23 +16,23 @@ ChordQuality.create!(:name => 'Majeur', :code => 'MAJ').tap do |q|
     c.symbols.create!(:name => '7 Maj')
     c.symbols.create!(:name => 'M7', :case_sensitive => true)
 
-    c.children.create!(:chord_quality => q, :name => 'Majeur 7 ♯11', :specify_tones => "u 3 ♯4 5 7").tap do |cc|
-      cc.symbols.create!(:name => 'maj7♯11', :primary => true)
-      cc.symbols.create!(:name => 'M7♯11')
-      cc.symbols.create!(:name => 'majeur7♯11')
-      cc.symbols.create!(:name => 'lyd')
-      cc.symbols.create!(:name => 'lydien')
-
-      cc.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:4), :offset => -5)
-    end
-
-    c.children.create!(:chord_quality => q, :name => 'Majeur 7 ♯4♯5', :specify_tones => "u 3 ♯4 ♯5 7").tap do |cc|
-      cc.symbols.create!(:name => 'maj7♯4♯5', :primary => true)
-      cc.symbols.create!(:name => 'lydaug')
-      cc.symbols.create!(:name => 'maj7♯11♯5')
-
-      cc.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:3), :offset => -3)
-    end
+    # c.children.create!(:chord_quality => q, :name => 'Majeur 7 ♯11', :specify_tones => "u 3 ♯4 5 7").tap do |cc|
+    #   cc.symbols.create!(:name => 'maj7♯11', :primary => true)
+    #   cc.symbols.create!(:name => 'M7♯11')
+    #   cc.symbols.create!(:name => 'majeur7♯11')
+    #   cc.symbols.create!(:name => 'lyd')
+    #   cc.symbols.create!(:name => 'lydien')
+    #
+    #   cc.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:4), :offset => -5)
+    # end
+    #
+    # c.children.create!(:chord_quality => q, :name => 'Majeur 7 ♯4♯5', :specify_tones => "u 3 ♯4 ♯5 7").tap do |cc|
+    #   cc.symbols.create!(:name => 'maj7♯4♯5', :primary => true)
+    #   cc.symbols.create!(:name => 'lydaug')
+    #   cc.symbols.create!(:name => 'maj7♯11♯5')
+    #
+    #   cc.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:3), :offset => -3)
+    # end
 
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :offset => 0)
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:4), :offset => -5)
@@ -50,7 +50,7 @@ end
 
 
 ChordQuality.create!(:name => 'Mineur', :code => 'MIN').tap do |q|
-  q.chords.create!(:name => 'Triade mineure', :specify_tones => "u m3 5").tap do |c|
+  q.chords.create!(:name => 'Mineure', :specify_tones => "u m3 5").tap do |c|
     c.symbols.create!(:name => 'min')
     c.symbols.create!(:name => 'm', :case_sensitive => true, :primary => true)
     c.symbols.create!(:name => '-')

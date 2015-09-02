@@ -25,7 +25,9 @@
 
   #mode
     %h2= @mode.title
-    %h3= @mode.notes.join(", ")
+    %h3
+      - @mode.keys.each do |key|
+        = link_to key, note_path(key.name_for_url), title: key.long_name
     %p
       %label Intervales relatifs :
       = @mode.step_names.join(", ")

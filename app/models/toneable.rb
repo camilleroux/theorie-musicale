@@ -5,6 +5,7 @@ module Toneable
     serialize :tone_values, JSON
 
     delegate :notes, :to => :tones
+    delegate :keys, :to => :tones
     delegate :octavized_notes, :to => :tones
     delegate :intervals, :to => :tones
     delegate :step_names, :to => :tones

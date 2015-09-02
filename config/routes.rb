@@ -27,6 +27,10 @@ Rails.application.routes.draw do
     get :staff, :on => :member
   end
 
+  resources :notes, :only => [:index, :show] do
+    get :staff, :on => :member
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

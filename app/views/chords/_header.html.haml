@@ -4,37 +4,39 @@
       = link_to_unless_current "Accord #{@chord.title}", [@key, @chord]
       %small= @chord.main_symbol_name
 
+  .row
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title Notation
+        .panel-body
+          .staff.chord-staff{"data-id" => @chord.id, "data-staff" => @chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 223}
 
-  .col-xs-6.col-md-3
-    .panel.panel-primary
-      .panel-heading
-        %h2.panel-title Notation
-      .panel-body
-        .staff.chord-staff{"data-id" => @chord.id, "data-staff" => @chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 223}
 
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title Symbole
+        .panel-body
+          %h3=@chord.main_symbol_name
 
-  .col-xs-6.col-md-3
-    .panel.panel-primary
-      .panel-heading
-        %h2.panel-title Symbole
-      .panel-body
-        %h3=@chord.main_symbol_name
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title
+            Notes
+        .panel-body
+          %h3
+            - @chord.keys.each do |key|
+              = link_to key, note_path(key.name_for_url), title: key.long_name
 
-  .col-xs-6.col-md-3
-    .panel.panel-primary
-      .panel-heading
-        %h2.panel-title
-          Notes
-      .panel-body
-        %h3= @chord.notes.join(" ")
-
-  .col-xs-6.col-md-3
-    .panel.panel-primary
-      .panel-heading
-        %h2.panel-title
-          Intervales
-      .panel-body
-        %h3= @chord.interval_names.join(" ")
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title
+            Intervales
+        .panel-body
+          %h3= @chord.interval_names.join(" ")
 
 .clearfix
 
