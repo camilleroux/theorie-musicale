@@ -1,14 +1,13 @@
-.col-md-12
-  %ol.breadcrumb{itemprop: "breadcrumb"}
-    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to root_path, itemprop: "url", title: "Accueil" do
-        %span{itemprop: "title"}>= "Accueil"
-    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to chords_path, itemprop: "url", title: "Accords" do
-        %span{itemprop: "title"}>= "Accords"
-        %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to chords_path, itemprop: "url", title: @chord.title, class: "disable" do
-        %span{itemprop: "title"}>= title @chord.title
+%ol.breadcrumb{itemprop: "breadcrumb"}
+  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to root_path, itemprop: "url", title: "Accueil" do
+      %span{itemprop: "title"}>= "Accueil"
+  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to chords_path, itemprop: "url", title: "Accords" do
+      %span{itemprop: "title"}>= "Accords"
+      %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to chords_path, itemprop: "url", title: @chord.title, class: "disable" do
+      %span{itemprop: "title"}>= title @chord.title
 
 %article#chord
   = render "chords/header"

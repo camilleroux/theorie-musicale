@@ -1,11 +1,10 @@
-.col-md-12
-  %ol.breadcrumb{itemprop: "breadcrumb"}
-    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to root_path, itemprop: "url", title: "Accueil" do
-        %span{itemprop: "title"}>= "Accueil"
-    %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to chords_path, itemprop: "url", title: "Accords", class: "disable" do
-        %span{itemprop: "title"}>=title "Accords"
+%ol.breadcrumb{itemprop: "breadcrumb"}
+  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to root_path, itemprop: "url", title: "Accueil" do
+      %span{itemprop: "title"}>= "Accueil"
+  %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to chords_path, itemprop: "url", title: "Accords", class: "disable" do
+      %span{itemprop: "title"}>=title "Accords"
 
 .page-header
   %h1 Accords

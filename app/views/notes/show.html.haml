@@ -1,14 +1,13 @@
-.col-md-12
-  %ol.breadcrumb{itemprop: "breadcrumb"}
-    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to root_path, itemprop: "url", title: "Accueil" do
-        %span{itemprop: "title"}>= "Accueil"
-    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to notes_path, itemprop: "url", title: "Notes" do
-        %span{itemprop: "title"}>= "Notes"
-    %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to note_path(@key.name_for_url), itemprop: "url", title: @key.long_name, class: "disable" do
-        %span{itemprop: "title"}>= @key.name
+%ol.breadcrumb{itemprop: "breadcrumb"}
+  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to root_path, itemprop: "url", title: "Accueil" do
+      %span{itemprop: "title"}>= "Accueil"
+  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to notes_path, itemprop: "url", title: "Notes" do
+      %span{itemprop: "title"}>= "Notes"
+  %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to note_path(@key.name_for_url), itemprop: "url", title: @key.long_name, class: "disable" do
+      %span{itemprop: "title"}>= @key.name
 
 .page-header
   %h1

@@ -1,14 +1,13 @@
-.col-md-12
-  %ol.breadcrumb{itemprop: "breadcrumb"}
-    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to root_path, itemprop: "url", title: "Accueil" do
-        %span{itemprop: "title"}>= "Accueil"
-    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to intervals_path, itemprop: "url", title: "Intervales", class: "disable" do
-        %span{itemprop: "title"}>= "Intervales"
-    %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-      =link_to interval_path(@interval.name_for_url), itemprop: "url", title: @interval.long_name, class: "disable" do
-        %span{itemprop: "title"}>= @interval.long_name
+%ol.breadcrumb{itemprop: "breadcrumb"}
+  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to root_path, itemprop: "url", title: "Accueil" do
+      %span{itemprop: "title"}>= "Accueil"
+  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to intervals_path, itemprop: "url", title: "Intervales", class: "disable" do
+      %span{itemprop: "title"}>= "Intervales"
+  %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+    =link_to interval_path(@interval.name_for_url), itemprop: "url", title: @interval.long_name, class: "disable" do
+      %span{itemprop: "title"}>= @interval.long_name
 
 .page-header
   %h1
