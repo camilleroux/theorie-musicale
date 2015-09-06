@@ -1,7 +1,8 @@
 %article[scale]
   %h2= link_to scale.title, scale
   %p= scale.information
-  %h4 Modes :
-  %ul.modes
-    - scale.modes.each do |mode|
-      %li= link_to mode.title, [scale, mode]
+  -if scale.modes.count > 1
+    %h4 Modes :
+    %ul.modes
+      - scale.modes.each do |mode|
+        %li= link_to mode.title, [scale, mode]

@@ -28,7 +28,7 @@ Scale.create!(:name => 'Mineure harmonique', :specify_tones => "1 2 3m 4 5 6m 7"
   s.modes.create!(:mode => 7, :name => "Demi ton-ton sans 6eme")
 end
 
-Scale.create!(:name => 'Ton-Ton', :specify_tones => "1 2 3 4aug 5aug 7m", :symmetry_index => 2, :information => "la gamme par tons est une échelle hexatonique dont les six degrés sont tous espacés d'un ton. Elle fonctionne bien avec les accords ♯5.").tap do |s|
+Scale.create!(:name => 'Ton-Ton', :specify_tones => "1 2 3 4aug 5aug 7m", :symmetry_index => 2, :information => "La gamme par tons est une échelle hexatonique dont les six degrés sont tous espacés d'un ton. Elle fonctionne bien avec les accords ♯5.").tap do |s|
   s.modes.create!(:mode => 1, :name => 'Ton-Ton')
 end
 
