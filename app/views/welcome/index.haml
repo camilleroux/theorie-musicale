@@ -6,12 +6,17 @@
     %br
     Vous trouverez tout ce dont vous avez besoin ici !
 
-.col-xs-6.col-md-6
+.col-xs-4.col-md-4
+  %h2 Intervales
+  %p Parcourez les intervalles simples et redoublés. Pour chaque intervale, vous pourrez consulter le nombre de tons et de demi-tons qui le composent, les renversements...
+  = link_to "Liste des intervales", intervals_path, class: "btn btn-primary"
+
+.col-xs-4.col-md-4
   %h2 Accords
   %p Parcourez les accords les plus joués dans le jazz. Pour chaque accord, vous pourrez consulter leur composition, leurs différentes appellations ainsi que les gammes ou modes dont ils proviennent.
   = link_to "Liste des accords", chords_path, class: "btn btn-primary"
 
-.col-xs-6.col-md-6
+.col-xs-4.col-md-4
   %h2 Gammes et modes
   %p Découvrez les gammes les plus utilisées ainsi que leurs modes. Pour chaque gamme ou mode, vous pourrez consulter les différents intervalles et notes qui les composent, les accords associés...
   = link_to "Liste des gammes et modes", scales_path, class: "btn btn-primary"
