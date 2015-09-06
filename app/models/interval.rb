@@ -55,6 +55,12 @@ class Interval
     DegreeNames[@degree] + " " + QualityNames[@quality]
   end
 
+  def long_name_with_key
+    name = long_name
+    name += " de #{notes.first} : #{notes.last}" if @key
+    name
+  end
+
   def symbol
     @degree.to_s + @quality.to_s
   end
@@ -62,7 +68,6 @@ class Interval
   def name_for_url
     symbol + '-' + Rack::Utils.escape(long_name)
   end
-
 
 
   def to_i

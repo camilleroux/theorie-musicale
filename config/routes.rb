@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       get :staff, :on => :member
     end
 
+    resources :intervals, :only => [:show], :path => "intervales"
+
     resources :scales, :only => [:index, :show], :path => "gammes" do
       resources :modes, :only => [:index, :show], :path => "modes"
     end

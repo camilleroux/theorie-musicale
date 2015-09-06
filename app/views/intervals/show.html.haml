@@ -6,12 +6,12 @@
     =link_to intervals_path, itemprop: "url", title: "Intervales", class: "disable" do
       %span{itemprop: "title"}>= "Intervales"
   %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to interval_path(@interval.name_for_url), itemprop: "url", title: @interval.long_name, class: "disable" do
-      %span{itemprop: "title"}>= @interval.long_name
+    =link_to interval_path(@interval.name_for_url), itemprop: "url", title: @interval.long_name_with_key, class: "disable" do
+      %span{itemprop: "title"}>= @interval.long_name_with_key
 
 .page-header
   %h1
-    = title @interval.long_name
+    = title @interval.long_name_with_key
     %small= @interval.symbol
 
 
@@ -52,6 +52,18 @@
     Intervale
     = @interval.compound? ? 'redoublé' : 'simple'
   %p
-    %label Seconde note par rapport à C :
-    -key = Key.from_index(@interval.semitones, @interval.letter_index)
-    = link_to key, note_path(key.name_for_url), title: key.long_name
+    %label Seconde note par rapport à #{@interval.notes.first} :
+    = link_to @interval.keys.last, note_path(@interval.keys.last.name_for_url), title: @interval.keys.last.long_name
+
+
+%nav#key-selector
+  .panel.panel-default
+    .panel-heading
+      %h2.panel-title Afficher la #{@interval.long_name} de
+    .panel-body
+      %ul.nav.nav-pills
+        - Key.primaries.each do |key|
+          -#%li{:class => ("current" if @key == key)}= link_to_unless @key == key, key, controller.is_a?(VoicingsController) ? [key, @chord, @voicing || :voicings] : [key, @chord]
+          %li{:class => ("active" if (@key == key or (@key.nil? && key.name == "C")))}= link_to key, key_interval_path(key, @interval.name_for_url)
+
+

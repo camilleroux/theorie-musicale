@@ -66,14 +66,14 @@ module Tones
     #octave -= 1 if (8..11).include?(keys.first.index)
     last_index = keys.first.index
 
-    effective_octave = (keys.first.name == "Cb") ? octave + 1 : octave  # Hack for Cb, which is a weird case...
+    effective_octave = (keys.first.name == "C♭") ? octave + 1 : octave  # Hack for Cb, which is a weird case...
 
     ["#{notes.first.gsub("♭", "b").gsub("♯", "#")}/#{effective_octave}"] + keys.from(1).map do |key|
       index = key.index > last_index ? key.index : key.index + 12
       octave += 1 if (last_index..index).include?(12)
       octave += 1 if key.octave > 4
       last_index = key.index
-      effective_octave = (key.name == "Cb") ? octave + 1 : octave  # Hack for Cb, which is a weird case...
+      effective_octave = (key.name == "C♭") ? octave + 1 : octave  # Hack for Cb, which is a weird case...
       "#{key.name.gsub("♭", "b").gsub("♯", "#")}/#{effective_octave}"
     end
   end
