@@ -8,7 +8,7 @@
         .navbar-header
           %button.navbar-toggle.collapsed{type:"button",'data-toggle' => "collapse", 'data-target'=>"#navbar", 'aria-expanded'=>"false",'aria-controls'=>"navbar"}
             %span.sr-only
-              Toggle navigation
+              Activer la navigation
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
@@ -16,10 +16,10 @@
             Theorie musicale
         #navbar.collapse.navbar-collapse
           %ul.nav.navbar-nav
+            %li=link_to "Notes", notes_path
+            %li=link_to "Intervales", intervals_path
             %li=link_to "Accords", chords_path
             %li=link_to "Gammes", scales_path
-            %li=link_to "Intervales", intervals_path
-            %li=link_to "Notes", notes_path
 
         #navbar.navbar-collapse.collapse
     #content-wrapper

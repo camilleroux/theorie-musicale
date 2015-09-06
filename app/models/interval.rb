@@ -9,7 +9,7 @@ class Interval
 
   DegreeNames = {1 => 'Prime', 2 => 'Seconde', 3 => 'Tierce', 4 => 'Quarte', 5 => 'Quinte', 6 => 'Sixte', 7 => 'Septième', 8 => 'Octave', 9 => 'Neuvième', 10 => 'Dixième', 11 => 'Onzième', 12 => 'Douzième', 13 => 'Treizième', 14 => 'Quatorzième', 15 => "Double octave"}
   DegreeSemitones  = {1 => 0, 2 => 2, 3 => 4, 4 => 5, 5 => 7, 6 => 9, 7 => 11, 8 => 12, 9 => 14, 10 => 16, 11 => 17, 12 => 19, 13 => 21, 14 => 23, 15 => 24}
-  QualityNames = {:dim => 'diminuée', :m => 'mineure', :j => "juste", :M => 'majeure', :aug => "augmentée"}
+  QualityNames = {:dim => 'diminuée', :m => 'mineure', :J => "juste", :M => 'majeure', :aug => "augmentée"}
 
   def initialize(degree, quality=nil, tones_specified=false)
     @degree = degree
@@ -24,7 +24,7 @@ class Interval
   end
 
   def default_quality
-    self.class.degree_can_be_perfect?(@degree) ? :j : :M
+    self.class.degree_can_be_perfect?(@degree) ? :J : :M
   end
 
   def inversion
@@ -39,7 +39,7 @@ class Interval
 
   def semitones
     degree_semitones = DegreeSemitones[@degree]
-    if [:M,:j].include?(@quality)
+    if [:M,:J].include?(@quality)
       degree_semitones
     elsif @quality == :m
       degree_semitones - 1
@@ -88,11 +88,11 @@ class Interval
 
   def self.available_qualities_for_degree(degree)
     if degree==1
-      [:j, :aug]
+      [:J, :aug]
     elsif degree==15
-      [:dim, :j]
+      [:dim, :J]
     elsif self.degree_can_be_perfect?(degree)
-      [:dim, :j, :aug]
+      [:dim, :J, :aug]
     else
       [:dim, :m, :M, :aug]
     end

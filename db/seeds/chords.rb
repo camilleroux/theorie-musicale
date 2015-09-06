@@ -1,5 +1,5 @@
 ChordQuality.create!(:name => 'Majeur', :code => 'MAJ').tap do |q|
-  q.chords.create!(:name => 'Majeure', :specify_tones => "1 3 5").tap do |c|
+  q.chords.create!(:name => 'Majeur', :specify_tones => "1 3 5").tap do |c|
     c.symbols.create!(:name => 'M', :case_sensitive => true, :primary => true)
     c.symbols.create!(:name => 'MAJ')
     c.symbols.create!(:name => 'Majeur')
@@ -50,7 +50,7 @@ end
 
 
 ChordQuality.create!(:name => 'Mineur', :code => 'MIN').tap do |q|
-  q.chords.create!(:name => 'Mineure', :specify_tones => "1 3m 5").tap do |c|
+  q.chords.create!(:name => 'Mineur', :specify_tones => "1 3m 5").tap do |c|
     c.symbols.create!(:name => 'min')
     c.symbols.create!(:name => 'm', :case_sensitive => true, :primary => true)
     c.symbols.create!(:name => '-')

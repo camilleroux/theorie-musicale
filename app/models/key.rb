@@ -5,7 +5,6 @@ class Key
   attr_reader :name, :long_name, :index, :letter_index, :cycle_index, :primary
   attr_accessor :octave
 
-  Letters = {'C' => 0, 'D' => 1, 'E' => 2, 'F' => 3, 'G' => 4, 'A' => 5, 'B' => 6}
   Steps = {'H' => 1, 'W' => 2, 'm3' => 3, 'M3' => 4, '4' => 5, '♯4' => 6, '5' => 7}
 
   FrenchNames = {'C' => 'do', 'D' => 'ré', 'E' => 'mi', 'F' => 'fa', 'G' => 'sol', 'A' => 'la', 'B' => 'si'}
@@ -24,22 +23,6 @@ class Key
     'm7' => 10, 'min7' => 10, 'dom7' => 10, '♭7' => 10,
     'maj7' => 11, 'M7' => 11, '7' => 11,
     '8' => 12, 'octave' => 12 
-  }
-
-  IntervalLetterIndexes = {
-    'u' => 0, 'unison' => 0, '0' => 0,
-    '♭2' => 1, '♭9' => 1, 'min2' => 1, 'S' => 1, 'H' => 1, 'm2' => 1,
-    'M2' => 1, '9' => 1, 'maj2' => 1, 'T' => 1, 'W' => 1, '2' => 1,
-    '♭3' => 2, 'min3' => 2, '♯2' => 1, '♯9' => 1, 'm3' => 2,
-    '3' => 2, 'maj3' => 2, 'M3' => 2,
-    'p4' =>  3, '4' => 3,
-    '♭5' => 4, 'aug4' => 3, 'dim5' => 4, '♯4' => 3,
-    'p5' =>  4, '5' => 4,
-    '♭6' => 5, 'aug5' => 4, '♯5' => 4,
-    'M6' =>  5, 'maj6' => 5, '6' => 5,
-    'm7' => 6, 'min7' => 6, 'dom7' => 6, '♭7' => 6,
-    'maj7' => 6, 'M7' => 6, '7' => 6,
-    '8' => 7, 'octave' => 7
   }
 
   def initialize(attributes = {})
