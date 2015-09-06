@@ -41,6 +41,10 @@ class Mode < ActiveRecord::Base
     mode == 1
   end
 
+  def degree
+    RomanNumerals.to_roman(mode)
+  end
+
   def mode_key
     Key[notes.first]
   end

@@ -136,6 +136,7 @@ GEM
       json (~> 1.4)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    roman-numerals (0.3.0)
     ruby_parser (3.7.1)
       sexp_processor (~> 4.1)
     sass (3.4.18)
@@ -190,6 +191,7 @@ DEPENDENCIES
   rails (= 4.2.4)
   rails_12factor
   responders
+  roman-numerals
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

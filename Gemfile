@@ -31,6 +31,7 @@ gem "friendly_id"
 gem "acts_as_tree"
 gem "responders"
 gem 'meta-tags'
+gem 'roman-numerals'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

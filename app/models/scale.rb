@@ -28,6 +28,10 @@ class Scale < ActiveRecord::Base
     octavized_notes.map {|n| [n]}
   end
 
+  def heptatonic?
+    notes.size == 7
+  end
+
   def self.resolve(symbol)
     in_key = nil
   
