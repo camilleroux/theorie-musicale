@@ -11,7 +11,9 @@
         %span{itemprop: "title"}>= @interval.long_name
 
 .page-header
-  %h1= title @interval.long_name
+  %h1
+    = title @interval.long_name
+    %small= @interval.symbol
 
 
 %section#note
@@ -20,17 +22,24 @@
       .panel.panel-primary
         .panel-heading
           %h2.panel-title
-            Demi-tons
+            Notation
         .panel-body
-          %h3=@interval.semitones
-
+          .staff.interval-staff{"data-id" => @interval.name_for_url, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
     .col-xs-6.col-md-3
       .panel.panel-primary
         .panel-heading
           %h2.panel-title
-            Notation
+            Demi-tons
         .panel-body
-          .staff.interval-staff{"data-id" => @interval.name_for_url, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
+          %h3=@interval.semitones
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title
+            Symbole
+        .panel-body
+          %h3=@interval.symbol
+
 
 %nav.infos
   %h3 Informations complémentaires
@@ -47,6 +56,3 @@
     %label Seconde note par rapport à C :
     -key = Key.from_index(@interval.semitones, @interval.letter_index)
     = link_to key, note_path(key.name_for_url), title: key.long_name
-  %p
-    %label Intervalles enharmoniques :
-    = @interval.tone_values.inspect
