@@ -3,6 +3,7 @@ class Key
   include ActiveModel::Conversion
 
   attr_reader :name, :long_name, :index, :letter_index, :cycle_index, :primary
+  attr_accessor :octave
 
   Letters = {'C' => 0, 'D' => 1, 'E' => 2, 'F' => 3, 'G' => 4, 'A' => 5, 'B' => 6}
   Steps = {'H' => 1, 'W' => 2, 'm3' => 3, 'M3' => 4, '4' => 5, '♯4' => 6, '5' => 7}
@@ -43,6 +44,7 @@ class Key
 
   def initialize(attributes = {})
     @primary = true
+    @octave = 4
 
     attributes.each do |key, value|
       instance_variable_set("@#{key}", value)
@@ -173,7 +175,11 @@ class Key
   end
 
   def self.from_index(value, preferred_letter = nil)
-    all_without_doubles.find {|k| k.index == value && (preferred_letter.nil? || k.letter_index == preferred_letter)}
+    relative_value = value % 12
+    preferred_letter %= 7
+    key = all_without_doubles.find {|k| k.index == relative_value && (preferred_letter.nil? || k.letter_index == preferred_letter)}
+    key.octave+=1 if value >=12
+    key
   end
 
   def self.from_name(value)

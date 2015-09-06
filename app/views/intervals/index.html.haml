@@ -1,0 +1,28 @@
+.col-md-12
+  %ol.breadcrumb{itemprop: "breadcrumb"}
+    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to root_path, itemprop: "url", title: "Accueil" do
+        %span{itemprop: "title"}>= "Accueil"
+    %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to intervals_path, itemprop: "url", title: "Intervales", class: "disable" do
+        %span{itemprop: "title"}>="Intervales"
+
+.page-header
+  %h1= title "Intervales"
+
+#section#notes
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Intervale
+        %th Seconde note par rapport à C
+        %th Nombre de demi-tons
+
+    %tbody
+    -@intervals.each do |interval|
+      %tr{class: interval.semitones.even? ? "active" : ""}
+        %td
+          %strong= link_to interval.long_name, interval_path(interval.name_for_url), title: interval.long_name
+        -key = Key.from_index(interval.semitones, interval.letter_index)
+        %td= link_to key, note_path(key.name_for_url), title: key.long_name
+        %td= interval.semitones

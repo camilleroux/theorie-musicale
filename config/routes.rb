@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -24,6 +25,10 @@ Rails.application.routes.draw do
   end
 
   resources :chords, :only => [:index, :show], :path => "accords" do
+    get :staff, :on => :member
+  end
+
+  resources :intervals, :only => [:index, :show], :path => "intervales" do
     get :staff, :on => :member
   end
 

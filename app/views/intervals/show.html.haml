@@ -1,0 +1,52 @@
+.col-md-12
+  %ol.breadcrumb{itemprop: "breadcrumb"}
+    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to root_path, itemprop: "url", title: "Accueil" do
+        %span{itemprop: "title"}>= "Accueil"
+    %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to intervals_path, itemprop: "url", title: "Intervales", class: "disable" do
+        %span{itemprop: "title"}>= "Intervales"
+    %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+      =link_to interval_path(@interval.name_for_url), itemprop: "url", title: @interval.long_name, class: "disable" do
+        %span{itemprop: "title"}>= @interval.long_name
+
+.page-header
+  %h1= title @interval.long_name
+
+
+%section#note
+  .row
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title
+            Demi-tons
+        .panel-body
+          %h3=@interval.semitones
+
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title
+            Notation
+        .panel-body
+          .staff.interval-staff{"data-id" => @interval.name_for_url, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
+
+%nav.infos
+  %h3 Informations complémentaires
+  - unless @interval.compound?
+    %p
+      %label Renversement :
+      - inversion = @interval.inversion
+      =link_to inversion.long_name, interval_path(inversion.name_for_url)
+  %p
+    %label Type d'intervale :
+    Intervale
+    = @interval.compound? ? 'redoublé' : 'simple'
+  %p
+    %label Seconde note par rapport à C :
+    -key = Key.from_index(@interval.semitones, @interval.letter_index)
+    = link_to key, note_path(key.name_for_url), title: key.long_name
+  %p
+    %label Intervalles enharmoniques :
+    = @interval.tone_values.inspect

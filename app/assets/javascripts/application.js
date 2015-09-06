@@ -13,9 +13,14 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+
 //= require underscore
 //= require vexflow
 //= require vexflow-json
 //= require jquery-vexflow
+
+//= require paper-core.min
+//= require fretboard
+
 //= require turbolinks
 //= require_tree .
