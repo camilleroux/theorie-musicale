@@ -63,7 +63,7 @@ module Tones
   def octavized_notes(octave = 4)
     return [] if keys.empty?
 
-    octave -= 1 if (8..11).include?(keys.first.index)
+    #octave -= 1 if (8..11).include?(keys.first.index)
     last_index = keys.first.index
 
     effective_octave = (keys.first.name == "Cb") ? octave + 1 : octave  # Hack for Cb, which is a weird case...

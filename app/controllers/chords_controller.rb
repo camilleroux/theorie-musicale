@@ -1,6 +1,6 @@
 class ChordsController < ApplicationController
   before_filter :find_key
-  before_filter :find_chord, :except => [:index, :new, :create]
+  before_filter :find_chord, :except => [:index]
   before_filter :find_chord_qualities
 
   respond_to :html, :json

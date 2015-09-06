@@ -15,6 +15,11 @@ module Toneable
   def tones
     @tones ||= (tone_values.first.instance_of?(Tone) ? tone_values : tone_values.map {|v| Tone.new(v) }).extend(Tones)
     #@tones ||= tone_values.map {|v| Tone.new(v) }.extend(Tones)
+    @tones = if self.key
+      @tones.in_key_of(self.key)
+    else
+      @tones
+    end
   end
 
   def specify_tones=(values)
