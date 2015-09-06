@@ -2,6 +2,7 @@ class Interval
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   include Comparable
+  include KeyContext
   include Toneable
 
   attr_reader :degree, :quality
