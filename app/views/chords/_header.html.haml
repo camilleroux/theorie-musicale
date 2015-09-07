@@ -19,7 +19,6 @@
           %h2.panel-title Symbole
         .panel-body
           %h3=@chord.main_symbol_name
-
     .col-xs-6.col-md-3
       .panel.panel-primary
         .panel-heading
@@ -29,14 +28,15 @@
           %h3
             - @chord.keys.each do |key|
               = link_to key, note_path(key.name_for_url), title: key.long_name
-
     .col-xs-6.col-md-3
       .panel.panel-primary
         .panel-heading
           %h2.panel-title
             Intervalles
         .panel-body
-          %h3= @chord.interval_names.join(" - ")
+          - @chord.tones.from(1).each do |t|
+            -i = t.to_interval
+            %h3= link_to i.long_name, interval_path(i.name_for_url)
 
 .clearfix
 
