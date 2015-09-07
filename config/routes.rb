@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get :staff, :on => :member
     end
 
-    resources :intervals, :only => [:show], :path => "intervales"
+    resources :intervals, :only => [:show], :path => "intervalles"
 
     resources :scales, :only => [:index, :show], :path => "gammes" do
       resources :modes, :only => [:index, :show], :path => "modes"
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     get :staff, :on => :member
   end
 
-  resources :intervals, :only => [:index, :show], :path => "intervales" do
+  resources :intervals, :only => [:index, :show], :path => "intervalles" do
     get :staff, :on => :member
   end
 

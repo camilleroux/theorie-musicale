@@ -3,18 +3,18 @@
     =link_to root_path, itemprop: "url", title: "Accueil" do
       %span{itemprop: "title"}>= "Accueil"
   %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to intervals_path, itemprop: "url", title: "Intervales", class: "disable" do
-      %span{itemprop: "title"}>="Intervales"
+    =link_to intervals_path, itemprop: "url", title: "Intervalles", class: "disable" do
+      %span{itemprop: "title"}>="Intervalles"
 
 .page-header
-  %h1= title "Intervales"
+  %h1= title "Intervalles"
 
 #section#intervals
-  %h2 Intervales simples
+  %h2 Intervalles simples
   %table.table.table-hover
     %thead
       %tr
-        %th Intervale
+        %th Intervalle
         %th Seconde note par rapport à C
         %th Nombre de tons
         %th Nombre de demi-tons
@@ -29,11 +29,11 @@
         %td= number_to_human(interval.semitones / 2.0)
         %td= interval.semitones
 
-  %h2 Intervales redoublés
+  %h2 Intervalles redoublés
   %table.table.table-hover
     %thead
       %tr
-        %th Intervale
+        %th Intervalle
         %th Seconde note par rapport à C
         %th Nombre de demi-tons
 

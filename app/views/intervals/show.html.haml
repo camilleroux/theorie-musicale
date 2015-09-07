@@ -3,8 +3,8 @@
     =link_to root_path, itemprop: "url", title: "Accueil" do
       %span{itemprop: "title"}>= "Accueil"
   %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to intervals_path, itemprop: "url", title: "Intervales", class: "disable" do
-      %span{itemprop: "title"}>= "Intervales"
+    =link_to intervals_path, itemprop: "url", title: "Intervalles", class: "disable" do
+      %span{itemprop: "title"}>= "Intervalles"
   %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to interval_path(@interval.name_for_url), itemprop: "url", title: @interval.long_name_with_key, class: "disable" do
       %span{itemprop: "title"}>= @interval.long_name_with_key
@@ -55,8 +55,8 @@
       - inversion = @interval.inversion
       =link_to inversion.long_name, interval_path(inversion.name_for_url)
   %p
-    %label Type d'intervale :
-    Intervale
+    %label Type d'intervalle :
+    Intervalle
     = @interval.compound? ? 'redoublé' : 'simple'
   %p
     %label Seconde note par rapport à #{@interval.notes.first} :
