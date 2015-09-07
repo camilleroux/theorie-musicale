@@ -16,6 +16,7 @@
       %tr
         %th Intervale
         %th Seconde note par rapport à C
+        %th Nombre de tons
         %th Nombre de demi-tons
 
     %tbody
@@ -25,6 +26,7 @@
           %strong= link_to interval.long_name, interval_path(interval.name_for_url), title: interval.long_name
         -key = Key.from_index(interval.semitones, interval.letter_index)
         %td= link_to key, note_path(key.name_for_url), title: key.long_name
+        %td= number_to_human(interval.semitones / 2.0)
         %td= interval.semitones
 
   %h2 Intervales redoublés

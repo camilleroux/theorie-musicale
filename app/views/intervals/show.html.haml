@@ -28,16 +28,23 @@
       .panel.panel-primary
         .panel-heading
           %h2.panel-title
-            Demi-tons
+            Symbole
         .panel-body
-          %h3=@interval.semitones
+          %h3=@interval.symbol
     .col-xs-6.col-md-3
       .panel.panel-primary
         .panel-heading
           %h2.panel-title
-            Symbole
+            Tons
         .panel-body
-          %h3=@interval.symbol
+          %h3= number_to_human(@interval.semitones / 2.0)
+    .col-xs-6.col-md-3
+      .panel.panel-primary
+        .panel-heading
+          %h2.panel-title
+            Demi-tons
+        .panel-body
+          %h3= @interval.semitones
 
 
 %nav.infos

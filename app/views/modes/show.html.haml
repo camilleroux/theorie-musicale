@@ -24,11 +24,10 @@
         = link_to key, note_path(key.name_for_url), title: key.long_name
     %p
       %label Intervales relatifs :
-      = @mode.step_names.join(", ")
+      = @mode.step_names.join(" - ")
     %p
       %label Intervales :
-      = @mode.interval_names.join(", ")
-
+      = @mode.interval_names.join(" - ")
     %section#staff
       .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 500}
 
