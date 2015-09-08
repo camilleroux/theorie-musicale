@@ -1,3 +1,4 @@
+-description "L'accord #{@chord.title} (#{@chord.main_symbol_name}) est composé des intervalles suivants : #{@chord.tones.from(1).map(&:to_interval).map(&:long_name).to_sentence}"
 %ol.breadcrumb{itemprop: "breadcrumb"}
   %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Accueil" do

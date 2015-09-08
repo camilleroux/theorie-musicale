@@ -1,3 +1,5 @@
+-description "L'intervalle de #{@interval.long_name_with_key} est composé de #{pluralize(number_to_human(@interval.semitones / 2.0),'ton')}"
+
 %ol.breadcrumb{itemprop: "breadcrumb"}
   %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Accueil" do
@@ -70,7 +72,6 @@
     .panel-body
       %ul.nav.nav-pills
         - Key.primaries.each do |key|
-          -#%li{:class => ("current" if @key == key)}= link_to_unless @key == key, key, controller.is_a?(VoicingsController) ? [key, @chord, @voicing || :voicings] : [key, @chord]
           %li{:class => ("active" if @key == key)}= link_to key, key_interval_path(key, @interval.name_for_url)
 
 
