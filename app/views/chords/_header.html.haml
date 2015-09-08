@@ -5,7 +5,7 @@
       %small= @chord.main_symbol_name
 
   .row
-    .col-xs-6.col-md-3
+    .col-xs-12.col-md-3
       .panel.panel-primary
         .panel-heading
           %h2.panel-title Notation
@@ -28,7 +28,7 @@
           %h3
             - @chord.keys.each do |key|
               = link_to key, note_path(key.name_for_url), title: key.long_name
-    .col-xs-6.col-md-3
+    .col-xs-12.col-md-3
       .panel.panel-primary
         .panel-heading
           %h2.panel-title
