@@ -42,8 +42,8 @@ $text-color:            #34495e !default;
 ////
 ////## Font, line-height, and color for body text, headings, and more.
 //
-//$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-//$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font-family-sans-serif:  Lato, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       Merriweather, Georgia, "Times New Roman", Times, serif !default;
 ////** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 //$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
 //$font-family-base:        $font-family-sans-serif !default;
@@ -65,9 +65,9 @@ $text-color:            #34495e !default;
 //$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
 //
 ////** By default, this inherits from the `<body>`.
-//$headings-font-family:    inherit !default;
-//$headings-font-weight:    500 !default;
-//$headings-line-height:    1.1 !default;
+$headings-font-family:    Lato, serif !default;
+$headings-font-weight:    800 !default;
+$headings-line-height:    1.5 !default;
 //$headings-color:          #34495e !default;
 //
 //
