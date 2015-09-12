@@ -60,7 +60,7 @@ class Chord < ActiveRecord::Base
     return nil if symbol.nil?
     symbol = symbol.dup
   
-    symbol.gsub!(/ Chord/i, "")
+    symbol.gsub!(/ Accord/i, "")
   
     Key.all.each do |k|
       if symbol.starts_with?(k.name)
