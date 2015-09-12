@@ -34,8 +34,7 @@
           %h2.panel-title
             Intervalles
         .panel-body
-          - @chord.tones.from(1).each do |t|
-            -i = t.to_interval
+          - @chord.intervals.each do |i|
             %h3= link_to i.long_name, interval_path(i.name_for_url)
 
 .clearfix

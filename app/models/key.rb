@@ -152,6 +152,9 @@ class Key
     french_name
   end
 
+  def quality
+    name[1..-1]
+  end
 
   def self.primaries
     all_without_doubles.select(&:primary)
@@ -161,7 +164,7 @@ class Key
     relative_value = value % 12
     preferred_letter %= 7
     key = all_without_doubles.find {|k| k.index == relative_value && (preferred_letter.nil? || k.letter_index == preferred_letter)}
-    key.octave+=1 if value >=12
+    key.octave+=value/12
     key
   end
 

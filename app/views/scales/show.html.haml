@@ -20,8 +20,7 @@
     %p
       Elle est composée des intervalles suivants :
       %ul
-        - @scale.tones.from(1).each do |t|
-          -i = t.to_interval
+        - @scale.intervals.each do |i|
           %li= link_to i.long_name, interval_path(i.name_for_url)
 
   %nav#modes-list
@@ -29,17 +28,17 @@
     %table.table.table-hover.table-striped
       %thead
         %tr
+          %th Degré
           -if @scale.heptatonic?
-            %th Degré
-            %th Mode (appellation moderne)
-          %th Nom courant
+            %th Mode (Appellation moderne)
+          %th Mode (Appellation courante)
           %th Séquence d'intervalles en tons
       %tbody
         - @scale.modes.each do |mode|
           - mode = mode.in_key_of('C')
           %tr
+            %td= mode.degree
             -if @scale.heptatonic?
-              %td= mode.degree
               %td= link_to "Mode de #{mode.mode_key}", [@key, @scale, mode]
             %td
               = link_to mode, [@key, @scale, mode]

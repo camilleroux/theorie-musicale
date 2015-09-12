@@ -42,7 +42,7 @@ class Mode < ActiveRecord::Base
   end
 
   def degree
-    RomanNumerals.to_roman(mode)
+    mode_key.quality+RomanNumerals.to_roman(mode_key.letter_index+1)
   end
 
   def mode_key
@@ -55,6 +55,10 @@ class Mode < ActiveRecord::Base
     else
       self.scale.tones.in_mode(self.mode)
     end
+  end
+
+  def intervals
+    self.tones.from(1).map(&:to_interval)
   end
 
   def staff_notes

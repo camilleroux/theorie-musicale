@@ -39,7 +39,7 @@ end
 
 Scale.create!(:name => 'Blues', :specify_tones => "1 2 3m 3 5 6", :information => "L'utilisation de la gamme blues est assez répandue dans le jazz").tap do |s|
   s.modes.create!(:mode => 1, :name => 'Blues majeure')
-  s.modes.create!(:mode => 5, :name => 'Blues mineure')
+  s.modes.create!(:mode => 6, :name => 'Blues mineure')
 end
 
 Scale.create!(:name => 'Diminuée', :specify_tones => "1 2m 3m 3 4aug 5 6 7m", :symmetry_index => 3, :information => "La gamme diminuée alterne tons et demi-tons afin de produire une gamme symétrique avec des spécificités intéressantes.").tap do |s|

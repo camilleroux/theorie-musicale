@@ -54,6 +54,7 @@ module Chords
     chord
   end
 
+
   alias_method :[], :resolve
 
 end

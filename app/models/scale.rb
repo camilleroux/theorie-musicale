@@ -28,6 +28,10 @@ class Scale < ActiveRecord::Base
     octavized_notes.map {|n| [n]}
   end
 
+  def intervals
+    self.tones.from(1).map(&:to_interval)
+  end
+
   def heptatonic?
     notes.size == 7
   end

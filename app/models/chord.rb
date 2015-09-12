@@ -51,6 +51,10 @@ class Chord < ActiveRecord::Base
     symbol_names[1..-1] || []
   end
 
+  def intervals
+    self.tones.from(1).map(&:to_interval)
+  end
+
   # Resolves a chord symbol into a chord.
   # Implementation is somewhat flakey due to the potential ambiguities arising 
   # from specifying key and symbols together.
