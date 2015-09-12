@@ -14,6 +14,9 @@
     .page-header
       %h1= title @scale.title
     %p= description @scale.information
+
+  %nav#intervals-list
+    %h2 Intervalles
     %p
       Elle est composée des intervalles suivants :
       %ul
@@ -27,6 +30,7 @@
       %thead
         %tr
           -if @scale.heptatonic?
+            %th Degré
             %th Mode (appellation moderne)
           %th Nom courant
           %th Séquence d'intervalles en tons
@@ -35,7 +39,8 @@
           - mode = mode.in_key_of('C')
           %tr
             -if @scale.heptatonic?
-              %td= link_to "Mode de #{mode.mode_key} (Degré #{mode.degree})", [@key, @scale, mode]
+              %td= mode.degree
+              %td= link_to "Mode de #{mode.mode_key}", [@key, @scale, mode]
             %td
               = link_to mode, [@key, @scale, mode]
             %td
