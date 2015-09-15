@@ -60,7 +60,7 @@ ChordQuality.create!(:name => 'Mineur', :code => 'MIN').tap do |q|
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:3), :strength => 3, :offset => -4)
   end
 
-  q.chords.create!(:name => 'Mineur septième', :specify_tones => "1 3m 5 7m").tap do |c|
+  q.chords.create!(:name => 'Mineur 7', :specify_tones => "1 3m 5 7m").tap do |c|
     c.symbols.create!(:name => 'm7', :case_sensitive => true, :primary => true)
     c.symbols.create!(:name => 'min7')
     c.symbols.create!(:name => '-7')
@@ -228,7 +228,7 @@ ChordQuality.create!(:name => 'Diminué', :code => 'DIM').tap do |q|
     c.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:6), :offset => 1)
   end
 
-  q.chords.create!(:name => 'Diminué', :specify_tones => "1 3m 5dim 7m").tap do |c|
+  q.chords.create!(:name => 'Septième diminuée', :specify_tones => "1 3m 5dim 7dim").tap do |c|
     c.symbols.create!(:name => '°7', :primary => true)
     c.symbols.create!(:name => '°')
     c.symbols.create!(:name => 'dim7')

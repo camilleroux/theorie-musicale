@@ -55,6 +55,14 @@ class Chord < ActiveRecord::Base
     self.tones.from(1).map(&:to_interval)
   end
 
+  def self.find_by_keys(keys)
+    key = keys.first
+    Chord.all.each do |chord|
+      chord_in_key = chord.in_key_of(key)
+      return chord_in_key if chord_in_key.keys == keys
+    end
+    return nil
+  end
   # Resolves a chord symbol into a chord.
   # Implementation is somewhat flakey due to the potential ambiguities arising 
   # from specifying key and symbols together.

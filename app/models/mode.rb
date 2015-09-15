@@ -45,6 +45,14 @@ class Mode < ActiveRecord::Base
     mode_key.quality+RomanNumerals.to_roman(mode_key.letter_index+1)
   end
 
+  def thirds
+    thirds = []
+    0.upto(keys.size-1).each do |i|
+      thirds<<keys[(i*2)%keys.size]
+    end
+    thirds
+  end
+
   def mode_key
     Key[notes.first]
   end
