@@ -32,6 +32,7 @@ gem "acts_as_tree"
 gem "responders"
 gem 'meta-tags'
 gem 'roman-numerals'
+gem 'high_voltage', '~> 2.4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
