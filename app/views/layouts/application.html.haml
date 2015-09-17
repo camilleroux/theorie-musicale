@@ -13,26 +13,26 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{href:"/"}
-            Theorie musicale
+          =link_to "Theorie musicale", root_path, class: "navbar-brand", title: "Théorie de la musique"
         #navbar.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li=link_to "Notes", notes_path
-            %li=link_to "Intervalles", intervals_path
-            %li=link_to "Accords", chords_path
-            %li=link_to "Gammes", scales_path
-            %li=link_to 'Ressources', page_path('ressources')
+            %li=link_to 'Notes', notes_path, title: 'Liste des notes'
+            %li=link_to 'Intervalles', intervals_path, title: 'Liste des intervalles'
+            %li=link_to 'Accords', chords_path, title: 'Liste des accords'
+            %li=link_to 'Gammes', scales_path, title: 'Gammes et leurs modes'
+            %li=link_to 'Ressources', page_path('ressources'), title: 'Livres, vidéos, sites... sur la théorie musicale'
           %ul.nav.navbar-nav.navbar-right
-            %li=link_to 'A propos', page_path('a-propos')
+            %li=link_to 'A propos', page_path('a-propos'), title: 'A propos de ce site'
 
         #navbar.navbar-collapse.collapse
     #content-wrapper
       .container
         = yield
+
   %footer
     .container
     Créé avec ♥ par
-    =link_to "Camille Roux", "http://www.camilleroux.com/"
+    =link_to "Camille Roux", "http://www.camilleroux.com/", target: '_blank', title: "Blog de Camille Roux"
 
     -# Javascript at the bottom for fast page loading
     = render :partial => 'layouts/javascripts_bottom'
