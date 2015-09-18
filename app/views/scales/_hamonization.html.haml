@@ -1,0 +1,34 @@
+.table-responsive
+  %table.table.table-hover.table-striped
+    %thead
+      %tr
+        %th{rowspan:"2"} Degré
+        %th{colspan:"4"} Composantes de l'accord
+        %th{colspan:"3"} Extensions
+        %th{colspan:"2"} Triade
+        %th{colspan:"2"} Tétrade
+      %tr
+        %th Fondamentale
+        %th Tierce
+        %th Quinte
+        %th Septième
+        %th 9eme
+        %th 11eme
+        %th 13eme
+        %th Accord
+        %th Qualité
+        %th Accord
+        %th Qualité
+    %tbody
+      - scale.modes.order(:mode).each do |mode|
+        - mode = mode.in_key_of(@scale.key || 'C')
+        %tr
+          %td= mode.degree
+          - mode.thirds.each do |note|
+            %td= link_to note.name, note_path(note.name_for_url), title: note.long_name
+          -if triad = Chord.find_by_keys(mode.thirds[0..2])
+            %td= link_to(triad.title,[triad.key,triad])
+            %td= link_to(mode.degree+triad.primary_symbol.to_s,triad)
+          -if tetrad = Chord.find_by_keys(mode.thirds[0..3])
+            %td= link_to(tetrad.title,[tetrad.key,tetrad])
+            %td= link_to(mode.degree+tetrad.primary_symbol.to_s,tetrad)
