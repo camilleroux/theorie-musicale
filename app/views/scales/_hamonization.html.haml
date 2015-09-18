@@ -1,3 +1,4 @@
+- first_degree ||= 1
 .table-responsive
   %table.table.table-hover.table-striped
     %thead
@@ -20,10 +21,10 @@
         %th Accord
         %th Qualité
     %tbody
-      - scale.modes.order(:mode).each do |mode|
+      - scale.modes.order(:mode).rotate((@mode.try(:mode)||1)-1).each do |mode|
         - mode = mode.in_key_of(@scale.key || 'C')
         %tr
-          %td= mode.degree
+          %td= @mode ? mode.degree(@mode.mode) : mode.degree
           - mode.thirds.each do |note|
             %td= link_to note.name, note_path(note.name_for_url), title: note.long_name
           -if triad = Chord.find_by_keys(mode.thirds[0..2])

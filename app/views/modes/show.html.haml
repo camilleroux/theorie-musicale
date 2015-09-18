@@ -46,6 +46,13 @@
         .panel-body
           %h3=@mode.step_names.join(", ")
 
+  -if @scale.heptatonic?
+    %nav#harmonization
+      %h2
+        Harmonisation du mode #{@mode.title}
+        %small #{@scale.title}
+      =render partial: 'scales/hamonization', locals: {scale: @scale, mode: @mode}
+
 
   - unless @mode.chord_scales.empty?
     %nav.related-chords

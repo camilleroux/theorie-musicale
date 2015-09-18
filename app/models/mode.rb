@@ -41,8 +41,8 @@ class Mode < ActiveRecord::Base
     mode == 1
   end
 
-  def degree
-    mode_key.quality+RomanNumerals.to_roman(mode_key.letter_index+1)
+  def degree(relative_mode = 1)
+    mode_key.quality+RomanNumerals.to_roman(((mode_key.letter_index-Key[scale.notes.first].letter_index-(relative_mode-1))%7)+1)
   end
 
   def thirds
