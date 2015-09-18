@@ -10,7 +10,7 @@ end
 
 Scale.create!(:name => 'Mineure mélodique', :specify_tones => "1 2 3m 4 5 6 7", :information => "La gamme mineure mélodique est similaire à la gamme majeure avec une seule différente, elle a une tierce mineure au lieu d'une tierce majeure.").tap do |s|
   s.modes.create!(:mode => 1, :name => 'Mineure mélodique')
-  s.modes.create!(:mode => 2, :name => 'Dorien ♭9', :synonyms => 'Phrygien ♯13')
+  s.modes.create!(:mode => 2, :name => 'Dorien ♭9', :synonyms => 'Phrygien ♮13')
   s.modes.create!(:mode => 3, :name => 'Lydien augmenté')
   s.modes.create!(:mode => 4, :name => 'Lydien ♭7', :synonyms => 'Mixolydien ♯11')
   s.modes.create!(:mode => 5, :name => 'Mixolydien ♭13')
