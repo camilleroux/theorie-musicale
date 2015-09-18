@@ -4,5 +4,5 @@
   -if scale.modes.count > 1
     %h4 Modes :
     %ul.modes
-      - scale.modes.each do |mode|
+      - scale.modes.order(:mode).each do |mode|
         %li= link_to mode.title, [scale, mode]
