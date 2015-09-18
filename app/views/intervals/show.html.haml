@@ -1,5 +1,5 @@
 -description "L'intervalle de #{@interval.long_name_with_key} est composé de #{pluralize(number_to_human(@interval.semitones / 2.0),'ton')}"
--set_meta_tags canonical: url_for([@chord.key, @interval, {only_path: false}])
+-set_meta_tags canonical: @key ? key_interval_url(@key, @interval) : interval_url(@interval)
 
 %ol.breadcrumb{itemprop: "breadcrumb"}
   %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
@@ -9,7 +9,7 @@
     =link_to intervals_path, itemprop: "url", title: "Intervalles", class: "disable" do
       %span{itemprop: "title"}>= "Intervalles"
   %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to [@chord.key, @interval], itemprop: "url", title: @interval.long_name_with_key, class: "disable" do
+    =link_to @key ? key_interval_path(@key, @interval) : interval_path(@interval), itemprop: "url", title: @interval.long_name_with_key, class: "disable" do
       %span{itemprop: "title"}>= @interval.long_name_with_key
 
 .page-header
