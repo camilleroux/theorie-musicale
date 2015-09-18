@@ -26,7 +26,7 @@
         %tr
           %td= @mode ? mode.degree(@mode.mode) : mode.degree
           - mode.thirds.each do |note|
-            %td= link_to note.name, note_path(note.name_for_url), title: note.long_name
+            %td= link_to note.name, note_path(note), title: note.long_name
           -if triad = Chord.find_by_keys(mode.thirds[0..2])
             %td= link_to(triad.title,[triad.key,triad])
             %td= link_to(mode.degree+triad.primary_symbol.to_s,triad)

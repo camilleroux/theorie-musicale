@@ -65,8 +65,8 @@ class Interval
     @degree.to_s + @quality.to_s
   end
 
-  def name_for_url
-    symbol + '-' + Rack::Utils.escape(long_name)
+  def to_param
+    symbol + '-' + Rack::Utils.escape(long_name.downcase)
   end
 
 

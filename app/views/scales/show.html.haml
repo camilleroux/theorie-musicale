@@ -21,7 +21,7 @@
       Elle est composée des intervalles suivants :
       %ul
         - @scale.intervals.each do |i|
-          %li= link_to i.long_name, interval_path(i.name_for_url)
+          %li= link_to i.long_name, interval_path(i)
 
   %nav#modes-list
     %h2 Modes de la gamme

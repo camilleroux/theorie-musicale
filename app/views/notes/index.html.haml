@@ -23,7 +23,7 @@
       -@keys.select {|key| key.index == index}.each do |key|
         %tr{class: key.index.even? ? "active" : ""}
           %td
-            %strong= link_to key.long_name, note_path(key.name_for_url), title: key.long_name
+            %strong= link_to key.name, note_path(key)
           %td
             =key.name
           %td

@@ -174,17 +174,17 @@ class Key
   end
 
   def self.[](value)
-    from_name(value) || self.from_index(value)
+    if value.is_a? Numeric
+      self.from_index(value)
+    else
+      value[0] = value[0].upcase
+      self.from_name(value)
+    end
   end
 
   def self.default
     self['C']
   end
-
-  def name_for_url
-    self.name.gsub('♯','d').gsub('♭','b')
-  end
-
 
   def ==(other)
     name == other.name
@@ -194,8 +194,12 @@ class Key
     name
   end
 
+  def to_vexflow_notation
+    name.gsub('♯','#').gsub('♭','b')+'/'+octave.to_s
+  end
+
   def to_param
-    name
+    name.gsub('♯','d').gsub('♭','b').downcase
   end
 
   def main?
@@ -208,10 +212,6 @@ class Key
 
   def enharmonic_with?(another_key)
     self.index == another_key.index
-  end
-
-  def to_param
-    name_for_url
   end
 
   def as_json(options = nil)

@@ -27,7 +27,7 @@
         .panel-body
           %h3
             - @chord.keys.each do |key|
-              = link_to key, note_path(key.name_for_url), title: key.long_name
+              = link_to key, note_path(key), title: key.long_name
     .col-xs-12.col-md-3
       .panel.panel-primary
         .panel-heading
@@ -35,7 +35,7 @@
             Intervalles
         .panel-body
           - @chord.intervals.each do |i|
-            %h3= link_to i.long_name, interval_path(i.name_for_url)
+            %h3= link_to i.long_name, interval_path(i)
 
 .clearfix
 

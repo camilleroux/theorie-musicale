@@ -8,7 +8,7 @@
     =link_to notes_path, itemprop: "url", title: "Notes" do
       %span{itemprop: "title"}>= "Notes"
   %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to note_path(@key.name_for_url), itemprop: "url", title: @key.long_name, class: "disable" do
+    =link_to note_path(@key), itemprop: "url", title: @key.long_name, class: "disable" do
       %span{itemprop: "title"}>= @key.name
 
 .page-header
@@ -24,7 +24,7 @@
           %h2.panel-title
             Notation anglaise
         .panel-body
-          .staff.note-staff{"data-id" => @key.name_for_url, "data-staff" => ["#{@key.name_for_url.gsub('d','#')}/4"].to_json, "data-staff-clef" => "treble", "width" => 223}
+          .staff.note-staff{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 223}
 
 %nav.infos
   %h3 Informations complémentaires
@@ -37,4 +37,4 @@
   %p
     %label Enharmonies :
     - Key.all.uniq{ |key| key.name }.select {|key| key.index == @key.index}.each do |key|
-      = link_to key, note_path(key.name_for_url), title: key.long_name
+      = link_to key, note_path(key), title: key.long_name
