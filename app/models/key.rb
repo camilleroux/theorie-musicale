@@ -162,7 +162,7 @@ class Key
 
   def self.from_index(value, preferred_letter = nil)
     relative_value = value % 12
-    preferred_letter %= 7
+    preferred_letter %= 7 unless preferred_letter.nil?
     key = all.find {|k| k.index == relative_value && (preferred_letter.nil? || k.letter_index == preferred_letter)}
     key = all_without_doubles.find {|k| k.index == relative_value && (k.letter_index == preferred_letter - 1 || k.letter_index == preferred_letter + 1)} unless key #find key with enharmony
     key.octave+=value/12
@@ -170,7 +170,6 @@ class Key
   end
 
   def self.from_name(value)
-    #all_without_doubles.find {|k| k.name == value.gsub('d','♯').gsub('b','♭')}
     all.find {|k| k.name == value.gsub('d','♯').gsub('b','♭')}
   end
 

@@ -23,7 +23,7 @@ Scale.create!(:name => 'Mineure harmonique', :specify_tones => "1 2 3m 4 5 6m 7"
   s.modes.create!(:mode => 2, :name => 'Locrien ♮13')
   s.modes.create!(:mode => 3, :name => 'Ionien ♯5')
   s.modes.create!(:mode => 4, :name => 'Dorien ♯11')
-  s.modes.create!(:mode => 5, :name => 'Mixolydien (♭9,♭13)', :synonyms => 'Mixolydien (♭9,♭13)')
+  s.modes.create!(:mode => 5, :name => 'Mixolydien (♭9,♭13)', :synonyms => 'Phrygien ♮3')
   s.modes.create!(:mode => 6, :name => 'Lydien ♯9')
   s.modes.create!(:mode => 7, :name => 'Superlocrien ♭♭7')
 end
