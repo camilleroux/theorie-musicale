@@ -163,7 +163,8 @@ class Key
   def self.from_index(value, preferred_letter = nil)
     relative_value = value % 12
     preferred_letter %= 7
-    key = all_without_doubles.find {|k| k.index == relative_value && (preferred_letter.nil? || k.letter_index == preferred_letter)}
+    key = all.find {|k| k.index == relative_value && (preferred_letter.nil? || k.letter_index == preferred_letter)}
+    key = all_without_doubles.find {|k| k.index == relative_value && (k.letter_index == preferred_letter - 1 || k.letter_index == preferred_letter + 1)} unless key #find key with enharmony
     key.octave+=value/12
     key
   end
@@ -208,6 +209,10 @@ class Key
 
   def enharmonic_with?(another_key)
     self.index == another_key.index
+  end
+
+  def to_param
+    name_for_url
   end
 
   def as_json(options = nil)

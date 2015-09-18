@@ -4,28 +4,28 @@ Scale.create!(:name => 'Majeure', :specify_tones => "1 2 3 4 5 6 7", :informatio
   s.modes.create!(:mode => 3, :name => 'Phrygien')
   s.modes.create!(:mode => 4, :name => 'Lydien')
   s.modes.create!(:mode => 5, :name => 'Mixolydien')
-  s.modes.create!(:mode => 6, :name => 'Aeolien')
+  s.modes.create!(:mode => 6, :name => 'Éolien')
   s.modes.create!(:mode => 7, :name => 'Locrien')
 end
 
 Scale.create!(:name => 'Mineure mélodique', :specify_tones => "1 2 3m 4 5 6 7", :information => "La gamme mineure mélodique est similaire à la gamme majeure avec une seule différente, elle a une tierce mineure au lieu d'une tierce majeure.").tap do |s|
   s.modes.create!(:mode => 1, :name => 'Mineure mélodique')
-  s.modes.create!(:mode => 2, :name => 'Phrygien ♯6', :synonyms => 'Dorien ♭2')
+  s.modes.create!(:mode => 2, :name => 'Dorien ♭9', :synonyms => 'Phrygien ♯13')
   s.modes.create!(:mode => 3, :name => 'Lydien augmenté')
-  s.modes.create!(:mode => 4, :name => 'Lydien ♭7', :synonyms => 'Mixolydien ♯4')
-  s.modes.create!(:mode => 5, :name => 'Mixolydien ♭6')
-  s.modes.create!(:mode => 6, :name => 'Locryen ♯2', :synonyms => 'Aeolien ♭5')
+  s.modes.create!(:mode => 4, :name => 'Lydien ♭7', :synonyms => 'Mixolydien ♯11')
+  s.modes.create!(:mode => 5, :name => 'Mixolydien ♭13')
+  s.modes.create!(:mode => 6, :name => 'Locrien ♮9', :synonyms => 'Éolien ♭5')
   s.modes.create!(:mode => 7, :name => 'Altéré', :synonyms => 'Super Locrien')
 end
 
 Scale.create!(:name => 'Mineure harmonique', :specify_tones => "1 2 3m 4 5 6m 7", :information => "La gamme mineure harmonique est principalement utilisée dans la musique classique mais beaucoup de musiciens l'utilisent dans le jazz en alternance avec les autres gammes mineures.").tap do |s|
-  s.modes.create!(:mode => 1, :name => "Mineure harmonique")
-  s.modes.create!(:mode => 2, :name => "Locryen ♮6")
-  s.modes.create!(:mode => 3, :name => "Ionien ♯5")
-  s.modes.create!(:mode => 4, :name => "Dorien ♯4")
-  s.modes.create!(:mode => 5, :name => "Mixolydien (♭9,♭13)")
-  s.modes.create!(:mode => 6, :name => "Lydien ♯2")
-  s.modes.create!(:mode => 7, :name => "Demi ton-ton sans 6eme")
+  s.modes.create!(:mode => 1, :name => 'Mineure harmonique')
+  s.modes.create!(:mode => 2, :name => 'Locrien ♮13')
+  s.modes.create!(:mode => 3, :name => 'Ionien ♯5')
+  s.modes.create!(:mode => 4, :name => 'Dorien ♯11')
+  s.modes.create!(:mode => 5, :name => 'Mixolydien (♭9,♭13)', :synonyms => 'Mixolydien (♭9,♭13)')
+  s.modes.create!(:mode => 6, :name => 'Lydien ♯9')
+  s.modes.create!(:mode => 7, :name => 'Superlocrien ♭♭7')
 end
 
 Scale.create!(:name => 'Ton-Ton', :specify_tones => "1 2 3 4aug 5aug 7m", :symmetry_index => 2, :information => "La gamme par tons est une échelle hexatonique dont les six degrés sont tous espacés d'un ton. Elle fonctionne bien avec les accords ♯5.").tap do |s|

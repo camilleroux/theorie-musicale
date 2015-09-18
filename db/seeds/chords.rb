@@ -5,6 +5,13 @@ ChordQuality.create!(:name => 'Majeur', :code => 'MAJ').tap do |q|
     c.symbols.create!(:name => 'Majeur')
 
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :offset => 0)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:4), :offset => 0)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:5), :offset => 0)
+
+    c.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:4), :offset =>5)
+    c.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:4), :offset =>7)
+    c.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:5), :offset =>5)
+    c.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:5), :offset =>7)
   end
 
   q.chords.create!(:name => 'Majeur 7', :specify_tones => "1 3 5 7").tap do |c|
@@ -76,7 +83,7 @@ ChordQuality.create!(:name => 'Mineur', :code => 'MIN').tap do |q|
     c.symbols.create!(:name => '-6')
 
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:2), :offset => -2)
-    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:6), :strength => 2, :offset => 3)
+    #c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:6), :strength => 2, :offset => 3)
   end
 
   q.chords.create!(:name => 'Phrygien', :specify_tones => "1 2m 3m 5 6m").tap do |c|
@@ -118,6 +125,9 @@ ChordQuality.create!(:name => 'Septième de dominante', :code => 'DOM').tap do |
     c.symbols.create!(:name => 'dom.7')
 
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:5), :offset => 5)
+    c.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:4), :offset => 7)
+    c.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:5), :offset => 5)
+    c.chord_scales << ChordScale.new(:mode => Scale['Mineure harmonique'].modes.find_by(mode:5), :offset => 5)
 
     c.children.create!(:chord_quality => q, :name => '7 ♯5', :specify_tones => "1 3 5aug 7m").tap do |cc|
       cc.symbols.create!(:name => '+7', :primary => true)
