@@ -1,4 +1,5 @@
 -description "Le mode #{@mode.title}, issu de la gamme #{@scale.name}, est composé des intervalles suivants : #{@mode.step_names.join(" - ")}"
+-set_meta_tags canonical: url_for([@key, @scale, @mode, {only_path: false}])
 
 %ol.breadcrumb{itemprop: "breadcrumb"}
   %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}

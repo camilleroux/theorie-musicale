@@ -1,3 +1,5 @@
+-set_meta_tags canonical: url_for([@key, @scale, {only_path: false}])
+
 %ol.breadcrumb{itemprop: "breadcrumb"}
   %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Accueil" do
@@ -6,7 +8,7 @@
     =link_to scales_path, itemprop: "url", title: "Gammes" do
       %span{itemprop: "title"}>= "Gammes"
   %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to scale_path(@scale), itemprop: "url", title: @scale.title, class: "disable" do
+    =link_to [@key, @scale], itemprop: "url", title: @scale.title, class: "disable" do
       %span{itemprop: "title"}>= @scale.title
 
 %article#scale

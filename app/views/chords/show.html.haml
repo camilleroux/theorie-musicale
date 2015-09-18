@@ -1,4 +1,6 @@
 -description "L'accord #{@chord.title} (#{@chord.main_symbol_name}) est composé des intervalles suivants : #{@chord.tones.from(1).map(&:to_interval).map(&:long_name).to_sentence}"
+-set_meta_tags canonical: url_for([@chord.key, @chord, {only_path: false}])
+
 %ol.breadcrumb{itemprop: "breadcrumb"}
   %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Accueil" do
@@ -7,7 +9,7 @@
     =link_to chords_path, itemprop: "url", title: "Accords" do
       %span{itemprop: "title"}>= "Accords"
       %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to chords_path, itemprop: "url", title: @chord.title, class: "disable" do
+    =link_to [@chord.key, @chord], itemprop: "url", title: @chord.title, class: "disable" do
       %span{itemprop: "title"}>= title @chord.title
 
 %article#chord
