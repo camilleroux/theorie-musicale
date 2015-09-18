@@ -34,7 +34,7 @@
           %th Mode (Appellation courante)
           %th Séquence d'intervalles en tons
       %tbody
-        - @scale.modes.each do |mode|
+        - @scale.modes.order(:mode).each do |mode|
           - mode = mode.in_key_of('C')
           %tr
             %td= mode.degree
