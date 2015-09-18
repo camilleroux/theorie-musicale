@@ -166,6 +166,7 @@ class Key
     key = all.find {|k| k.index == relative_value && (preferred_letter.nil? || k.letter_index == preferred_letter)}
     key = all_without_doubles.find {|k| k.index == relative_value && (k.letter_index == preferred_letter - 1 || k.letter_index == preferred_letter + 1)} unless key #find key with enharmony
     key.octave+=value/12
+    key.octave-=1 if value/12 > 0 && relative_value == 0 && key.letter_index == 6 # don't add an octave to B#
     key
   end
 
