@@ -12,9 +12,9 @@ Scale.create!(:name => 'Mineure mélodique', :specify_tones => "1 2 3m 4 5 6 7",
   s.modes.create!(:mode => 1, :name => 'Mineure mélodique')
   s.modes.create!(:mode => 2, :name => 'Phrygien ♯6', :synonyms => 'Dorien ♭2')
   s.modes.create!(:mode => 3, :name => 'Lydien augmenté')
-  s.modes.create!(:mode => 4, :name => 'Lydian ♭7', :synonyms => 'Mixolydien ♯4')
+  s.modes.create!(:mode => 4, :name => 'Lydien ♭7', :synonyms => 'Mixolydien ♯4')
   s.modes.create!(:mode => 5, :name => 'Mixolydien ♭6')
-  s.modes.create!(:mode => 6, :name => 'Locrien ♯2', :synonyms => 'Aeolien ♭5')
+  s.modes.create!(:mode => 6, :name => 'Locryen ♯2', :synonyms => 'Aeolien ♭5')
   s.modes.create!(:mode => 7, :name => 'Altéré', :synonyms => 'Super Locrien')
 end
 
