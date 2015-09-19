@@ -50,7 +50,6 @@ module Tones
   # with tone and letter indexes. 
   def keys
     return @keys if defined?(@keys)
-
     @keys = all.map do |tone|
       Key.from_index(tone.tone, tone.letter_index)
     end
@@ -70,9 +69,9 @@ module Tones
 
     ["#{notes.first.gsub("♭", "b").gsub("♯", "#")}/#{effective_octave}"] + keys.from(1).map do |key|
       index = key.index > last_index ? key.index : key.index + 12
-      #octave += 1 if (last_index..index).include?(12)
-      #octave += 1 if key.octave > 4
-      octave = key.octave
+      octave += 1 if (last_index..index).include?(12)
+      octave += 1 if key.octave > 4
+      #octave = key.octave
       last_index = key.index
       effective_octave = (key.name == "C♭") ? octave + 1 : octave  # Hack for Cb, which is a weird case...
       "#{key.name.gsub("♭", "b").gsub("♯", "#")}/#{effective_octave}"
