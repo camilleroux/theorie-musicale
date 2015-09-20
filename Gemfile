@@ -34,7 +34,9 @@ gem 'meta-tags'
 gem 'roman-numerals'
 gem 'high_voltage', '~> 2.4.0'
 gem 'newrelic_rpm'
+
 gem 'sitemap_generator'
+gem 'fog'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -4,4 +4,4 @@
 # User-agent: *
 # Disallow: /
 
-Sitemap: http://theoriemusicale.camilleroux.com/sitemap.xml.gz
+Sitemap: https://theoriemusicale.s3.amazonaws.com/sitemaps/sitemap.xml.gz
