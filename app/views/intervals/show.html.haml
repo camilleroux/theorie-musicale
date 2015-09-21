@@ -40,7 +40,7 @@
           %h2.panel-title
             Tons
         .panel-body
-          %h3= number_to_human(@interval.semitones / 2.0)
+          %h3= number_to_human(interval.semitones / 2.0, precision: 3)
     .col-xs-6.col-md-3
       .panel.panel-primary
         .panel-heading
