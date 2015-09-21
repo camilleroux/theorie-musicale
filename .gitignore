@@ -16,5 +16,3 @@
 /log/*
 !/log/.keep
 /tmp
-
-/public/sitemap*
