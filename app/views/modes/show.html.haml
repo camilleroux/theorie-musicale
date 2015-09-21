@@ -29,7 +29,7 @@
           %h2.panel-title
             Notation
         .panel-body
-          .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 313}
+          .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 313}
     .col-xs-6.col-md-3
       .panel.panel-primary
         .panel-heading

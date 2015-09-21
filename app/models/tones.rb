@@ -59,7 +59,7 @@ module Tones
     keys.map(&:name)
   end
 
-  def octavized_notes(octave = 4)
+  def octavized_notes(octave = 4, autooctavize=false)
     return [] if keys.empty?
 
     #octave -= 1 if (8..11).include?(keys.first.index)
@@ -69,9 +69,11 @@ module Tones
 
     ["#{notes.first.gsub("♭", "b").gsub("♯", "#")}/#{effective_octave}"] + keys.from(1).map do |key|
       index = key.index > last_index ? key.index : key.index + 12
-      octave += 1 if (last_index..index).include?(12)
-      octave += 1 if key.octave > 4
-      #octave = key.octave
+      if autooctavize
+        octave += 1 if  (last_index..index).include?(12)
+      else
+        octave = key.octave
+      end
       last_index = key.index
       effective_octave = (key.name == "C♭") ? octave + 1 : octave  # Hack for Cb, which is a weird case...
       "#{key.name.gsub("♭", "b").gsub("♯", "#")}/#{effective_octave}"

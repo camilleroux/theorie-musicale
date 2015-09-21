@@ -2,6 +2,6 @@
 
 .mode.col-xs-15.col-md-4
   = link_to [local_assigns[:key], mode.scale, mode].compact, class: "thumbnail" do
-    .staff.scale-staff{"data-id" => mode.id, "data-staff" => mode.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 350}
+    .staff.scale-staff{"data-id" => mode.id, "data-staff" => mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 350}
     %h3= mode.title
     %p= truncate mode.information, :length => 80
