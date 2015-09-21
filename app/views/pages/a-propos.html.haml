@@ -8,3 +8,48 @@
   = description "Ce site a pour but d'être une compilation de données utiles sur la théorie musicale pour le Jazz et les musiques improvisées en général."
   %br
   Pour toute remarque, faites-moi signe sur Twitter : #{link_to '@camilleroux', 'https://twitter.com/CamilleRoux'}
+
+%h2 On parle de nous
+
+%table.table
+  %tbody
+    %tr
+      %th
+        = link_to 'Un site pour parfaire sa connaissance de la théorie musicale pour le jazz', 'http://www.presse-citron.net/un-site-pour-parfaire-sa-connaissance-de-la-theorie-musicale-pour-le-jazz/', rel: 'nofollow', target: '_blank'
+        — Presse Citron
+
+%h2 Modifications
+
+%table.table
+  %thead
+    %tr
+      %th Date
+      %th Modication
+  %tbody
+    %tr
+      %th= l Date.new(2015, 9, 22)
+      %th Correction d'un bug pour l'affichage des intervales sous forme de partition
+    %tr
+      %th= l Date.new(2015, 9, 18)
+      %th Ajout de l'harmonisation des modes • Ajout des extentions dans les harmonisations
+    %tr
+      %th= l Date.new(2015, 9, 17)
+      %th Ajout d'une page #{link_to 'Ressources', page_path('ressources')} contenant une liste de livres/liens sur le thème de la théorie musicale
+    %tr
+      %th= l Date.new(2015, 9, 15)
+      %th Ajout d'une page #{link_to 'A propos', page_path('a-propos')}
+    %tr
+      %th= l Date.new(2015, 9, 13)
+      %th Affichage du degré dans la liste des modes d'une gamme
+    %tr
+      %th= l Date.new(2015, 9, 8)
+      %th Adaption du design à des supports mobiles (responsive design)
+    %tr
+      %th= l Date.new(2015, 9, 6)
+      %th Ajout de la liste des #{link_to 'intervales', interval_path}
+    %tr
+      %th= l Date.new(2015, 9, 2)
+      %th Ajout de la liste des #{link_to 'notes', notes_path}
+    %tr
+      %th= l Date.new(2015, 8, 31)
+      %th Version initiale utilisant une partie du code de #{link_to 'Jazzity', 'https://github.com/rubiety/jazzity', target: '_blank'}
