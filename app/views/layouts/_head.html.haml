@@ -19,3 +19,13 @@
 
   = javascript_include_tag 'application', 'data-turbolinks-track' => true
   = csrf_meta_tags
+
+:plain
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "WebSite",
+    "name" : "Théorie Musicale",
+    "url" : "#{root_url}"
+  }
+  </script>
