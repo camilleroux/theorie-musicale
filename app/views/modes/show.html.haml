@@ -38,7 +38,7 @@
         .panel-body
           %h3
             - @mode.keys.each do |key|
-              = link_to key, note_path(key), title: key.long_name
+              = link_to key, note_path(key), title: key.name_for_seo
     .col-xs-6.col-md-3
       .panel.panel-primary
         .panel-heading
@@ -52,7 +52,7 @@
       %h2
         Harmonisation du mode #{@mode.title}
         %small #{@scale.title}
-      =render partial: 'scales/hamonization', locals: {scale: @scale, mode: @mode}
+      =render partial: 'scales/harmonization', locals: {scale: @scale, mode: @mode}
 
 
   - unless @mode.chord_scales.empty?

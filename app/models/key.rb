@@ -152,6 +152,10 @@ class Key
     french_name
   end
 
+  def name_for_seo
+    "#{name.gsub('♯','#').gsub('♭','b')} (#{french_long_name})"
+  end
+
   def quality
     name[1..-1]
   end

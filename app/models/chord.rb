@@ -33,11 +33,11 @@ class Chord < ActiveRecord::Base
     "#{key}#{primary_symbol}"
   end
 
-  def title
+  def title(forseo=false)
     if key
-      "#{key} #{name}"
+      "Accord #{forseo ? key.name_for_seo : key} #{name}"
     else
-      name
+      "Accord #{name}"
     end
   end
 

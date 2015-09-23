@@ -18,7 +18,7 @@ class Scale < ActiveRecord::Base
 
   def title
     if key
-      "Gamme #{name} de #{key}"
+      "Gamme #{name} de #{key.name_for_seo}"
     else
       "Gamme #{name}"
     end

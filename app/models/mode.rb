@@ -27,7 +27,7 @@ class Mode < ActiveRecord::Base
 
   def title
     if key
-      "#{mode_key} #{name}"
+      "#{mode_key.name_for_seo} #{name}"
     else
       name
     end

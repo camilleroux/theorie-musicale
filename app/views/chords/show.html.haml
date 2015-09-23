@@ -10,7 +10,7 @@
       %span{itemprop: "title"}>= "Accords"
       %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to [@chord.key, @chord], itemprop: "url", title: @chord.title, class: "disable" do
-      %span{itemprop: "title"}>= title @chord.title
+      %span{itemprop: "title"}>= title @chord.title(true)
 
 %article#chord
   = render "chords/header"

@@ -57,7 +57,7 @@ class Interval
 
   def long_name_with_key
     name = long_name
-    name += " de #{notes.first} : #{notes.last}" if @key
+    name += " de #{keys.first.name_for_seo} : #{keys.last.name_for_seo}" if @key
     name
   end
 

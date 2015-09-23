@@ -2,5 +2,5 @@
 
 .chord.col-xs-6.col-md-3
   = link_to(chord, class: "thumbnail") do
-    %h3= chord.title
+    %h3= chord.name
     .staff.chord-staff{"data-id" => chord.id, "data-staff" => chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 150}
