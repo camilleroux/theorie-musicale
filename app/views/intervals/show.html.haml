@@ -50,7 +50,7 @@
           %h3= @interval.semitones
 
 
-%nav.infos
+%section.infos
   %h3 Informations complémentaires
   - unless @interval.compound?
     %p
@@ -65,6 +65,10 @@
     %label Seconde note par rapport à #{@interval.notes.first} :
     = link_to @interval.keys.last, note_path(@interval.keys.last), title: @interval.keys.last.long_name
 
+%section#piano
+  %h3 #{@interval.name_with_key} au piano
+  =render "layouts/piano", keys: @interval.keys
+
 
 %nav#key-selector
   .panel.panel-default
@@ -74,5 +78,6 @@
       %ul.nav.nav-pills
         - Key.primaries.each do |key|
           %li{:class => ("active" if @key == key)}= link_to key, key_interval_path(key, @interval)
+
 
 

@@ -15,7 +15,7 @@ module Tones
   # Shifts indexes to simulate a key change
   def in_key_context!
     self.each do |tone| 
-      tone.tone = (tone.tone + key.index) % 12
+      tone.tone = (tone.tone + key.index) #% 12
       tone.letter_index = (tone.letter_index + key.letter_index) % 7
     end
     true

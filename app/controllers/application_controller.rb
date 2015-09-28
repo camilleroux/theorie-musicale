@@ -7,9 +7,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def redirect_if_old_domain
-    puts "HTTP_HOST: #{request.env['HTTP_HOST']}"
-    puts "protocol: #{request.protocol}"
-
     if request.env['HTTP_HOST'] != Rails.application.secrets.default_domain
       redirect_to("http://#{Rails.application.secrets.default_domain}#{request.path}", :status => 301) and return
     end

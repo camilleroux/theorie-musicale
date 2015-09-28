@@ -25,9 +25,9 @@
           %h2.panel-title
             Notation anglaise
         .panel-body
-          .staff.note-staff{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 223}
+          .staff.note-staff.img-responsive{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 223}
 
-%nav.infos
+%section#infos
   %h3 Informations complémentaires
   %p
     %label Nom complet :
@@ -39,3 +39,7 @@
     %label Enharmonies :
     - Key.all.uniq{ |key| key.name }.select {|key| key.index == @key.index}.each do |key|
       = link_to key, note_path(key), title: key.name_for_seo
+
+%section#piano
+  %h3 Note #{@key.name} au piano
+  =render "layouts/piano", keys: [@key]

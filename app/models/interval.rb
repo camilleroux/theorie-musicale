@@ -61,6 +61,12 @@ class Interval
     name
   end
 
+  def name_with_key
+    name = long_name
+    name += " de #{keys.first.name_for_seo}" if @key
+    name
+  end
+
   def symbol
     @degree.to_s + @quality.to_s
   end

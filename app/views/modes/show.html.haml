@@ -47,6 +47,10 @@
         .panel-body
           %h3=@mode.step_names.join(", ")
 
+%section#piano
+  %h3 Mode #{@mode.title} au piano
+  =render "layouts/piano", keys: @mode.keys
+
   -if @scale.heptatonic?
     %nav#harmonization
       %h2

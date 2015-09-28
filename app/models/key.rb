@@ -160,6 +160,10 @@ class Key
     name[1..-1]
   end
 
+  def altered?
+    !name[1..-1].blank?
+  end
+
   def self.primaries
     all_without_doubles.select(&:primary)
   end
@@ -216,7 +220,7 @@ class Key
   end
 
   def enharmonic_with?(another_key)
-    self.index == another_key.index
+    self.index == another_key.index && self.octave == another_key.octave
   end
 
   def as_json(options = nil)

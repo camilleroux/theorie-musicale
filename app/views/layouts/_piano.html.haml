@@ -1,0 +1,10 @@
+-octaves = 3
+#kbd
+  #keys
+    -(0...octaves).each do |octave|
+      -Key.primaries.sort_by(&:index).each do |current_key|
+        -current_key.octave += octave
+        -highlighted_key = keys.select{ |key|  key.enharmonic_with?(current_key)}.first
+        .note{class: [current_key.altered? ? 'black' : 'white', highlighted_key ? 'highlight' : '']}
+          -if highlighted_key
+            =link_to highlighted_key, note_path(highlighted_key), title: highlighted_key.name_for_seo
