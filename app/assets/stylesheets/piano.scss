@@ -9,6 +9,7 @@
 
 #keys {
   display: flex;
+  position: relative;
   flex: 8;
   justify-content: center;
 }
@@ -21,12 +22,12 @@
 
   &.black {
     justify-content: center;
-    position: absolute;
+    position: relative;
     height: 50%;
     background-color: #34495e;
     color: white;
     width: 4%;
-    margin: 0 -2%;
+    margin: 0 -2.2%;
   }
 
   &.white {
