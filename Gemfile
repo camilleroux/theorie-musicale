@@ -20,14 +20,14 @@ gem 'puma'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 2.5', '>= 2.5.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem "haml-rails", "~> 0.9"
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass', '~> 3.3.7'
 gem "friendly_id"
 gem "acts_as_tree"
 gem "responders"
@@ -37,7 +37,7 @@ gem 'high_voltage', '~> 2.4.0'
 gem 'newrelic_rpm'
 
 gem 'sitemap_generator'
-gem 'fog'
+gem 'fog-aws'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
