@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 
-gem "haml-rails", "~> 0.9"
+gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem "friendly_id"
 gem "acts_as_tree"
