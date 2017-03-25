@@ -29,6 +29,6 @@ class ScalesController < ApplicationController
   end
 
   def find_scales
-    @scales = Scale.includes(:modes)
+    @scales = Scale.all
   end
 end
