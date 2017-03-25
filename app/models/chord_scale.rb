@@ -1,4 +1,4 @@
-class ChordScale < ActiveRecord::Base
+class ChordScale < ApplicationRecord
   belongs_to :chord
   belongs_to :mode
 

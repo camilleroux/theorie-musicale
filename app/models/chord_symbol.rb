@@ -1,4 +1,4 @@
-class ChordSymbol < ActiveRecord::Base
+class ChordSymbol < ApplicationRecord
   belongs_to :chord
 
   validates :name, :presence => true

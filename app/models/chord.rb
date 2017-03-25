@@ -1,4 +1,4 @@
-class Chord < ActiveRecord::Base
+class Chord < ApplicationRecord
   extend FriendlyId
   include KeyContext
   include Toneable

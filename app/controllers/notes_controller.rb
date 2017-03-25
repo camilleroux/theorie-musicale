@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_filter :find_key, :except => [:index]
+  before_action :find_key, :except => [:index]
 
   respond_to :html, :json
 

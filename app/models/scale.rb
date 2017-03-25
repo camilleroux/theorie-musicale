@@ -1,4 +1,4 @@
-class Scale < ActiveRecord::Base
+class Scale < ApplicationRecord
   extend FriendlyId
   include KeyContext
   include ModeContext

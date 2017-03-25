@@ -21,7 +21,7 @@
         %th Accord
         %th Qualité
     %tbody
-      - scale.modes.order(:mode).rotate((@mode.try(:mode)||1)-1).each do |mode|
+      - scale.modes.order(:mode).to_a.rotate((@mode.try(:mode)||1)-1).each do |mode|
         - mode = mode.in_key_of(@scale.key || 'C')
         %tr
           %td= @mode ? mode.degree(@mode.mode) : mode.degree

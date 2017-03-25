@@ -1,5 +1,5 @@
 class IntervalsController < ApplicationController
-  before_filter :find_key, :only => [:show]
+  before_action :find_key, :only => [:show]
 
   def index
     @intervals = Interval.all.sort

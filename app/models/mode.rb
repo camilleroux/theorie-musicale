@@ -1,4 +1,4 @@
-class Mode < ActiveRecord::Base
+class Mode < ApplicationRecord
   extend FriendlyId
   include KeyContext
 

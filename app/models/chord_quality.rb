@@ -1,4 +1,4 @@
-class ChordQuality < ActiveRecord::Base
+class ChordQuality < ApplicationRecord
   extend FriendlyId
 
   has_many :chords

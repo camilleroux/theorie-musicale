@@ -1,9 +1,9 @@
 class ModesController < ApplicationController
-  before_filter :set_body_class
-  before_filter :find_key
-  before_filter :find_scale
-  before_filter :find_mode
-  before_filter :find_scales
+  before_action :set_body_class
+  before_action :find_key
+  before_action :find_scale
+  before_action :find_mode
+  before_action :find_scales
 
   respond_to :html, :json
 
