@@ -1,7 +1,11 @@
 - mode = mode.in_key_of(key) if local_assigns[:key]
 
-.mode.col-xs-15.col-md-4
-  = link_to [local_assigns[:key], mode.scale, mode].compact, class: "thumbnail" do
-    .staff.scale-staff{"data-id" => mode.id, "data-staff" => mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 350}
-    %h3= mode.title
-    %p= truncate mode.information, :length => 80
+.col-xs-15.col-md-4.mt-3
+  .mode.card  
+    .card-header
+      = mode.title
+    .card-block
+      .staff.scale-staff{"data-id" => mode.id, "data-staff" => mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 350}
+      %p= truncate mode.information, :length => 80
+      = link_to [local_assigns[:key], mode.scale, mode].compact, class:'btn btn-primary' do  
+        voir

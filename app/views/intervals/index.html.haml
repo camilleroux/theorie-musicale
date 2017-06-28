@@ -1,9 +1,9 @@
 -set_meta_tags canonical: intervals_url
 %ol.breadcrumb{itemprop: "breadcrumb"}
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Théorie de la musique" do
       %span{itemprop: "title"}>= "Théorie musicale"
-  %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to intervals_path, itemprop: "url", title: "Intervalles", class: "disable" do
       %span{itemprop: "title"}>="Intervalles"
 
@@ -13,7 +13,7 @@
 
 #section#intervals
   %h2 Intervalles simples
-  %table.table.table-hover
+  %table.table.table-hover.table-sm
     %thead
       %tr
         %th Intervalle
@@ -32,7 +32,7 @@
         %td= interval.semitones
 
   %h2 Intervalles redoublés
-  %table.table.table-hover
+  %table.table.table-hover.table-sm
     %thead
       %tr
         %th Intervalle

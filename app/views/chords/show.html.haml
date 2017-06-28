@@ -2,35 +2,37 @@
 -set_meta_tags canonical: url_for([@chord.key, @chord, {only_path: false}])
 
 %ol.breadcrumb{itemprop: "breadcrumb"}
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Théorie de la musique" do
       %span{itemprop: "title"}>= "Théorie musicale"
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to chords_path, itemprop: "url", title: "Accords" do
       %span{itemprop: "title"}>= "Accords"
-      %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to [@chord.key, @chord], itemprop: "url", title: @chord.title, class: "disable" do
       %span{itemprop: "title"}>= title @chord.title(true)
 
 %article#chord
   = render "chords/header"
 
-%section#piano
+%section#piano.mt-3
   %h3 #{@chord.title(true)} au piano
   =render "layouts/piano", keys: @chord.keys
 
-%nav.related-modes
-  %h3 Gammes et modes relatifs :
-  .row.modes-list
-    - @chord.chord_scales.includes(mode: [:scale]).each do |chord_scale|
-      = render chord_scale.mode, :key => (@chord.key || Key.default).shifted(chord_scale.offset)
+-if @chord.chord_scales.size > 1
+  %nav.related-modes.mt-3
+    %h3 Gammes et modes relatifs :
+    .modes-list
+      .row
+        - @chord.chord_scales.includes(mode: [:scale]).each do |chord_scale|
+          = render chord_scale.mode, :key => (@chord.key || Key.default).shifted(chord_scale.offset)
 
 
-  = render "chords/key_selector"
+= render "chords/key_selector"
 
-  -#- if @chord.voicings.present?
-  -#  %nav.related-voicings
-  -#    %h3 Popular Voicings for #{@chord} (#{link_to "See All #{@chord.voicings.count}", [@chord, :voicings]}):
-  -#    %ul.voicings-list
-  -#      = render @chord.voicings, :key => @key
+-#- if @chord.voicings.present?
+-#  %nav.related-voicings
+-#    %h3 Popular Voicings for #{@chord} (#{link_to "See All #{@chord.voicings.count}", [@chord, :voicings]}):
+-#    %ul.voicings-list
+-#      = render @chord.voicings, :key => @key
 

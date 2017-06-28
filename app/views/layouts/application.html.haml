@@ -4,35 +4,29 @@
 
   %body
     = render :partial => 'layouts/ga'
-    %nav.navbar.navbar-inverse.navbar-fixed-top
+    %nav.navbar.sticky-top.navbar-expand-md.navbar-inverse.bg-inverse
       .container
-        .navbar-header
-          %button.navbar-toggle.collapsed{type:"button",'data-toggle' => "collapse", 'data-target'=>"#navbar", 'aria-expanded'=>"false",'aria-controls'=>"navbar"}
-            %span.sr-only
-              Activer la navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          =link_to "Théorie musicale", root_path, class: "navbar-brand", title: "Théorie de la musique"
-        #navbar.collapse.navbar-collapse
-          %ul.nav.navbar-nav
-            %li=link_to 'Notes', notes_path, title: 'Liste des notes'
-            %li=link_to 'Intervalles', intervals_path, title: 'Liste des intervalles'
-            %li=link_to 'Accords', chords_path, title: 'Liste des accords'
-            %li=link_to 'Gammes', scales_path, title: 'Gammes et leurs modes'
-            %li=link_to 'Ressources', page_path('ressources'), title: 'Livres, vidéos, sites... sur la théorie musicale'
-          %ul.nav.navbar-nav.navbar-right
-            %li=link_to 'A propos', page_path('a-propos'), title: 'A propos de ce site'
+        %button.navbar-toggler.navbar-toggler-left{"aria-controls" => "navbarText", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarText", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        =link_to "Théorie musicale", root_path, class: "navbar-brand", title: "Théorie de la musique"
+        #navbarText.collapse.navbar-collapse
+          %ul.navbar-nav.mr-auto
+            %li.nav-item=link_to 'Notes', notes_path, title: 'Liste des notes', class:'nav-link'
+            %li.nav-item=link_to 'Intervalles', intervals_path, title: 'Liste des intervalles', class:'nav-link'
+            %li.nav-item=link_to 'Accords', chords_path, title: 'Liste des accords', class:'nav-link'
+            %li.nav-item=link_to 'Gammes', scales_path, title: 'Gammes et leurs modes', class:'nav-link'
+            %li.nav-item=link_to 'Ressources', page_path('ressources'), title: 'Livres, vidéos, sites... sur la théorie musicale', class:'nav-link'
+          %ul.nav.navbar-nav.pull-right
+            %li.nav-item=link_to 'A propos', page_path('a-propos'), title: 'A propos de ce site', class:'nav-link'
 
-        #navbar.navbar-collapse.collapse
+
     #content-wrapper
       .container
         = yield
 
   %footer
-    .container
     Créé avec ♥ par
     =link_to "Camille Roux", "https://www.camilleroux.com/", target: '_blank', title: "Camille Roux"
 
     -# Javascript at the bottom for fast page loading
-    = render :partial => 'layouts/javascripts_bottom'
+  = render :partial => 'layouts/javascripts_bottom'

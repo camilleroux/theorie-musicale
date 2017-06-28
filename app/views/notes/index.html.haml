@@ -1,10 +1,10 @@
 -set_meta_tags canonical: notes_path
 
 %ol.breadcrumb{itemprop: "breadcrumb"}
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Théorie de la musique" do
       %span{itemprop: "title"}>= "Théorie musicale"
-  %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to notes_path, itemprop: "url", title: "Notes", class: "disable" do
       %span{itemprop: "title"}>="Notes"
 
@@ -13,7 +13,7 @@
 %h2.lead= description 'Liste des notes et de leurs équivalents enharmoniques'
 
 #section#notes
-  %table.table.table-hover
+  %table.table.table-hover.table-sm
     %thead
       %tr
         %th Note
@@ -23,7 +23,7 @@
     %tbody
     -(0...12).each do |index|
       -@keys.select {|key| key.index == index}.each do |key|
-        %tr{class: key.index.even? ? "active" : ""}
+        %tr{class: key.index.even? ? "table-active" : ""}
           %td
             %strong= link_to key, note_path(key), title: key.name_for_seo
           %td

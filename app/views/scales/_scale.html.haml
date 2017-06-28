@@ -2,7 +2,7 @@
   %h2= link_to scale.title, scale
   %p= scale.information
   -if scale.modes.count > 1
-    %h4 Modes :
+    %h4 Modes
     %ul.modes
       - scale.modes.order(:mode).each do |mode|
         %li= link_to mode.title, [scale, mode]

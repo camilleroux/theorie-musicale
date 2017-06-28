@@ -1,6 +1,9 @@
 - chord = chord.in_key_of(key) if local_assigns[:key]
 
-.chord.col-xs-6.col-md-3
-  = link_to(chord, class: "thumbnail") do
-    %h3= chord.name
-    .staff.chord-staff{"data-id" => chord.id, "data-staff" => chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 150}
+.chord
+  .card
+    = link_to(chord) do
+      .card-header
+        =chord.name
+      .card-block
+        .staff.chord-staff{"data-id" => chord.id, "data-staff" => chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 150}

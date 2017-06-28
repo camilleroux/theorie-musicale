@@ -2,16 +2,16 @@
 -set_meta_tags canonical: url_for([@key, @scale, @mode, {only_path: false}])
 
 %ol.breadcrumb{itemprop: "breadcrumb"}
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Théorie de la musique" do
       %span{itemprop: "title"}>= "Théorie musicale"
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to scales_path, itemprop: "url", title: "Gammes" do
       %span{itemprop: "title"}>= "Gammes"
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to scale_path(@scale), itemprop: "url", title: @scale.title do
       %span{itemprop: "title"}>= @scale.title
-  %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to [@key, @scale, @mode], itemprop: "url", title: @scale.title, class: "disable" do
       %span{itemprop: "title"}>= "Mode #{@mode.title}"
 
@@ -24,54 +24,52 @@
 %section#mode
   .row
     .col-xs-12.col-md-6
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Notation
-        .panel-body
+      .card
+        .card-header
+          Notation
+        .card-block
           .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 313}
     .col-xs-6.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Notes
-        .panel-body
+      .card
+        .card-header
+          Notes
+        .card-block
           %h3
             - @mode.keys.each do |key|
               = link_to key, note_path(key), title: key.name_for_seo
     .col-xs-6.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Intervalles
-        .panel-body
+      .card
+        .card-header
+          Intervalles
+        .card-block
           %h3=@mode.step_names.join(", ")
 
-%section#piano
+%section#piano.mt-3
   %h3 Mode #{@mode.title} au piano
   =render "layouts/piano", keys: @mode.keys
 
   -if @scale.heptatonic?
-    %nav#harmonization
+    %nav#harmonization.mt-3
       %h2
         Harmonisation du mode #{@mode.title}
-        %small #{@scale.title}
+        %small.text-muted #{@scale.title}
       =render partial: 'scales/harmonization', locals: {scale: @scale, mode: @mode}
 
 
   - unless @mode.chord_scales.empty?
-    %nav.related-chords
+    %nav.related-chords.mt-3
       %h3 Accords associés :
-      .row.chords-list
+      .chords-list.card-deck
         - @mode.chord_scales.each do |chord_scale|
           = render chord_scale.chord, :key => (@scale.key || Key.default).shifted(-1 * chord_scale.offset)
 
-%nav#key-selector
-  .panel.panel-default
-    .panel-heading
-      %h2.panel-title Afficher dans la tonalité
-    .panel-body
-      %ul.nav.nav-pills
-        - Key.primaries.each do |key|
-          %li{:class => ("active" if @key == key || (@key.nil? && key.name == "C"))}= link_to key, [key, @scale, @mode]
+%nav#key-selector.mt-5
+  .card
+    .card-header
+      Afficher dans la tonalité
+    .card-block
+      %nav
+        %ul.pagination
+          - Key.primaries.each do |key|
+            %li.page-item{:class => ("active" if @key == key || (@key.nil? && key.name == "C"))}= link_to key, [key, @scale, @mode], class: "page-link"
 

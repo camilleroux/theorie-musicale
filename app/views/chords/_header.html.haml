@@ -2,44 +2,42 @@
   .page-header
     %h1
       = link_to_unless_current @chord.title(true), key_chord_path(@key||Key['C'], @chord)
-      %small= @chord.main_symbol_name
+      %small.text-muted= @chord.main_symbol_name
 
   .row
     .col-xs-12.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title Notation
-        .panel-body
+      .card
+        .card-header
+          Notation
+        .card-block
           .staff.chord-staff{"data-id" => @chord.id, "data-staff" => @chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 223}
 
 
     .col-xs-6.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title Symbole
-        .panel-body
+      .card
+        .card-header
+          Symbole
+        .card-block
           %h3=@chord.main_symbol_name
     .col-xs-6.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Notes
-        .panel-body
+      .card
+        .card-header
+          Notes
+        .card-block
           %h3
             - @chord.keys.each do |key|
               = link_to key, note_path(key), title: key.name_for_seo
     .col-xs-12.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Intervalles
-        .panel-body
+      .card
+        .card-header
+          Intervalles
+        .card-block
           - @chord.intervals.each do |i|
             %h3= link_to i.long_name, interval_path(i)
 
 .clearfix
 
-%nav.infos
+%nav.infos.mt-3
   %h3 Informations complémentaires
   %p= @chord.information
   - if @chord.parent

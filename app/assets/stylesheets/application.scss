@@ -1,11 +1,9 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-variables";
-@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "chord";
 @import "piano";
 
-body { padding-top: 70px; }
 
 footer {
   padding-top: 40px;
@@ -16,9 +14,22 @@ footer {
   border-top: 1px solid #e5e5e5;
 }
 
+nav.navbar.bg-inverse {
+  background-color: #2d3e50 !important;
+}
+
+.jumbotron{
+  color: #fff;
+}
+
 .staff {
   canvas{
     max-width: 100%;
     height: auto;
   }
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  border-bottom: .05rem solid #eee
 }

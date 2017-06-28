@@ -2,13 +2,13 @@
 -set_meta_tags canonical: @key ? key_interval_url(@key, @interval) : interval_url(@interval)
 
 %ol.breadcrumb{itemprop: "breadcrumb"}
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to root_path, itemprop: "url", title: "Théorie de la musique" do
       %span{itemprop: "title"}>= "Théorie musicale"
-  %li{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to intervals_path, itemprop: "url", title: "Intervalles", class: "disable" do
       %span{itemprop: "title"}>= "Intervalles"
-  %li.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
+  %li.breadcrumb-item.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
     =link_to @key ? key_interval_path(@key, @interval) : interval_path(@interval), itemprop: "url", title: @interval.long_name_with_key, class: "disable" do
       %span{itemprop: "title"}>= @interval.long_name_with_key
 
@@ -21,36 +21,32 @@
 %section#note
   .row
     .col-xs-12.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Notation
-        .panel-body
+      .card
+        .card-header
+          Notation
+        .card-block
           .staff.interval-staff{"data-id" => @interval.to_param, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
     .col-xs-6.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Symbole
-        .panel-body
+      .card
+        .card-header
+          Symbole
+        .card-block
           %h3=@interval.symbol
     .col-xs-6.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Tons
-        .panel-body
+      .card
+        .card-header
+          Tons
+        .card-block
           %h3= number_to_human(@interval.semitones / 2.0, precision: 3)
     .col-xs-6.col-md-3
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title
-            Demi-tons
-        .panel-body
+      .card
+        .card-header
+          Demi-tons
+        .card-block
           %h3= @interval.semitones
 
 
-%section.infos
+%section.infos.mt-3
   %h3 Informations complémentaires
   - unless @interval.compound?
     %p
@@ -65,19 +61,20 @@
     %label Seconde note par rapport à #{@interval.notes.first} :
     = link_to @interval.keys.last, note_path(@interval.keys.last), title: @interval.keys.last.long_name
 
-%section#piano
+%section#piano.mt-3
   %h3 #{@interval.name_with_key} au piano
   =render "layouts/piano", keys: @interval.keys
 
 
-%nav#key-selector
-  .panel.panel-default
-    .panel-heading
-      %h2.panel-title Afficher la #{@interval.long_name} de
-    .panel-body
-      %ul.nav.nav-pills
-        - Key.primaries.each do |key|
-          %li{:class => ("active" if @key == key)}= link_to key, key_interval_path(key, @interval)
+%nav#key-selector.mt-5
+  .card
+    .card-header
+      Afficher la #{@interval.long_name} de
+    .card-block
+      .nav
+        %ul.pagination
+          - Key.primaries.each do |key|
+            %li.page-item{:class => ("active" if @key == key)}= link_to key, key_interval_path(key, @interval), class: "page-link"
 
 
 

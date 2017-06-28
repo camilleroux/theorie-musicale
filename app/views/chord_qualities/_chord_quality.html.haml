@@ -1,4 +1,6 @@
 %article.chord-quality
   %h2= "Accord #{chord_quality}"
-  .row.chords-list
-    = render chord_quality.chords
+  .chords-list
+    .card-deck
+      = render chord_quality.chords
+

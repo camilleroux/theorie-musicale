@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 
 gem 'haml-rails'
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 gem "friendly_id"
 gem "acts_as_tree"
 gem "responders"
@@ -39,6 +39,7 @@ gem 'jquery-rails'
 
 gem 'sitemap_generator'
 gem 'fog-aws'
+gem 'tether-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
