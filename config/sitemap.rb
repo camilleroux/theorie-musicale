@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://theoriemusicale.camilleroux.com"
+SitemapGenerator::Sitemap.default_host = "https://theoriemusicale.camilleroux.com"
 # pick a place safe to write the files
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 # store on S3 using Fog (pass in configuration values as shown above if needed)
