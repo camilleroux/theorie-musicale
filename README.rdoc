@@ -1,3 +1,5 @@
+{<img src="https://app.codeship.com/projects/1ad2aca0-60fe-0136-2465-62259406e2c1/status?branch=master" />}[https://app.codeship.com/projects/296461]
+
 == Théorie Musicale
 
 Application web pour explorer la théorie musicale (notamment pour le jazz et les musiques improvisées). Accessible sur https://theoriemusicale.camilleroux.com.
