@@ -4,6 +4,8 @@
 
 Application web pour explorer la théorie musicale (notamment pour le jazz et les musiques improvisées). Accessible sur https://theoriemusicale.camilleroux.com.
 
+Les données sur les [accords](db/seeds/chords.rb) et les [gammes/modes](db/seeds/scales.rb) sont dans [db/seeds](db/seeds).
+
 ### Setup
 
 ```
