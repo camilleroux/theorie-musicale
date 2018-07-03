@@ -1,6 +1,6 @@
 == Théorie Musicale
 
-Application web pour explorer la théorie musicale (notamment pour le jazz et les musiques improvisées. Accessible sur https://theoriemusicale.camilleroux.com.
+Application web pour explorer la théorie musicale (notamment pour le jazz et les musiques improvisées). Accessible sur https://theoriemusicale.camilleroux.com.
 
 === Setup
 
