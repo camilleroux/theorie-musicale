@@ -7,7 +7,7 @@
   modes
   scales
 ).each do |table|
-  if Rails.env.production?
+  if Rails.env.production? || Rails.env.test?
     ActiveRecord::Base.connection.execute "TRUNCATE TABLE #{table}"
   else
     ActiveRecord::Base.connection.execute "DELETE FROM `#{table}`"
