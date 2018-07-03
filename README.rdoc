@@ -8,3 +8,11 @@ Application web pour explorer la théorie musicale (notamment pour le jazz et le
   $ rake db:seeds
   $ bin/rails server
   $ open http://localhost:3000
+
+=== TODO
+- [ ] Tests
+- [ ] Complete chords list
+- [ ] Complete modes list
+- [ ] Complete scales list
+- [ ] Add chord progressions
+- [ ] I18n
