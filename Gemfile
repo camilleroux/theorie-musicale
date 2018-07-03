@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.5'
+gem 'rails', '5.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -25,20 +25,23 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
+#
+# for railties app_generator_test
+gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'haml-rails'
+gem 'acts_as_tree'
 gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
-gem "friendly_id"
-gem "acts_as_tree"
-gem "responders"
-gem 'meta-tags'
-gem 'roman-numerals'
+gem 'friendly_id'
+gem 'haml-rails'
 gem 'high_voltage', '~> 3.0.0'
-gem 'newrelic_rpm'
 gem 'jquery-rails'
+gem 'meta-tags'
+gem 'newrelic_rpm'
+gem 'responders'
+gem 'roman-numerals'
 
-gem 'sitemap_generator'
 gem 'fog-aws'
+gem 'sitemap_generator'
 gem 'tether-rails'
 
 # Use ActiveModel has_secure_password
@@ -63,8 +66,8 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

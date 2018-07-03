@@ -24,25 +24,25 @@
       .card
         .card-header
           Notation
-        .card-block
+        .card-body
           .staff.interval-staff{"data-id" => @interval.to_param, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
     .col-xs-6.col-md-3
       .card
         .card-header
           Symbole
-        .card-block
+        .card-body
           %h3=@interval.symbol
     .col-xs-6.col-md-3
       .card
         .card-header
           Tons
-        .card-block
+        .card-body
           %h3= number_to_human(@interval.semitones / 2.0, precision: 3)
     .col-xs-6.col-md-3
       .card
         .card-header
           Demi-tons
-        .card-block
+        .card-body
           %h3= @interval.semitones
 
 
@@ -70,7 +70,7 @@
   .card
     .card-header
       Afficher la #{@interval.long_name} de
-    .card-block
+    .card-body
       .nav
         %ul.pagination
           - Key.primaries.each do |key|

@@ -5,5 +5,5 @@
     = link_to(chord) do
       .card-header
         =chord.name
-      .card-block
+      .card-body
         .staff.chord-staff{"data-id" => chord.id, "data-staff" => chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 150}

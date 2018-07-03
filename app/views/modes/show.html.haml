@@ -27,13 +27,13 @@
       .card
         .card-header
           Notation
-        .card-block
+        .card-body
           .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 313}
     .col-xs-6.col-md-3
       .card
         .card-header
           Notes
-        .card-block
+        .card-body
           %h3
             - @mode.keys.each do |key|
               = link_to key, note_path(key), title: key.name_for_seo
@@ -41,7 +41,7 @@
       .card
         .card-header
           Intervalles
-        .card-block
+        .card-body
           %h3=@mode.step_names.join(", ")
 
 %section#piano.mt-3
@@ -67,7 +67,7 @@
   .card
     .card-header
       Afficher dans la tonalité
-    .card-block
+    .card-body
       %nav
         %ul.pagination
           - Key.primaries.each do |key|
