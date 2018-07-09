@@ -4,10 +4,10 @@ SitemapGenerator::Sitemap.default_host = "https://theoriemusicale.camilleroux.co
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 # store on S3 using Fog (pass in configuration values as shown above if needed)
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(fog_provider: 'AWS',
-    aws_access_key_id: 'AKIAIPNLEMD45LUWMQPQ',
-    aws_secret_access_key: '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',
-    fog_directory: 'theoriemusicale',
-    fog_region: 'us-east-1')
+    aws_access_key_id: "#{ENV['AWS_ACCESS_KEY_ID']}",
+    aws_secret_access_key: "#{ENV['AWS_SECRET_ACCESS_KEY']}",
+    fog_directory: "#{ENV['FOG_DIRECTORY']}",
+    fog_region: "#{ENV['FOG_REGION']}")
 # inform the map cross-linking where to find the other maps
 SitemapGenerator::Sitemap.sitemaps_host = "http://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com/"
 # pick a namespace within your bucket to organize your maps
