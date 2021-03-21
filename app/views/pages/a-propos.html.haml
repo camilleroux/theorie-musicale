@@ -9,7 +9,13 @@
   %br
   Pour toute remarque, faites-moi signe sur Twitter : #{link_to '@camilleroux', 'https://twitter.com/CamilleRoux'}
 
-%h2 On parle de nous
+%h2 Qui suis-je ?
+%p.lead
+  Je suis #{link_to 'Camille Roux', 'https://www.camilleroux.com/', target:'_blank'}, entrepreneur, développeur et aussi musicien amateur. Je m'intéresse beaucoup à la théorie musicale... d'où ce site. 
+  %br
+  Vous voulez me soutenir ? Venez #{link_to 'écouter la musique', 'https://music.camilleroux.com/', target:'_blank'} je fais :)
+
+%h2 On parle du site
 
 %table.table
   %tbody
@@ -30,6 +36,9 @@
       %th Date
       %th Modications
   %tbody
+    %tr
+      %td= l Date.new(2021, 3, 21)
+      %td Mise à jour de la page A propos
     %tr
       %td= l Date.new(2018, 3, 13)
       %td Publication du code source sur #{link_to 'Github', 'https://github.com/camilleroux/theorie-musicale', rel: 'nofollow noopener'}
