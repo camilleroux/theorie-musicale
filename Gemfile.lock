@@ -171,7 +171,7 @@ GEM
     pg (1.0.0)
     popper_js (1.12.9)
     public_suffix (3.0.2)
-    puma (3.11.4)
+    puma (3.12.6)
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -293,7 +293,7 @@ DEPENDENCIES
   meta-tags
   newrelic_rpm
   pg
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.0)
   rails_12factor
   responders
