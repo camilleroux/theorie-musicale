@@ -38,6 +38,18 @@
   .media.mb-4
     .media-body
       %h4
+        =link_to 'https://www.passionsonore.fr/', target: "_blank" do
+          passionsonore.fr
+          %small.text-muted (FR)
+      %p
+        Forum de passionné·e·s de la création musicale que j'ai fondé. On y parle production, synthés, composition, mix... et bien sûr #{link_to 'théorie musicale', 'https://www.passionsonore.fr/c/theorie-musicale/5', target: "_blank"} !
+        %br/
+        Bref, si vous avez des questions, c'est endroit où il faut les poser !
+
+
+  .media.mb-4
+    .media-body
+      %h4
         =link_to 'http://www.musictheory.net/', rel:'nofollow', target: "_blank" do
           musictheory.net
           %small.text-muted (EN)
@@ -49,11 +61,11 @@
   .media.mb-4
     .media-body
       %h4
-        =link_to 'http://jazzity.com/', rel:'nofollow', target: "_blank" do
+        =link_to 'https://github.com/rubiety/jazzity', rel:'nofollow', target: "_blank" do
           Jazzity
           %small.text-muted (EN)
       %p
-        Site dont le #{link_to 'code source', 'https://github.com/rubiety/jazzity', rel:'nofollow', target: "_blank"} a servi de base à celui-ci.
+        Site dont le code source a servi de base à celui-ci.
         Comme ici, vous trouverez une liste d'accords, de gammes, de mode, de grilles et progressions d'accords...
 
 
