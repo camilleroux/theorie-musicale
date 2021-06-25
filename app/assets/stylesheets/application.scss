@@ -6,12 +6,11 @@
 
 
 footer {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  margin-top: 100px;
+  padding: 3rem 0;
+  /*margin-top: 100px;*/
   color: #767676;
   text-align: center;
-  border-top: 1px solid #e5e5e5;
+  /*border-top: 1px solid #e5e5e5;*/
 }
 
 nav.navbar.bg-dark {
@@ -32,4 +31,19 @@ nav.navbar.bg-dark {
 .page-header {
   margin-bottom: 2rem;
   border-bottom: .05rem solid #eee
+}
+
+#content-wrapper{
+  margin-top: 2rem;
+}
+
+#passionsonore {
+  text-align: center;
+  background-color: $primary;
+  color: white;
+  margin: 3rem 0 0 0;
+  padding: 1rem 0 2rem 0;
+  a {
+    color: $primary;
+  }
 }

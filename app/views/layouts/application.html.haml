@@ -23,13 +23,19 @@
       .container
         = yield
 
+    #passionsonore
+      .container
+        %h1 Des questions ?
+        %p.lead
+          Rejoignez le forum PassionSonore pour parler de théorie musicale... et de production musicale en général !
+        = link_to 'Aller sur le forum', 'https://www.passionsonore.fr', title: 'Le forum de la production musicale. On y parle production, synthés, théorie musicale, composition, mixage, mastering...', class: 'btn btn-light btn-lg', target: '_blank'
+
   %footer
     Créé avec ♥ par
     =link_to "Camille Roux", "https://music.camilleroux.com/", target: '_blank', title: "Camille Roux Music"
     \•
     =link_to "Code source", "https://github.com/camilleroux/theorie-musicale", target: '_blank', rel: 'nofollow noopener'
-    %br
-    Posez vos questions de théorie musicale sur le forum 
+    \•
     =link_to "PassionSonore", "https://www.passionsonore.fr/c/theorie-musicale/5", target: '_blank', title: "Forum sur la théorie musicale et la création/production en général"
 
 
