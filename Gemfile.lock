@@ -166,6 +166,7 @@ GEM
     minitest (5.11.3)
     msgpack (1.2.4)
     multi_json (1.13.1)
+    mysql2 (0.5.4)
     newrelic_rpm (5.2.0.345)
     nio4r (2.3.1)
     nokogiri (1.8.3)
@@ -293,6 +294,7 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   meta-tags
+  mysql2
   newrelic_rpm
   pg
   puma (~> 3.11)
