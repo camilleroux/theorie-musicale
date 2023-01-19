@@ -87,7 +87,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.10)
     crass (1.0.4)
     erubi (1.7.1)
     erubis (2.7.0)
@@ -113,8 +113,8 @@ GEM
     formatador (0.2.5)
     friendly_id (5.2.4)
       activerecord (>= 4.0.0)
-    globalid (0.4.1)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -130,7 +130,7 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
-    i18n (1.0.1)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
     ipaddress (0.8.3)
@@ -163,7 +163,7 @@ GEM
       rake
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.11.3)
+    minitest (5.17.0)
     msgpack (1.2.4)
     multi_json (1.13.1)
     newrelic_rpm (5.2.0.345)
@@ -257,7 +257,7 @@ GEM
     turbolinks (5.1.1)
       turbolinks-source (~> 5.1)
     turbolinks-source (5.1.0)
-    tzinfo (1.2.5)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (4.1.14)
       execjs (>= 0.3.0, < 3)
