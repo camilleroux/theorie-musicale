@@ -7,14 +7,16 @@
   modes
   scales
 ).each do |table|
-  if Rails.env.production? || Rails.env.test?
-    ActiveRecord::Base.connection.execute "TRUNCATE TABLE #{table}"
+  if Rails.env.production?
+    # PostgreSQL supports TRUNCATE with CASCADE
+    ActiveRecord::Base.connection.execute "TRUNCATE TABLE #{table} CASCADE"
   else
-    ActiveRecord::Base.connection.execute "DELETE FROM `#{table}`"
+    # SQLite (dev/test) doesn't support TRUNCATE
+    ActiveRecord::Base.connection.execute "DELETE FROM #{table}"
   end
 end
 
 %w(
   scales
   chords
-).each {|f| require Rails.root.join("db/seeds/#{f}.rb") }
+).each { |f| require Rails.root.join("db/seeds/#{f}.rb") }

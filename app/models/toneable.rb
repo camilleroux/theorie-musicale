@@ -2,7 +2,7 @@ module Toneable
   extend ActiveSupport::Concern
 
   included do
-    serialize :tone_values, JSON if self.respond_to?(:serialize)
+    serialize :tone_values, coder: JSON if self.respond_to?(:serialize)
 
     delegate :notes, :to => :tones
     delegate :keys, :to => :tones

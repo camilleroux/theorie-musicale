@@ -1,6 +1,6 @@
 class ScalesController < ApplicationController
   before_action :find_key
-  before_action :find_scale, :except => [:index, :new, :create]
+  before_action :find_scale, except: [:index]
   before_action :find_scales
 
   respond_to :html, :json

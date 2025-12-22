@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class WelcomeControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class WelcomeControllerTest < ActionDispatch::IntegrationTest
+  test 'should get index' do
+    get root_url
+    assert_response :success
+  end
 end

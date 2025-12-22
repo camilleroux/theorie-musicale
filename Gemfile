@@ -1,53 +1,37 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.5'
+ruby '3.4.1'
 
-gem 'rake', '>= 13.0'
+gem 'rails', '~> 8.0.2'
 
-# Ruby 3.1+ requires explicit logger gem
-gem 'logger'
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
-# Use sqlite3 as the database for Active Record
-# gem 'pg'
-# gem 'mysql2' - moved to production group
-# Use SCSS for stylesheets
-gem 'sassc-rails', '>= 2.1.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
+# Pin minitest to 5.x for Rails 8.0 compatibility
+gem 'minitest', '~> 5.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '>= 5.0'
 
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-#
+# Asset pipeline (Sprockets for compatibility with legacy JS)
+gem 'sprockets-rails'
+gem 'dartsass-rails'
+
+# Hotwire's SPA-like page accelerator
+gem 'turbo-rails'
+
+# Build JSON APIs with ease
+gem 'jbuilder'
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: %i[windows jruby]
+
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.0', require: false
+gem 'bootsnap', require: false
 
-# XML/HTML parser - explicitly set version for Ruby 3.1 compatibility
-gem 'nokogiri', '>= 1.13.0'
-
-# Update gems for Ruby 3.1 compatibility
-gem 'nio4r', '>= 2.5.0'
-gem 'msgpack', '>= 1.7.0'
-
+# Application-specific gems
 gem 'acts_as_tree'
 gem 'bootstrap', '~> 5.3.0'
 gem 'friendly_id'
 gem 'haml-rails'
-gem 'high_voltage', '~> 3.0.0'
+gem 'high_voltage', '~> 4.0'
 gem 'jquery-rails'
 gem 'meta-tags'
 gem 'newrelic_rpm'
@@ -57,45 +41,26 @@ gem 'roman-numerals'
 gem 'fog-aws'
 gem 'sitemap_generator'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development, :test do
-  gem 'sqlite3', '~> 1.4'
+  gem 'sqlite3', '>= 2.1'
 
-  gem 'bullet'
+  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 
-  gem 'byebug', '>= 11.0', platforms: [:mri, :mingw, :x64_mingw]
+  # Static analysis for security vulnerabilities
+  gem 'brakeman', require: false
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console'
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15', '< 4.0'
+  # Use system testing
+  gem 'capybara'
   gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
 end
 
 group :production do
-  gem 'mysql2'
-  gem 'rails_12factor'
+  # Heroku uses PostgreSQL
+  gem 'pg'
 end
-

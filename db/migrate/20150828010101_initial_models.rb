@@ -1,4 +1,4 @@
-class InitialModels < ActiveRecord::Migration
+class InitialModels < ActiveRecord::Migration[8.0]
   def change
     create_table :chord_qualities do |t|
       t.string :name
@@ -14,8 +14,8 @@ class InitialModels < ActiveRecord::Migration
       t.string :name
       t.text :synonyms
       t.text :information
-      t.string :tone_values, :limit => 4000
-      t.integer :chord_tones_count, :default => 0
+      t.string :tone_values, limit: 4000
+      t.integer :chord_tones_count, default: 0
       t.string :slug
       t.timestamps
     end
@@ -23,25 +23,25 @@ class InitialModels < ActiveRecord::Migration
     add_index :chords, :slug
     add_index :chords, :chord_quality_id
     add_index :chords, :parent_id
-    
+
     create_table :chord_symbols do |t|
       t.references :chord
       t.string :name
-      t.boolean :case_sensitive, :default => false
+      t.boolean :case_sensitive, default: false
       t.integer :strength
-      t.boolean :primary, :default => false
+      t.boolean :primary, default: false
       t.timestamps
     end
 
     add_index :chord_symbols, :chord_id
     add_index :chord_symbols, :name
-    
+
     create_table :scales do |t|
       t.string :name
       t.string :information
       t.integer :symmetry_index
-      t.string :tone_values, :limit => 4000
-      t.integer :tones_count, :default => 0
+      t.string :tone_values, limit: 4000
+      t.integer :tones_count, default: 0
       t.string :slug
       t.timestamps
     end
@@ -62,12 +62,12 @@ class InitialModels < ActiveRecord::Migration
     add_index :modes, :slug
     add_index :modes, :scale_id
     add_index :modes, :mode
-    
+
     create_table :chord_scales do |t|
       t.references :chord
       t.references :mode
-      t.integer :offset, :default => 0, :null => false
-      t.integer :strength, :default => 1
+      t.integer :offset, default: 0, null: false
+      t.integer :strength, default: 1
       t.text :information
       t.timestamps
     end

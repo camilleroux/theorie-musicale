@@ -27,25 +27,25 @@
       .card.h-100
         .card-header
           Notation
-        .card-body
+        .card-body.d-flex.align-items-center.justify-content-center
           .staff.interval-staff{"data-id" => @interval.to_param, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
     .col-6.col-md-3
       .card.h-100
         .card-header
           Symbole
-        .card-body
+        .card-body.d-flex.align-items-center.justify-content-center
           %h3=@interval.symbol
     .col-6.col-md-3
       .card.h-100
         .card-header
           Tons
-        .card-body
+        .card-body.d-flex.align-items-center.justify-content-center
           %h3= number_to_human(@interval.semitones / 2.0, precision: 3)
     .col-6.col-md-3
       .card.h-100
         .card-header
           Demi-tons
-        .card-body
+        .card-body.d-flex.align-items-center.justify-content-center
           %h3= @interval.semitones
 
 

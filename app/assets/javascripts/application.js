@@ -22,5 +22,5 @@
 //= require paper-core.min
 //= require fretboard
 
-//= require turbolinks
+//= require turbo-rails
 //= require_tree .

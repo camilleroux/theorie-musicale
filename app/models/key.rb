@@ -186,6 +186,7 @@ class Key
     if value.is_a? Numeric
       self.from_index(value)
     else
+      value = value.dup
       value[0] = value[0].upcase
       self.from_name(value)
     end
