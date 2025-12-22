@@ -61,6 +61,6 @@ group :test do
 end
 
 group :production do
-  # Heroku uses PostgreSQL
-  gem 'pg'
+  # Heroku uses MySQL (JawsDB)
+  gem 'mysql2'
 end
