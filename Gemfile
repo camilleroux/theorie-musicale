@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '3.4.1'
 
-gem 'rails', '~> 8.0.2'
+gem 'rails', '~> 8.1.0'
 
 # Pin minitest to 5.x for Rails 8.0 compatibility
 gem 'minitest', '~> 5.0'
@@ -31,7 +31,7 @@ gem 'acts_as_tree'
 gem 'bootstrap', '~> 5.3.0'
 gem 'friendly_id'
 gem 'haml-rails'
-gem 'high_voltage', '~> 4.0'
+gem 'high_voltage', '~> 5.0'
 gem 'jquery-rails'
 gem 'meta-tags'
 gem 'newrelic_rpm'
