@@ -7,7 +7,7 @@ ruby '3.1.5'
 gem 'rails', '~> 5.2.0'
 # Use sqlite3 as the database for Active Record
 # gem 'pg'
-gem 'mysql2'
+# gem 'mysql2' - moved to production group
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -29,10 +29,14 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 #
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.0', require: false
 
 # XML/HTML parser - explicitly set version for Ruby 3.1 compatibility
 gem 'nokogiri', '>= 1.13.0'
+
+# Update gems for Ruby 3.1 compatibility
+gem 'nio4r', '>= 2.5.0'
+gem 'msgpack', '>= 1.7.0'
 
 gem 'acts_as_tree'
 gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
@@ -66,7 +70,7 @@ group :development, :test do
 
   gem 'bullet'
 
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '>= 11.0', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
@@ -86,5 +90,8 @@ group :test do
   gem 'chromedriver-helper'
 end
 
-gem 'rails_12factor', group: :production
+group :production do
+  gem 'mysql2'
+  gem 'rails_12factor'
+end
 
