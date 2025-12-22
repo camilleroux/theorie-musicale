@@ -5,7 +5,7 @@ class Key
   attr_reader :name, :long_name, :index, :letter_index, :cycle_index, :primary
   attr_accessor :octave
 
-  Steps = {'1/2' => 1, '1' => 2, '1,5' => 3, '3M' => 4, '4' => 5, '4aug' => 6, '5' => 7}
+  Steps = {'½' => 1, '1' => 2, '1½' => 3, '3M' => 4, '4' => 5, '4aug' => 6, '5' => 7}
 
   FrenchNames = {'C' => 'do', 'D' => 'ré', 'E' => 'mi', 'F' => 'fa', 'G' => 'sol', 'A' => 'la', 'B' => 'si'}
 
