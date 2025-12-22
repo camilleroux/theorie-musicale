@@ -5,8 +5,11 @@ ruby '3.1.5'
 
 gem 'rake', '>= 13.0'
 
+# Ruby 3.1+ requires explicit logger gem
+gem 'logger'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 # Use sqlite3 as the database for Active Record
 # gem 'pg'
 # gem 'mysql2' - moved to production group
@@ -68,7 +71,7 @@ gem 'tether-rails'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.4'
 
   gem 'bullet'
 
