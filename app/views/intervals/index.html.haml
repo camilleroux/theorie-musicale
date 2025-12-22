@@ -16,39 +16,41 @@
 
 #section#intervals
   %h2 Intervalles simples
-  %table.table.table-hover.table-sm
-    %thead
-      %tr
-        %th Intervalle
-        %th Seconde note par rapport à C
-        %th Nombre de tons
-        %th Nombre de demi-tons
+  .table-responsive
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Intervalle
+          %th Seconde note par rapport à C
+          %th Nombre de tons
+          %th Nombre de demi-tons
 
-    %tbody
-    -@intervals.select {|i| i.degree < 8  }.each do |interval|
-      %tr{class: interval.semitones.even? ? "table-active" : ""}
-        %td
-          %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
-        -key = Key.from_index(interval.semitones, interval.letter_index)
-        %td= link_to key, note_path(key), title: key.name_for_seo
-        %td= number_to_human(interval.semitones / 2.0, precision: 3)
-        %td= interval.semitones
+      %tbody
+      -@intervals.select {|i| i.degree < 8  }.each do |interval|
+        %tr{class: interval.semitones.even? ? "table-active" : ""}
+          %td
+            %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
+          -key = Key.from_index(interval.semitones, interval.letter_index)
+          %td= link_to key, note_path(key), title: key.name_for_seo
+          %td= number_to_human(interval.semitones / 2.0, precision: 3)
+          %td= interval.semitones
 
   %h2 Intervalles redoublés
-  %table.table.table-hover.table-sm
-    %thead
-      %tr
-        %th Intervalle
-        %th Seconde note par rapport à C
-        %th Nombre de tons
-        %th Nombre de demi-tons
+  .table-responsive
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Intervalle
+          %th Seconde note par rapport à C
+          %th Nombre de tons
+          %th Nombre de demi-tons
 
-    %tbody
-    -@intervals.select {|i| i.degree >= 8  }.each do |interval|
-      %tr{class: interval.semitones.even? ? "table-active" : ""}
-        %td
-          %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
-        -key = Key.from_index(interval.semitones, interval.letter_index)
-        %td= link_to key, note_path(key), title: key.long_name
-        %td= number_to_human(interval.semitones / 2.0, precision: 3)
-        %td= interval.semitones
+      %tbody
+      -@intervals.select {|i| i.degree >= 8  }.each do |interval|
+        %tr{class: interval.semitones.even? ? "table-active" : ""}
+          %td
+            %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
+          -key = Key.from_index(interval.semitones, interval.letter_index)
+          %td= link_to key, note_path(key), title: key.long_name
+          %td= number_to_human(interval.semitones / 2.0, precision: 3)
+          %td= interval.semitones

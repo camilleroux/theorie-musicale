@@ -1,6 +1,20 @@
 // Bootstrap 5.3 Variable Overrides
 // Override Bootstrap variables before importing Bootstrap
 
+// Options
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-rounded: true;
+
+// Spacing
+$spacer: 1rem;
+
+// Cards
+$card-border-width: 0; // Modern look: no border, just shadow
+$card-box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+$card-cap-bg: #fff; // White headers for cleaner look
+$card-cap-padding-y: 1rem;
+
 // Colors
 $primary: #1f8dd6;
 $success: #5cb85c;

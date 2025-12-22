@@ -26,27 +26,27 @@
 
 
 %section#mode
-  .row.g-3
+  .row.g-4
     .col-12.col-md-6
-      .card.h-100
-        .card-header
+      .card.h-100.shadow-sm.border-0
+        .card-header.bg-transparent
           Notation
-        .card-body
+        .card-body.d-flex.align-items-center.justify-content-center
           .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 313}
     .col-6.col-md-3
-      .card.h-100
-        .card-header
+      .card.h-100.shadow-sm.border-0
+        .card-header.bg-transparent
           Notes
-        .card-body
-          %h3
+        .card-body.d-flex.align-items-center.justify-content-center
+          .d-flex.flex-wrap.justify-content-center
             - @mode.keys.each do |key|
-              = link_to key, note_path(key), title: key.name_for_seo
+              = link_to key, note_path(key), title: key.name_for_seo, class: 'badge bg-light text-dark text-decoration-none border me-1 mb-1 fs-6'
     .col-6.col-md-3
-      .card.h-100
-        .card-header
+      .card.h-100.shadow-sm.border-0
+        .card-header.bg-transparent
           Intervalles
-        .card-body
-          %h3=@mode.step_names.join(", ")
+        .card-body.d-flex.align-items-center.justify-content-center
+          .text-center.fs-5=@mode.step_names.join(", ")
 
 %section#piano.mt-3
   %h3 Mode #{@mode.title} au piano

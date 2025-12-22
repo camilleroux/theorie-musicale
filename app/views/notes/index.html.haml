@@ -15,21 +15,22 @@
 %h2.lead= description 'Liste des notes et de leurs équivalents enharmoniques'
 
 #section#notes
-  %table.table.table-hover.table-sm
-    %thead
-      %tr
-        %th Note
-        %th Notation anglaise
-        %th Notation française
+  .table-responsive
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Note
+          %th Notation anglaise
+          %th Notation française
 
-    %tbody
-    -(0...12).each do |index|
-      -@keys.select {|key| key.index == index}.each do |key|
-        %tr{class: key.index.even? ? "table-active" : ""}
-          %td
-            %strong= link_to key, note_path(key), title: key.name_for_seo
-          %td
-            =key.name
-          %td
-            =key.french_name
+      %tbody
+      -(0...12).each do |index|
+        -@keys.select {|key| key.index == index}.each do |key|
+          %tr{class: key.index.even? ? "table-active" : ""}
+            %td
+              %strong= link_to key, note_path(key), title: key.name_for_seo
+            %td
+              =key.name
+            %td
+              =key.french_name
 

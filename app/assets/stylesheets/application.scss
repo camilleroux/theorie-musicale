@@ -52,36 +52,187 @@
 @import "chord";
 @import "piano";
 
-// Ensure primary buttons have white text for better readability
+// Modern General Styles
+body {
+  background-color: #f4f7f9; // Very light blue-gray background for a fresher look
+}
+
+// Ensure primary buttons have white text and modern look
 .btn-primary {
   color: #fff;
+  box-shadow: 0 2px 4px rgba(31, 141, 214, 0.3);
+  transition: all 0.2s ease-in-out;
   
   &:hover, &:focus, &:active {
     color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(31, 141, 214, 0.4);
   }
 }
 
+// Modern Card Styles
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 1rem;
+  
+  &:hover {
+    // Subtle lift effect on hover for interactive cards
+    &.hover-lift {
+      transform: translateY(-3px);
+      box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+  }
+
+  .card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: 700;
+    color: $gray-600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Modern Footer
 footer {
-  padding: 3rem 0;
-  color: #767676;
+  background-color: #2d3e50; // Dark blue-grey matching navbar
+  padding: 4rem 0;
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
+  font-size: 0.9rem;
+  margin-top: 4rem;
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+    
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+    }
+  }
 }
 
+// Modern Navbar
 nav.navbar.bg-dark {
-  background-color: #2d3e50 !important;
+  background-color: rgba(45, 62, 80, 0.95) !important; // Slightly transparent
+  backdrop-filter: blur(10px); // Blur effect behind navbar
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
-// Jumbotron replacement (removed in Bootstrap 5)
+// Clean Breadcrumbs (Transparent)
+.breadcrumb {
+  background-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  
+  .breadcrumb-item {
+    a {
+      color: $gray-600;
+      text-decoration: none;
+      
+      &:hover {
+        color: $primary;
+      }
+    }
+    
+    &.active {
+      color: $gray-500;
+    }
+    
+    // Custom separator
+    & + .breadcrumb-item::before {
+      content: "›";
+      font-size: 1.4em; // Slightly larger
+      line-height: 0.8; // Reduced line-height to center it better vertically
+      vertical-align: text-top; // Better alignment with text
+      color: $gray-400;
+      padding-top: 2px; // Fine-tuning position
+    }
+  }
+}
+
+// Modern Hero / Jumbotron replacement
 .jumbotron {
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
-  background-color: #1f8dd6;
-  border-radius: 0.5rem;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  // Modern Gradient
+  background: linear-gradient(135deg, #1f8dd6 0%, #155e8e 100%);
+  border-radius: 1rem;
   color: #fff;
+  box-shadow: 0 4px 15px rgba(31, 141, 214, 0.3);
+
+  h1 {
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.15rem;
+    font-weight: 300;
+    opacity: 0.9;
+    max-width: 800px;
+  }
 
   @media (min-width: 576px) {
-    padding: 4rem 2rem;
+    padding: 5rem 3rem;
   }
+}
+
+
+// Modern Table Styles
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: rgba(31, 141, 214, 0.03);
+  --bs-table-active-bg: rgba(31, 141, 214, 0.08); // A nice light blue instead of gray
+  
+  th {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border-top: none;
+    border-bottom: 2px solid $gray-200;
+    padding: 1rem 0.75rem;
+  }
+  
+  td {
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+    border-bottom: 1px solid $gray-100;
+  }
+  
+  // Hover effect for rows
+  &.table-hover tbody tr:hover {
+    background-color: rgba(31, 141, 214, 0.05);
+  }
+
+  // Links in table
+  a {
+    font-weight: 600;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Rounded tables wrapper
+.table-responsive {
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+  padding: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .staff {

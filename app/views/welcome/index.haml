@@ -1,24 +1,37 @@
 -set_meta_tags canonical: root_url
 
-.jumbotron
+.jumbotron.text-center
   %h1
     La référence sur la théorie musicale
-  %p
+  %p.mx-auto
     Vous cherchez la composition d'un accord de septième de dominante ? Les notes composant la gamme mineure mélodique ? Le nom du deuxième mode de la gamme majeure ?
     %br
     Vous trouverez tout ce dont vous avez besoin ici !
-.row
+
+.row.g-4
   .col-12.col-md-4
-    %h2 Intervalles
-    %p Parcourez les intervalles simples et redoublés. Pour chaque intervalle, vous pourrez consulter le nombre de tons et de demi-tons qui le composent, les renversements...
-    = link_to "Liste des intervalles", intervals_path, class: "btn btn-primary"
+    .card.h-100.shadow-sm.hover-lift
+      .card-body.text-center.p-4
+        .mb-3
+          %i.fas.fa-music.fa-3x.text-primary
+        %h2.h3.mb-3 Intervalles
+        %p.text-muted.mb-4 Parcourez les intervalles simples et redoublés. Consultez le nombre de tons, demi-tons et les renversements.
+        = link_to "Voir les intervalles", intervals_path, class: "btn btn-primary btn-lg rounded-pill w-100 stretched-link"
 
   .col-12.col-md-4
-    %h2 Accords
-    %p Parcourez les accords les plus joués dans le jazz. Pour chaque accord, vous pourrez consulter leur composition, leurs différentes appellations ainsi que les gammes ou modes dont ils proviennent.
-    = link_to "Liste des accords", chords_path, class: "btn btn-primary"
+    .card.h-100.shadow-sm.hover-lift
+      .card-body.text-center.p-4
+        .mb-3
+          %i.fas.fa-guitar.fa-3x.text-primary
+        %h2.h3.mb-3 Accords
+        %p.text-muted.mb-4 Découvrez les accords jazz essentiels. Analysez leur composition, appellations et gammes d'origine.
+        = link_to "Voir les accords", chords_path, class: "btn btn-primary btn-lg rounded-pill w-100 stretched-link"
 
   .col-12.col-md-4
-    %h2 Gammes et modes
-    %p Découvrez les gammes les plus utilisées ainsi que leurs modes. Pour chaque gamme ou mode, vous pourrez consulter les différents intervalles et notes qui les composent, les accords associés...
-    = link_to "Liste des gammes et modes", scales_path, class: "btn btn-primary"
+    .card.h-100.shadow-sm.hover-lift
+      .card-body.text-center.p-4
+        .mb-3
+          %i.fas.fa-layer-group.fa-3x.text-primary
+        %h2.h3.mb-3 Gammes et modes
+        %p.text-muted.mb-4 Explorez les gammes et leurs modes. Visualisez les intervalles, notes et accords associés.
+        = link_to "Voir les gammes", scales_path, class: "btn btn-primary btn-lg rounded-pill w-100 stretched-link"

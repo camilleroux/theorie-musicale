@@ -17,29 +17,31 @@
 
 %h2 On parle du site
 
-%table.table
-  %tbody
-    %tr
-      %td
-        = link_to 'Un site pour parfaire sa connaissance de la théorie musicale pour le jazz', 'http://www.presse-citron.net/un-site-pour-parfaire-sa-connaissance-de-la-theorie-musicale-pour-le-jazz/', rel: 'nofollow', target: '_blank'
-        — Presse Citron
-    %tr
-      %td
-        = link_to 'Annonce de la sortie sur Twitter', 'https://twitter.com/camilleroux/status/644631822928867330', rel: 'nofollow', target: '_blank'
-        — @camilleroux
+.table-responsive
+  %table.table.table-hover
+    %tbody
+      %tr
+        %td
+          = link_to 'Un site pour parfaire sa connaissance de la théorie musicale pour le jazz', 'http://www.presse-citron.net/un-site-pour-parfaire-sa-connaissance-de-la-theorie-musicale-pour-le-jazz/', rel: 'nofollow', target: '_blank'
+          — Presse Citron
+      %tr
+        %td
+          = link_to 'Annonce de la sortie sur Twitter', 'https://twitter.com/camilleroux/status/644631822928867330', rel: 'nofollow', target: '_blank'
+          — @camilleroux
 
 %h2 Modifications
 
-%table.table
-  %thead
-    %tr
-      %th Date
-      %th Modications
-  %tbody
-    %tr
-      %td= l Date.new(2025, 12, 21)
-      %td Mise à jour technique du site
-    %tr
+.table-responsive
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Date
+        %th Modications
+    %tbody
+      %tr
+        %td= l Date.new(2025, 12, 21)
+        %td Mise à jour technique du site
+      %tr
       %td= l Date.new(2021, 3, 21)
       %td Mise à jour de la page A propos
     %tr
