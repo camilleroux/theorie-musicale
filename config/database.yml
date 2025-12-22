@@ -23,3 +23,5 @@ test:
 # Production uses DATABASE_URL environment variable (set by Heroku)
 production:
   url: <%= ENV['DATABASE_URL'] %>
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
