@@ -6,7 +6,7 @@ ruby '3.1.5'
 gem 'rake', '>= 13.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.8'
+gem 'rails', '~> 6.0.0'
 # Use sqlite3 as the database for Active Record
 # gem 'pg'
 # gem 'mysql2' - moved to production group
