@@ -1,16 +1,19 @@
 -description "L'intervalle de #{@interval.long_name_with_key} est composé de #{pluralize(number_to_human(@interval.semitones / 2.0),'ton')}"
 -set_meta_tags canonical: @key ? key_interval_url(@key, @interval) : interval_url(@interval)
 
-%ol.breadcrumb{itemprop: "breadcrumb"}
-  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to root_path, itemprop: "url", title: "Théorie de la musique" do
-      %span{itemprop: "title"}>= "Théorie musicale"
-  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to intervals_path, itemprop: "url", title: "Intervalles", class: "disable" do
-      %span{itemprop: "title"}>= "Intervalles"
-  %li.breadcrumb-item.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to @key ? key_interval_path(@key, @interval) : interval_path(@interval), itemprop: "url", title: @interval.long_name_with_key, class: "disable" do
-      %span{itemprop: "title"}>= @interval.long_name_with_key
+%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
+  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
+    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
+      %span{itemprop: "name"}>= "Théorie musicale"
+    %meta{itemprop: "position", content: "1"}
+  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
+    %a{itemprop: "item", href: intervals_path, title: "Intervalles"}
+      %span{itemprop: "name"}>= "Intervalles"
+    %meta{itemprop: "position", content: "2"}
+  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
+    %a{itemprop: "item", href: (@key ? key_interval_path(@key, @interval) : interval_path(@interval)), title: @interval.long_name_with_key, class: "disable"}
+      %span{itemprop: "name"}>= @interval.long_name_with_key
+    %meta{itemprop: "position", content: "3"}
 
 .page-header
   %h1

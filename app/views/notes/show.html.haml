@@ -1,16 +1,19 @@
 -description "La note #{@key.long_name} ou #{@key.french_long_name}"
 -set_meta_tags canonical: note_url(@key)
 
-%ol.breadcrumb{itemprop: "breadcrumb"}
-  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to root_path, itemprop: "url", title: "Théorie de la musique" do
-      %span{itemprop: "title"}>= "Théorie musicale"
-  %li.breadcrumb-item{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to notes_path, itemprop: "url", title: "Notes" do
-      %span{itemprop: "title"}>= "Notes"
-  %li.breadcrumb-item.active{itemscope: true, itemtype: "http://data-vocabulary.org/Breadcrumb"}
-    =link_to note_path(@key), itemprop: "url", title: @key.name_for_seo, class: "disable" do
-      %span{itemprop: "title"}>= @key.name
+%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
+  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
+    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
+      %span{itemprop: "name"}>= "Théorie musicale"
+    %meta{itemprop: "position", content: "1"}
+  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
+    %a{itemprop: "item", href: notes_path, title: "Notes"}
+      %span{itemprop: "name"}>= "Notes"
+    %meta{itemprop: "position", content: "2"}
+  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
+    %a{itemprop: "item", href: note_path(@key), title: @key.name_for_seo, class: "disable"}
+      %span{itemprop: "name"}>= @key.name
+    %meta{itemprop: "position", content: "3"}
 
 .page-header
   %h1
