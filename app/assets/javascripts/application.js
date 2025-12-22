@@ -16,8 +16,7 @@
 
 //= require underscore
 //= require vexflow
-//= require vexflow-json
-//= require jquery-vexflow
+//= require staff
 
 //= require paper-core.min
 //= require fretboard

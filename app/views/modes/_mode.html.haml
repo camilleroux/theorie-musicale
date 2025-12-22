@@ -5,6 +5,6 @@
     .card-header
       = mode.title
     .card-body.d-flex.flex-column.align-items-center
-      .staff.scale-staff{"data-id" => mode.id, "data-staff" => mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 350}
+      .staff.scale-staff{"data-id" => mode.id, "data-easyscore" => mode.staff_easyscore, "data-clef" => "treble", "data-width" => 400, "data-height" => 150}
       = link_to [local_assigns[:key], mode.scale, mode].compact, class:'btn btn-primary mt-auto' do
         voir

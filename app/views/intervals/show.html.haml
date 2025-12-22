@@ -28,7 +28,7 @@
         .card-header
           Notation
         .card-body.d-flex.align-items-center.justify-content-center
-          .staff.interval-staff{"data-id" => @interval.to_param, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
+          .staff.interval-staff{"data-id" => @interval.to_param, "data-easyscore" => @interval.staff_easyscore, "data-clef" => "treble", "data-width" => 200, "data-height" => 150}
     .col-6.col-md-3
       .card.h-100
         .card-header

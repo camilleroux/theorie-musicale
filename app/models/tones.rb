@@ -95,4 +95,39 @@ module Tones
     intervals.map {|step| Key::Intervals.invert[step] }
   end
 
+  # Generate EasyScore notation string
+  # @param duration [String] note duration: 'w' (whole), 'h' (half), 'q' (quarter), '8' (eighth)
+  # @param as_chord [Boolean] if true, render as chord "(C4 E4 G4)/w", otherwise as sequence "C4/w, E4, G4"
+  # @param octave [Integer] starting octave (default 4)
+  # @param autooctavize [Boolean] if true, auto-increment octave for ascending scales
+  def to_easyscore(duration: 'w', as_chord: false, octave: 4, autooctavize: false)
+    return "" if keys.empty?
+
+    last_index = keys.first.index
+    current_octave = (keys.first.name == "C♭") ? octave + 1 : octave
+
+    note_names = []
+    keys.each_with_index do |k, i|
+      if i == 0
+        note_names << k.name.gsub('♯','#').gsub('♭','b') + current_octave.to_s
+      else
+        index = k.index > last_index ? k.index : k.index + 12
+        if autooctavize
+          current_octave += 1 if (last_index..index).include?(12)
+        else
+          current_octave = k.octave
+        end
+        last_index = k.index
+        effective_octave = (k.name == "C♭") ? current_octave + 1 : current_octave
+        note_names << k.name.gsub('♯','#').gsub('♭','b') + effective_octave.to_s
+      end
+    end
+
+    if as_chord
+      "(#{note_names.join(' ')})/#{duration}"
+    else
+      note_names.map.with_index { |n, i| i == 0 ? "#{n}/#{duration}" : n }.join(', ')
+    end
+  end
+
 end

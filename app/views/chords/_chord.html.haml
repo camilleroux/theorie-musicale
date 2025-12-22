@@ -4,7 +4,7 @@
   .chord
     .card.h-100
       = link_to(chord) do
-        .card-header
+        .card-header.text-center.fw-bold.text-uppercase.bg-primary.text-white
           =chord.name
         .card-body
-          .staff.chord-staff{"data-id" => chord.id, "data-staff" => chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 150}
+          .staff.chord-staff{"data-id" => chord.id, "data-easyscore" => chord.staff_easyscore, "data-clef" => "treble", "data-width" => 150, "data-height" => 150}

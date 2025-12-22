@@ -208,6 +208,16 @@ class Key
     name.gsub('♯','#').gsub('♭','b')+'/'+octave.to_s
   end
 
+  # EasyScore format: "C#4" (no slash, octave directly after note)
+  def to_easyscore
+    name.gsub('♯','#').gsub('♭','b') + octave.to_s
+  end
+
+  # EasyScore notation for rendering single note on staff
+  def staff_easyscore
+    "#{to_easyscore}/w"
+  end
+
   def to_param
     name.gsub('♯','d').gsub('♭','b').downcase
   end

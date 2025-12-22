@@ -44,4 +44,9 @@ module Toneable
     octavized_notes
   end
 
+  # EasyScore notation for rendering chord on staff
+  def staff_easyscore
+    tones.to_easyscore(duration: 'w', as_chord: true)
+  end
+
 end

@@ -73,6 +73,11 @@ class Mode < ApplicationRecord
     octavized_notes.map {|n| [n]}
   end
 
+  # EasyScore notation for rendering scale on staff
+  def staff_easyscore
+    tones.to_easyscore(duration: 'q', as_chord: false, octave: 4, autooctavize: true)
+  end
+
   def self.resolve(symbol)
     in_key = nil
   

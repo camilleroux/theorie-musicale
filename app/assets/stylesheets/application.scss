@@ -236,9 +236,16 @@ nav.navbar.bg-dark {
 }
 
 .staff {
-  canvas {
-    max-width: 100%;
-    height: auto;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  canvas, svg {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
   }
 }
 

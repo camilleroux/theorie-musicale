@@ -120,4 +120,9 @@ class Interval
     intervals
   end
 
+  # EasyScore notation for rendering interval notes on staff (as sequence, not chord)
+  def staff_easyscore
+    tones.to_easyscore(duration: 'w', as_chord: false)
+  end
+
 end
