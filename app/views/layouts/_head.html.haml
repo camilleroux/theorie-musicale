@@ -6,11 +6,16 @@
                       :description => 'Théorie de la musique (accords, gammes, modes...) pour le jazz et les musiques improvisées',
                       :keywords => 'gamme, accord, mode, intervalle, majeur, mineur, jazz, improvisation, théorie',
                       :reverse => true,
-                      :author => 'https://plus.google.com/u/0/+CamilleRoux/',
+                      :author => 'https://www.camilleroux.com/',
                       :og => { title: :title,
                         :type  => :website,
                         :site_name => 'Théorie musicale',
-                        :locale => "fr_FR"}
+                        :locale => "fr_FR",
+                        :url => :canonical,
+                        :description => :description},
+                      :twitter => { card: 'summary',
+                        :site => '@CamilleRoux',
+                        :creator => '@CamilleRoux'}
 
   = favicon_link_tag
   <link href="//fonts.googleapis.com/css?family=Lato:400,300,700,900|Merriweather:300italic,300,700,700italic" rel="stylesheet" type="text/css">
@@ -28,6 +33,17 @@
     "@context" : "http://schema.org",
     "@type" : "WebSite",
     "name" : "Théorie Musicale",
-    "url" : "#{root_url}"
+    "url" : "#{root_url}",
+    "author" : {
+      "@type" : "Person",
+      "name" : "Camille Roux",
+      "url" : "https://www.camilleroux.com/",
+      "sameAs" : [
+        "https://music.camilleroux.com/",
+        "https://art.camilleroux.com/",
+        "https://twitter.com/CamilleRoux",
+        "https://bsky.app/profile/camilleroux.com"
+      ]
+    }
   }
   </script>
