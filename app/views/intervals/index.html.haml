@@ -26,7 +26,7 @@
 
     %tbody
     -@intervals.select {|i| i.degree < 8  }.each do |interval|
-      %tr{class: interval.semitones.even? ? "active" : ""}
+      %tr{class: interval.semitones.even? ? "table-active" : ""}
         %td
           %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
         -key = Key.from_index(interval.semitones, interval.letter_index)
@@ -45,7 +45,7 @@
 
     %tbody
     -@intervals.select {|i| i.degree >= 8  }.each do |interval|
-      %tr{class: interval.semitones.even? ? "active" : ""}
+      %tr{class: interval.semitones.even? ? "table-active" : ""}
         %td
           %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
         -key = Key.from_index(interval.semitones, interval.letter_index)

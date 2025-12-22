@@ -4,31 +4,31 @@
       = link_to_unless_current @chord.title(true), key_chord_path(@key||Key['C'], @chord)
       %small.text-muted= @chord.main_symbol_name
 
-  .row
-    .col-xs-12.col-md-3
-      .card
+  .row.g-3
+    .col-12.col-md-3
+      .card.h-100
         .card-header
           Notation
         .card-body
           .staff.chord-staff{"data-id" => @chord.id, "data-staff" => @chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 223}
 
 
-    .col-xs-6.col-md-3
-      .card
+    .col-6.col-md-3
+      .card.h-100
         .card-header
           Symbole
         .card-body
           %h3=@chord.main_symbol_name
-    .col-xs-6.col-md-3
-      .card
+    .col-6.col-md-3
+      .card.h-100
         .card-header
           Notes
         .card-body
           %h3
             - @chord.keys.each do |key|
               = link_to key, note_path(key), title: key.name_for_seo
-    .col-xs-12.col-md-3
-      .card
+    .col-12.col-md-3
+      .card.h-100
         .card-header
           Intervalles
         .card-body

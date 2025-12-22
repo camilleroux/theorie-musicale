@@ -26,23 +26,23 @@
 
 
 %section#mode
-  .row
-    .col-xs-12.col-md-6
-      .card
+  .row.g-3
+    .col-12.col-md-6
+      .card.h-100
         .card-header
           Notation
         .card-body
           .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 313}
-    .col-xs-6.col-md-3
-      .card
+    .col-6.col-md-3
+      .card.h-100
         .card-header
           Notes
         .card-body
           %h3
             - @mode.keys.each do |key|
               = link_to key, note_path(key), title: key.name_for_seo
-    .col-xs-6.col-md-3
-      .card
+    .col-6.col-md-3
+      .card.h-100
         .card-header
           Intervalles
         .card-body
@@ -63,7 +63,7 @@
   - unless @mode.chord_scales.empty?
     %nav.related-chords.mt-3
       %h3 Accords associés :
-      .chords-list.card-deck
+      .chords-list.row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
         - @mode.chord_scales.each do |chord_scale|
           = render chord_scale.chord, :key => (@scale.key || Key.default).shifted(-1 * chord_scale.offset)
 

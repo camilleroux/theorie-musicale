@@ -14,7 +14,7 @@ gem 'rails', '~> 6.1.0'
 # gem 'pg'
 # gem 'mysql2' - moved to production group
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails', '>= 2.1.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -44,7 +44,7 @@ gem 'nio4r', '>= 2.5.0'
 gem 'msgpack', '>= 1.7.0'
 
 gem 'acts_as_tree'
-gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
+gem 'bootstrap', '~> 5.3.0'
 gem 'friendly_id'
 gem 'haml-rails'
 gem 'high_voltage', '~> 3.0.0'
@@ -56,7 +56,6 @@ gem 'roman-numerals'
 
 gem 'fog-aws'
 gem 'sitemap_generator'
-gem 'tether-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
