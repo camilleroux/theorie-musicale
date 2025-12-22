@@ -16,9 +16,6 @@ gem 'dartsass-rails'
 gem 'sassc-rails'
 gem 'coffee-rails'
 
-# Hotwire's SPA-like page accelerator
-gem 'turbo-rails'
-
 # Build JSON APIs with ease
 gem 'jbuilder'
 

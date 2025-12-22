@@ -366,9 +366,6 @@ GEM
     tilt (2.6.1)
     timeout (0.6.0)
     tsort (0.2.0)
-    turbo-rails (2.0.20)
-      actionpack (>= 7.1.0)
-      railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uri (1.1.1)
@@ -427,7 +424,6 @@ DEPENDENCIES
   sitemap_generator
   sprockets-rails
   sqlite3 (>= 2.1)
-  turbo-rails
   tzinfo-data
   web-console
 
