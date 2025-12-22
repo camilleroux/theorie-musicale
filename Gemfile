@@ -13,6 +13,7 @@ gem 'puma', '>= 5.0'
 # Asset pipeline (Sprockets for compatibility with legacy JS)
 gem 'sprockets-rails'
 gem 'dartsass-rails'
+gem 'coffee-rails'
 
 # Hotwire's SPA-like page accelerator
 gem 'turbo-rails'
