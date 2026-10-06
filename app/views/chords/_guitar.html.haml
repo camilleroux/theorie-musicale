@@ -1,0 +1,17 @@
+- voicings = GuitarVoicing.for(@chord)
+- if voicings.any?
+  %section#guitare.mt-5
+    %h3 #{@chord.title(true)} à la guitare
+    .row.g-3
+      - voicings.each.with_index(1) do |voicing, position|
+        .col-4.col-md-2
+          %figure.text-center.mb-0
+            = image_tag guitar_diagram_url(@chord, position), alt: guitar_diagram_alt(@chord, position, voicing), width: 136, height: 144, loading: (position == 1 ? 'eager' : 'lazy'), class: 'img-fluid'
+            %figcaption.small.text-muted
+              Position #{position}
+              %br
+              %code= voicing.tablature
+    %p.mt-3.text-muted
+      Vous débutez à la guitare ? Je raconte
+      = link_to "comment j'ai appris la guitare électrique en 6 mois", 'https://www.camilleroux.com/comment-jai-appris-la-guitare-electrique-en-6-mois/', title: "Apprendre la guitare électrique en 6 mois, par Camille Roux"
+      sur mon blog.

@@ -54,9 +54,21 @@
   .media.mb-4
     .media-body
       %h4
+        = link_to "Comment j'ai appris la guitare électrique en 6 mois", 'https://www.camilleroux.com/comment-jai-appris-la-guitare-electrique-en-6-mois/'
+      %p
+        Mon retour d'expérience sur l'apprentissage de la guitare électrique : méthode, outils, progression et erreurs à éviter.
+  .media.mb-4
+    .media-body
+      %h4
         =link_to 'http://www.guitare-improvisation.com/', rel:'nofollow noopener', target: "_blank" do
           Guitare::Improvisation
       %p
         Très bon site francophone pour apprendre à improviser à la guitare. Les explications sont toujours très claires, bien illustrées et accompagnées d'exemples.
         %br/
         Vous y trouverez également toute une série de vidéos pas très chères (5€ max) centrées sur un style ou un morceau en particulier.
+
+  %h3 Crédits
+  %p
+    Les diagrammes d'accords de guitare sont générés à partir des données de
+    = link_to 'chords-db', 'https://github.com/tombatossals/chords-db', rel: 'nofollow noopener', target: '_blank'
+    (licence MIT).

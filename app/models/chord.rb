@@ -57,12 +57,13 @@ class Chord < ApplicationRecord
   end
 
   # Leaves room for the " | Théorie musicale" suffix within meta-tags' 70 chars limit
-  SEO_TITLE_MAX_LENGTH = 50
+  SEO_TITLE_MAX_LENGTH = 51
 
   def seo_title
     if key
       base = "Accord #{search_symbol} (#{key.french_long_name} #{name.downcase})"
-      [" : notes et piano", " : notes", ""].map { |suffix| base + suffix }.find { |t| t.length <= SEO_TITLE_MAX_LENGTH } || base
+      suffixes = guitar? ? [" : notes, guitare et piano", " : guitare et piano", " : guitare", ""] : [" : notes et piano", " : notes", ""]
+      suffixes.map { |suffix| base + suffix }.find { |t| t.length <= SEO_TITLE_MAX_LENGTH } || base
     else
       base = "Accord #{name.downcase} (#{search_symbol})"
       [" : composition et intervalles", " : composition", ""].map { |suffix| base + suffix }.find { |t| t.length <= SEO_TITLE_MAX_LENGTH } || base
@@ -73,11 +74,15 @@ class Chord < ApplicationRecord
     intervals_sentence = intervals.map { |i| i.long_name.downcase }.to_sentence
     if key
       "Accord #{search_symbol} (#{key.french_long_name} #{name.downcase}) : notes #{keys.map(&:to_s).to_sentence} " \
-        "(#{keys.map(&:french_name).to_sentence}). Intervalles : #{intervals_sentence}. Position au piano, gammes et modes associés."
+        "(#{keys.map(&:french_name).to_sentence}). Intervalles : #{intervals_sentence}. #{guitar? ? 'Diagrammes guitare, position' : 'Position'} au piano, gammes et modes associés."
     else
       "L'accord #{name.downcase} (#{search_symbol}) est composé des intervalles suivants : #{intervals_sentence}. " \
-        "Symboles, position au piano et accord dans les 12 tonalités."
+        "Symboles, #{guitar? ? 'diagrammes guitare, ' : ''}position au piano et accord dans les 12 tonalités."
     end
+  end
+
+  def guitar?
+    GuitarVoicing.for(self).any?
   end
 
   def symbol_names

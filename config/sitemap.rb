@@ -51,10 +51,15 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
+  guitar_images = ->(chord, path_for) do
+    GuitarVoicing.for(chord).each_index.map { |i| { loc: SitemapGenerator::Sitemap.default_host + path_for.(i + 1) } }
+  end
+
   Chord.find_each do |chord|
-    add chord_path(chord), :priority => 0.75
-    Key.primaries.each do |key|
-      add key_chord_path(key,chord)
+    add chord_path(chord), :priority => 0.75, :images => guitar_images.(chord, ->(position) { guitar_chord_path(chord, position: position, format: :svg) })
+    # C pages are canonicalized to the key-less chord page
+    Key.primaries.reject(&:main?).each do |key|
+      add key_chord_path(key,chord), :images => guitar_images.(chord.in_key_of(key), ->(position) { guitar_key_chord_path(key, chord, position: position, format: :svg) })
     end
   end
 

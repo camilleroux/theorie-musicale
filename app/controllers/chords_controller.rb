@@ -15,6 +15,14 @@ class ChordsController < ApplicationController
     respond_with @chord
   end
 
+  def guitar
+    voicing = GuitarVoicing.for(@chord)[params[:position].to_i - 1]
+    raise ActionController::RoutingError, 'Not Found' unless voicing
+
+    expires_in 1.month, public: true
+    render plain: voicing.to_svg(title: helpers.guitar_diagram_alt(@chord, params[:position].to_i, voicing)), content_type: 'image/svg+xml'
+  end
+
 
   protected
 

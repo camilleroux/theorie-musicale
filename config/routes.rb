@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :keys, only: [:show], path: 'tonalite' do
     resources :chord_qualities, only: [:index, :show], path: 'qualite'
-    resources :chords, only: [:index, :show], path: 'accords'
+    resources :chords, only: [:index, :show], path: 'accords' do
+      get 'guitare-:position', action: :guitar, on: :member, as: :guitar, format: true, constraints: {position: /[1-3]/, format: 'svg'}
+    end
 
     resources :intervals, only: [:show], path: 'intervalles'
 
@@ -20,7 +22,9 @@ Rails.application.routes.draw do
     resources :modes, only: [:index, :show]
   end
 
-  resources :chords, only: [:index, :show], path: 'accords'
+  resources :chords, only: [:index, :show], path: 'accords' do
+    get 'guitare-:position', action: :guitar, on: :member, as: :guitar, format: true, constraints: {position: /[1-3]/, format: 'svg'}
+  end
 
   resources :intervals, only: [:index, :show], path: 'intervalles'
 

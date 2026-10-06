@@ -19,6 +19,8 @@
 %article#chord
   = render "chords/header"
 
+= render "chords/guitar"
+
 %section#piano.mt-3
   %h3 #{@chord.title(true)} au piano
   =render "layouts/piano", keys: @chord.keys
