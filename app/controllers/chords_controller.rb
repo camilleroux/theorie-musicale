@@ -23,6 +23,11 @@ class ChordsController < ApplicationController
     render plain: voicing.to_svg(title: helpers.guitar_diagram_alt(@chord, params[:position].to_i, voicing)), content_type: 'image/svg+xml'
   end
 
+  def piano
+    expires_in 1.month, public: true
+    render plain: PianoDiagram.new(@chord.keys).to_svg(title: helpers.piano_diagram_alt(@chord)), content_type: 'image/svg+xml'
+  end
+
 
   protected
 

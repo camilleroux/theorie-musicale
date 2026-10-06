@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Deploys HEAD to GitHub and Heroku, refreshes the sitemap and purges the Cloudflare cache.
+# Needs CLOUDFLARE_API_TOKEN (Zone > Cache Purge permission) and CLOUDFLARE_ZONE_ID in the Heroku config.
+set -euo pipefail
+
+APP=theoriemusicale
+HOST=theoriemusicale.camilleroux.com
+
+git push origin HEAD:master
+git push https://git.heroku.com/$APP.git HEAD:master
+heroku run --no-tty -a $APP rake sitemap:refresh:no_ping
+
+token=$(heroku config:get CLOUDFLARE_API_TOKEN -a $APP)
+zone=$(heroku config:get CLOUDFLARE_ZONE_ID -a $APP)
+if [ -z "$token" ] || [ -z "$zone" ]; then
+  echo "CLOUDFLARE_API_TOKEN or CLOUDFLARE_ZONE_ID missing: purge the Cloudflare cache manually" >&2
+  exit 1
+fi
+
+purge() {
+  curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$zone/purge_cache" \
+    -H "Authorization: Bearer $token" -H "Content-Type: application/json" --data "$1"
+}
+
+result=$(purge "{\"hosts\":[\"$HOST\"]}")
+if ! grep -q '"success":[[:space:]]*true' <<< "$result"; then
+  echo "Purge by host failed ($result), purging the whole zone" >&2
+  result=$(purge '{"purge_everything":true}')
+fi
+grep -q '"success":[[:space:]]*true' <<< "$result" && echo "Cloudflare cache purged" || { echo "Cloudflare purge failed: $result" >&2; exit 1; }

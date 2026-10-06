@@ -21,9 +21,9 @@
 
 = render "chords/guitar"
 
-%section#piano.mt-3
+%section#piano.mt-5
   %h3 #{@chord.title(true)} au piano
-  =render "layouts/piano", keys: @chord.keys
+  = image_tag piano_diagram_url(@chord), alt: piano_diagram_alt(@chord), width: 338, height: 112, loading: 'lazy', class: 'img-fluid d-block mx-auto', style: 'width: 720px'
 
 -if @chord.chord_scales.size > 1
   %nav.related-modes.mt-3

@@ -15,6 +15,14 @@ $ bin/rails server
 $ open http://localhost:3000
 ```
 
+### Déploiement
+
+```
+$ bin/deploy
+```
+
+Pousse sur GitHub et Heroku, régénère le sitemap et vide le cache Cloudflare. Nécessite `CLOUDFLARE_API_TOKEN` (permission *Zone > Cache Purge*) et `CLOUDFLARE_ZONE_ID` dans la config Heroku.
+
 ### TODO
 - [ ] Tests
 - [ ] Complete chords list
