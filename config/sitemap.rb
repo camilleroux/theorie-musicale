@@ -37,10 +37,10 @@ SitemapGenerator::Sitemap.create do
   #     add article_path(article), :lastmod => article.updated_at
   #   end
   HighVoltage.page_ids.each do |page|
-    add page, changefreq: 'monthly', :priority => 0.7
+    add page_path(page), changefreq: 'monthly', :priority => 0.7
   end
 
-  Key.all.uniq{ |key| key.name }.each do |key|
+  Key.all.uniq{ |key| key.name }.reject(&:double_altered?).each do |key|
     add note_path(key), :priority => 0.75
   end
 

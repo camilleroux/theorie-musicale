@@ -2,6 +2,8 @@
   %meta{charset:"utf-8"}
   %meta{'http-equiv' => "X-UA-Compatible", content:"IE=edge"}
   %meta{name:"viewport",content:"width=device-width, initial-scale=1, shrink-to-fit=no"}
+  -# Double-sharp/flat keys have no search demand and duplicate their enharmonic pages
+  - set_meta_tags noindex: true if @key&.double_altered?
   = display_meta_tags :site => 'Théorie musicale',
                       :description => 'Théorie de la musique (accords, gammes, modes...) pour le jazz et les musiques improvisées',
                       :keywords => 'gamme, accord, mode, intervalle, majeur, mineur, jazz, improvisation, théorie',
@@ -27,7 +29,6 @@
   = javascript_include_tag 'application'
   = csrf_meta_tags
 
-  = render partial: "layouts/ga", locals: {google_account_id: 'UA-67702685-1'}
 
 :plain
   <script type="application/ld+json">

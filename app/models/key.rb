@@ -164,6 +164,10 @@ class Key
     !name[1..-1].blank?
   end
 
+  def double_altered?
+    name.include?('♯♯') || name.include?('♭♭')
+  end
+
   def self.primaries
     all_without_doubles.select(&:primary)
   end

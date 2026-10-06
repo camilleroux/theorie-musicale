@@ -15,12 +15,6 @@ class ChordsController < ApplicationController
     respond_with @chord
   end
 
-  def staff
-    respond_with @chord do |format|
-      format.html { render :layout => "staff" }
-    end
-  end
-
 
   protected
 

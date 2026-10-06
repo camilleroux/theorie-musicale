@@ -1,4 +1,5 @@
--description "L'accord #{@chord.title} (#{@chord.main_symbol_name}) est composé des intervalles suivants : #{@chord.tones.from(1).map(&:to_interval).map(&:long_name).to_sentence}"
+-title @chord.seo_title
+-description @chord.seo_description
 -set_meta_tags canonical: url_for([@chord.key, @chord, {only_path: false}])
 
 %ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
@@ -12,7 +13,7 @@
     %meta{itemprop: "position", content: "2"}
   %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
     %a{itemprop: "item", href: url_for([@chord.key, @chord]), title: @chord.title, class: "disable"}
-      %span{itemprop: "name"}>= title @chord.title(true)
+      %span{itemprop: "name"}>= @chord.title(true)
     %meta{itemprop: "position", content: "3"}
 
 %article#chord

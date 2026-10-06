@@ -15,12 +15,6 @@ class ModesController < ApplicationController
     respond_with @scale, @mode
   end
 
-  def staff
-    respond_with @scale do |format|
-      format.html { render :template => "scales/staff", :layout => "staff" }
-    end
-  end
-
 
   protected
 
