@@ -14,7 +14,7 @@ heroku run --no-tty -a $APP rake sitemap:refresh:no_ping
 token=$(heroku config:get CLOUDFLARE_API_TOKEN -a $APP)
 zone=$(heroku config:get CLOUDFLARE_ZONE_ID -a $APP)
 if [ -z "$token" ] || [ -z "$zone" ]; then
-  echo "No Cloudflare credentials: pages will refresh within the hour (Cloudflare-CDN-Cache-Control)"
+  echo "No Cloudflare credentials: pages will refresh within the hour (s-maxage)"
   exit 0
 fi
 

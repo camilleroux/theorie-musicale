@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def set_cache_headers
     return unless (request.get? || request.head?) && response.media_type == 'text/html' && response.successful?
 
-    expires_in 0, public: true, must_revalidate: true
-    response.headers['Cloudflare-CDN-Cache-Control'] = 'max-age=3600'
+    # s-maxage only applies to shared caches (Cloudflare), browsers use max-age
+    expires_in 0, public: true, must_revalidate: true, 's-maxage': 1.hour.to_i
   end
 end
