@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Deploys HEAD to GitHub and Heroku, refreshes the sitemap and purges the Cloudflare cache.
-# Needs CLOUDFLARE_API_TOKEN (Zone > Cache Purge permission) and CLOUDFLARE_ZONE_ID in the Heroku config.
+# Purges Cloudflare immediately if CLOUDFLARE_API_TOKEN (Zone > Cache Purge) and CLOUDFLARE_ZONE_ID are in the Heroku
+# config; otherwise pages refresh within the hour.
 set -euo pipefail
 
 APP=theoriemusicale
@@ -13,8 +14,8 @@ heroku run --no-tty -a $APP rake sitemap:refresh:no_ping
 token=$(heroku config:get CLOUDFLARE_API_TOKEN -a $APP)
 zone=$(heroku config:get CLOUDFLARE_ZONE_ID -a $APP)
 if [ -z "$token" ] || [ -z "$zone" ]; then
-  echo "CLOUDFLARE_API_TOKEN or CLOUDFLARE_ZONE_ID missing: purge the Cloudflare cache manually" >&2
-  exit 1
+  echo "No Cloudflare credentials: pages will refresh within the hour (Cloudflare-CDN-Cache-Control)"
+  exit 0
 fi
 
 purge() {

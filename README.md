@@ -21,7 +21,7 @@ $ open http://localhost:3000
 $ bin/deploy
 ```
 
-Pousse sur GitHub et Heroku, régénère le sitemap et vide le cache Cloudflare. Nécessite `CLOUDFLARE_API_TOKEN` (permission *Zone > Cache Purge*) et `CLOUDFLARE_ZONE_ID` dans la config Heroku.
+Pousse sur GitHub et Heroku et régénère le sitemap. Cloudflare garde les pages 1 h (`Cloudflare-CDN-Cache-Control`) : un déploiement est visible partout dans l'heure. Pour vider le cache immédiatement, ajouter `CLOUDFLARE_API_TOKEN` (permission *Zone > Cache Purge*) et `CLOUDFLARE_ZONE_ID` dans la config Heroku.
 
 ### TODO
 - [ ] Tests
