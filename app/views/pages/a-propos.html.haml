@@ -1,12 +1,16 @@
 -set_meta_tags canonical: page_url('a-propos')
 
+-title 'À propos'
+-description "Théorie musicale rassemble les accords, gammes, modes, intervalles et progressions utiles au jazz et à l'improvisation, avec leurs positions à la guitare et au piano."
+
 .page-header
-  %h1
-    = title "A propos"
+  %h1 À propos
 
 %p.lead
-  = description "Ce site a pour but d'être une compilation de données utiles sur la théorie musicale pour le Jazz et les musiques improvisées en général."
-  %br
+  Ce site rassemble la théorie musicale utile au jazz et aux musiques improvisées : 28 accords, les gammes et leurs modes, les intervalles et les progressions d'accords les plus courantes, dans les 12 tonalités.
+%p
+  Pour chaque accord, vous trouverez ses notes, ses intervalles, ses symboles, sa position à la guitare et au piano, et les gammes qui vont avec. Une recherche comprend les symboles (Am7, Bbmaj7) comme les noms en français (la mineur 7, ré dorien).
+%p
   Pour toute remarque, faites-moi signe sur #{link_to 'X', 'https://twitter.com/CamilleRoux', target: '_blank', rel: 'noopener nofollow'} ou #{link_to 'Bluesky', 'https://bsky.app/profile/camilleroux.com', target: '_blank', rel: 'noopener me'}
 
 %h2 Qui suis-je ?
@@ -35,56 +39,71 @@
     %thead
       %tr
         %th Date
-        %th Modications
+        %th Modifications
     %tbody
       %tr
-        %td= l Date.new(2025, 12, 21)
+        %td.text-nowrap= l Date.new(2026, 10, 7)
+        %td Nouveau design : meilleur contraste, typographie plus lisible, partitions plus nettes, page d'accord réorganisée
+      %tr
+        %td.text-nowrap= l Date.new(2026, 10, 7)
+        %td Ajout d'une #{link_to 'recherche', search_path} qui comprend les symboles d'accords et les noms en français
+      %tr
+        %td.text-nowrap= l Date.new(2026, 10, 7)
+        %td Ajout de 10 accords : sus2, sus4, add9, maj9, 6/9, m9, 9, 7♭9, 7♯9 et 13
+      %tr
+        %td.text-nowrap= l Date.new(2026, 10, 7)
+        %td Ajout des #{link_to 'progressions d\'accords', progressions_path} : II-V-I majeur et mineur, anatole, grille de blues, I-V-VI-IV
+      %tr
+        %td.text-nowrap= l Date.new(2026, 10, 7)
+        %td Ajout des diagrammes d'accords à la guitare (3 positions par accord) et du clavier de piano en image
+      %tr
+        %td.text-nowrap= l Date.new(2025, 12, 21)
         %td Mise à jour technique du site
       %tr
-      %td= l Date.new(2021, 3, 21)
-      %td Mise à jour de la page A propos
-    %tr
-      %td= l Date.new(2018, 3, 13)
-      %td Publication du code source sur #{link_to 'Github', 'https://github.com/camilleroux/theorie-musicale', rel: 'nofollow noopener'}
-    %tr
-      %td= l Date.new(2018, 3, 13)
-      %td Passage du site en HTTPS
-    %tr
-      %td= l Date.new(2017, 6, 28)
-      %td Amélioration du design
-    %tr
-      %td= l Date.new(2017, 3, 14)
-      %td Correction de quelques bugs graphiques
-    %tr
-      %td= l Date.new(2015, 9, 28)
-      %td Ajout de la visualisation sous forme de clavier piano pour les notes, les intervalles, les accords et les modes
-    %tr
-      %td= l Date.new(2015, 9, 23)
-      %td Ajout de l'équivalent en notation française chaque fois qu'une note apparaît dans un titre
-    %tr
-      %td= l Date.new(2015, 9, 22)
-      %td Correction d'un bug pour l'affichage des intervalles sous forme de partition
-    %tr
-      %td= l Date.new(2015, 9, 18)
-      %td Ajout de l'harmonisation des modes • Ajout des extentions dans les harmonisations
-    %tr
-      %td= l Date.new(2015, 9, 17)
-      %td Ajout d'une page #{link_to 'Ressources', page_path('ressources')} contenant une liste de livres/liens sur le thème de la théorie musicale
-    %tr
-      %td= l Date.new(2015, 9, 15)
-      %td Ajout d'une page #{link_to 'A propos', page_path('a-propos')}
-    %tr
-      %td= l Date.new(2015, 9, 13)
-      %td Affichage du degré dans la liste des modes d'une gamme
-    %tr
-      %td= l Date.new(2015, 9, 8)
-      %td Adaption du design à des supports mobiles (responsive design)
-    %tr
-      %td= l Date.new(2015, 9, 6)
-      %td Ajout de la liste des #{link_to 'intervalles', intervals_path}
-    %tr
-      %td= l Date.new(2015, 9, 2)
-      %td Ajout de la liste des #{link_to 'notes', notes_path}
-    %tr
-      %td= l Date.new(2015, 8, 31)
-      %td Version initiale utilisant une partie du code de #{link_to 'Jazzity', 'https://github.com/rubiety/jazzity', target: '_blank', rel: 'nofollow noopener'}
+        %td.text-nowrap= l Date.new(2021, 3, 21)
+        %td Mise à jour de la page À propos
+      %tr
+        %td.text-nowrap= l Date.new(2018, 3, 13)
+        %td Publication du code source sur #{link_to 'GitHub', 'https://github.com/camilleroux/theorie-musicale', rel: 'nofollow noopener'}
+      %tr
+        %td.text-nowrap= l Date.new(2018, 3, 13)
+        %td Passage du site en HTTPS
+      %tr
+        %td.text-nowrap= l Date.new(2017, 6, 28)
+        %td Amélioration du design
+      %tr
+        %td.text-nowrap= l Date.new(2017, 3, 14)
+        %td Correction de quelques bugs graphiques
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 28)
+        %td Ajout de la visualisation sous forme de clavier de piano pour les notes, les intervalles, les accords et les modes
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 23)
+        %td Ajout de l'équivalent en notation française chaque fois qu'une note apparaît dans un titre
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 22)
+        %td Correction d'un bug pour l'affichage des intervalles sous forme de partition
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 18)
+        %td Ajout de l'harmonisation des modes • Ajout des extensions dans les harmonisations
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 17)
+        %td Ajout d'une page #{link_to 'Ressources', page_path('ressources')} contenant une liste de livres et de liens sur la théorie musicale
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 15)
+        %td Ajout d'une page À propos
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 13)
+        %td Affichage du degré dans la liste des modes d'une gamme
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 8)
+        %td Adaptation du design aux mobiles (responsive design)
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 6)
+        %td Ajout de la liste des #{link_to 'intervalles', intervals_path}
+      %tr
+        %td.text-nowrap= l Date.new(2015, 9, 2)
+        %td Ajout de la liste des #{link_to 'notes', notes_path}
+      %tr
+        %td.text-nowrap= l Date.new(2015, 8, 31)
+        %td Version initiale utilisant une partie du code de #{link_to 'Jazzity', 'https://github.com/rubiety/jazzity', target: '_blank', rel: 'nofollow noopener'}
