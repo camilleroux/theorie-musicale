@@ -14,5 +14,7 @@ class ApplicationController < ActionController::Base
 
     # s-maxage only applies to shared caches (Cloudflare), browsers use max-age
     expires_in 0, public: true, must_revalidate: true, 's-maxage': 1.hour.to_i
+    # No session cookie: Cloudflare never caches responses setting one (the site has no forms)
+    request.session_options[:skip] = true
   end
 end
