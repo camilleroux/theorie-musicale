@@ -28,25 +28,4 @@
 
   = javascript_include_tag 'application'
   = csrf_meta_tags
-
-
-:plain
-  <script type="application/ld+json">
-  {
-    "@context" : "https://schema.org",
-    "@type" : "WebSite",
-    "name" : "Théorie Musicale",
-    "url" : "#{root_url}",
-    "author" : {
-      "@type" : "Person",
-      "name" : "Camille Roux",
-      "url" : "https://www.camilleroux.com/",
-      "sameAs" : [
-        "https://music.camilleroux.com/",
-        "https://art.camilleroux.com/",
-        "https://twitter.com/CamilleRoux",
-        "https://bsky.app/profile/camilleroux.com"
-      ]
-    }
-  }
-  </script>
+  %script{type: 'application/ld+json'}= structured_data.to_json.html_safe

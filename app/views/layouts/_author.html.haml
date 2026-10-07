@@ -1,0 +1,16 @@
+%aside.author.card.border-0.shadow-sm.mt-5
+  .card-body.d-flex.align-items-center.gap-4.p-4
+    = image_tag ApplicationHelper::AUTHOR_PHOTO_URL, alt: 'Camille Roux', width: 96, height: 96, loading: 'lazy', class: 'rounded-circle flex-shrink-0'
+    %div
+      %p.h5.mb-2
+        Par
+        = link_to 'Camille Roux', 'https://www.camilleroux.com/', rel: 'author', title: 'Site personnel de Camille Roux'
+      %p.mb-2
+        Entrepreneur, développeur et musicien amateur. J'ai créé ce site en 2015 pour rassembler la théorie musicale utile au jazz et à l'improvisation.
+      %p.small.mb-0
+        = link_to "Comment j'ai appris la guitare électrique en 6 mois", 'https://www.camilleroux.com/comment-jai-appris-la-guitare-electrique-en-6-mois/'
+        \•
+        = link_to 'Écouter ma musique', 'https://music.camilleroux.com/', rel: 'noopener'
+        - unless current_page?(page_path('a-propos'))
+          \•
+          = link_to 'À propos de ce site', page_path('a-propos')
