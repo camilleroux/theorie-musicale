@@ -7,13 +7,8 @@
   modes
   scales
 ).each do |table|
-  if Rails.env.production?
-    # PostgreSQL supports TRUNCATE with CASCADE
-    ActiveRecord::Base.connection.execute "TRUNCATE TABLE #{table} CASCADE"
-  else
-    # SQLite (dev/test) doesn't support TRUNCATE
-    ActiveRecord::Base.connection.execute "DELETE FROM #{table}"
-  end
+  # No foreign keys: DELETE works on SQLite (dev/test) and MySQL (production)
+  ActiveRecord::Base.connection.execute "DELETE FROM #{table}"
 end
 
 %w(
