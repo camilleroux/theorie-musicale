@@ -53,6 +53,34 @@ ChordQuality.create!(:name => 'Majeur', :code => 'MAJ').tap do |q|
     c.chord_scales << ChordScale.new(:mode => Scale['Pentatonique'].modes.find_by(mode:1), :offset => 0)
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :strength => 2, :offset => 0)
   end
+
+  q.chords.create!(:name => 'Add 9', :specify_tones => "1 3 5 9").tap do |c|
+    c.symbols.create!(:name => 'add9', :primary => true)
+    c.symbols.create!(:name => 'add2')
+    c.symbols.create!(:name => '(9)')
+
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :offset => 0)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:4), :offset => -5)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:5), :offset => 5)
+  end
+
+  q.chords.create!(:name => 'Majeur 9', :specify_tones => "1 3 5 7 9").tap do |c|
+    c.symbols.create!(:name => 'Δ9', :primary => true)
+    c.symbols.create!(:name => 'maj9')
+    c.symbols.create!(:name => 'M9', :case_sensitive => true)
+
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :offset => 0)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:4), :offset => -5)
+  end
+
+  q.chords.create!(:name => 'Majeur 6/9', :specify_tones => "1 3 5 6 9").tap do |c|
+    c.symbols.create!(:name => '6/9', :primary => true)
+    c.symbols.create!(:name => '69')
+    c.symbols.create!(:name => 'M6/9', :case_sensitive => true)
+
+    c.chord_scales << ChordScale.new(:mode => Scale['Pentatonique'].modes.find_by(mode:1), :offset => 0)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :offset => 0)
+  end
 end
 
 
@@ -75,6 +103,15 @@ ChordQuality.create!(:name => 'Mineur', :code => 'MIN').tap do |q|
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:2), :offset => -2)
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:6), :strength => 2, :offset => 3)
     c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:3), :offset => -4)
+  end
+
+  q.chords.create!(:name => 'Mineur 9', :specify_tones => "1 3m 5 7m 9").tap do |c|
+    c.symbols.create!(:name => 'm9', :case_sensitive => true, :primary => true)
+    c.symbols.create!(:name => 'min9')
+    c.symbols.create!(:name => '-9')
+
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:2), :offset => -2)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:6), :strength => 2, :offset => 3)
   end
 
   q.chords.create!(:name => 'Mineur 6', :specify_tones => "1 3m 5 6").tap do |c|
@@ -150,6 +187,42 @@ ChordQuality.create!(:name => 'Septième de dominante', :code => 'DOM').tap do |
 
       #TODO:
       #cc.chord_scales << ChordScale.new(:mode => Scale['Major'].modes.find_by(mode:5), :offset => 5)
+    end
+
+    c.children.create!(:chord_quality => q, :name => 'Neuvième', :specify_tones => "1 3 5 7m 9").tap do |cc|
+      cc.symbols.create!(:name => '9', :primary => true)
+      cc.symbols.create!(:name => 'dom9')
+      cc.symbols.create!(:name => '7(9)')
+
+      cc.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:5), :offset => 5)
+      cc.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:4), :offset => 7)
+    end
+
+    c.children.create!(:chord_quality => q, :name => '7 ♭9', :specify_tones => "1 3 5 7m 9m").tap do |cc|
+      cc.symbols.create!(:name => '7♭9', :primary => true)
+      cc.symbols.create!(:name => '7b9')
+      cc.symbols.create!(:name => '7(♭9)')
+
+      cc.chord_scales << ChordScale.new(:mode => Scale['Diminuée'].modes.find_by(mode:1), :offset => 0)
+      cc.chord_scales << ChordScale.new(:mode => Scale['Mineure harmonique'].modes.find_by(mode:5), :offset => 5)
+    end
+
+    c.children.create!(:chord_quality => q, :name => '7 ♯9', :specify_tones => "1 3 5 7m 9aug").tap do |cc|
+      cc.symbols.create!(:name => '7♯9', :primary => true)
+      cc.symbols.create!(:name => '7#9')
+      cc.symbols.create!(:name => '7(♯9)')
+
+      cc.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:7), :offset => 1)
+      cc.chord_scales << ChordScale.new(:mode => Scale['Diminuée'].modes.find_by(mode:1), :strength => 2, :offset => 0)
+    end
+
+    c.children.create!(:chord_quality => q, :name => 'Treizième', :specify_tones => "1 3 5 7m 9 13").tap do |cc|
+      cc.symbols.create!(:name => '13', :primary => true)
+      cc.symbols.create!(:name => '7(13)')
+      cc.symbols.create!(:name => 'dom13')
+
+      cc.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:5), :offset => 5)
+      cc.chord_scales << ChordScale.new(:mode => Scale['Mineure mélodique'].modes.find_by(mode:4), :offset => 7)
     end
 
     # c.children.create!(:chord_quality => q, :name => 'Dominant 9', :specify_tones => "u 3 5 ♭7 2").tap do |cc|
@@ -266,5 +339,26 @@ ChordQuality.create!(:name => 'Augmenté', :code => 'DIM').tap do |q|
     #TODO :
     #c.chord_scales << ChordScale.new(:mode => Scale['Major'].modes.find_by(mode:7), :offset => 1)
     #c.chord_scales << ChordScale.new(:mode => Scale['Melodic Minor'].modes.find_by(mode:6), :offset => 1)
+  end
+end
+
+ChordQuality.create!(:name => 'Suspendu', :code => 'SUS').tap do |q|
+  q.chords.create!(:name => 'Sus 2', :specify_tones => "1 2 5").tap do |c|
+    c.symbols.create!(:name => 'sus2', :primary => true)
+    c.symbols.create!(:name => 'sus 2')
+
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :offset => 0)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:2), :offset => -2)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:5), :offset => 5)
+  end
+
+  q.chords.create!(:name => 'Sus 4', :specify_tones => "1 4 5").tap do |c|
+    c.symbols.create!(:name => 'sus4', :primary => true)
+    c.symbols.create!(:name => 'sus')
+    c.symbols.create!(:name => 'sus 4')
+
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:5), :offset => 5)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:1), :offset => 0)
+    c.chord_scales << ChordScale.new(:mode => Scale['Majeure'].modes.find_by(mode:2), :offset => -2)
   end
 end

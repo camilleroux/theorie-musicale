@@ -49,4 +49,14 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.headers['Cache-Control'], 's-maxage=3600'
     assert_nil response.headers['Set-Cookie']
   end
+
+  test 'should show extended and suspended chords with guitar diagrams' do
+    get '/tonalite/g/accords/neuvieme'
+    assert_select 'title', 'Accord G9 (sol neuvième) : notes, guitare et piano | Théorie musicale'
+    assert_select 'img[src$=?]', '/tonalite/g/accords/neuvieme/guitare-1.svg'
+
+    get '/tonalite/a/accords/sus-2'
+    assert_response :success
+    assert_select 'meta[name=description][content^=?]', 'Accord Asus2 (la sus 2) : notes A, B et E'
+  end
 end

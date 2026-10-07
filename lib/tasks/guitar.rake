@@ -27,11 +27,13 @@ namespace :guitar do
     puts "#{data.size} chords, #{data.values.sum { |keys| keys.values.sum(&:size) }} voicings"
   end
 
-  # Only notes of the chord, all of them except a perfect fifth that may be omitted in 4+ notes chords
+  # Only notes of the chord, all of them except the usual omissions: a perfect fifth in 4+ notes chords,
+  # and the ninth in 13th chords
   def plays_chord?(position, pitches)
     played = position['midi'].map { |m| m % 12 }.uniq
     required = pitches
     required -= [pitches[2]] if pitches.size >= 4 && (pitches[2] - pitches[0]) % 12 == 7
+    required -= [pitches[4]] if pitches.size >= 6
     (played - pitches).empty? && (required - played).empty?
   end
 end

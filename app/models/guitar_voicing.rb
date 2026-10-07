@@ -8,7 +8,10 @@ class GuitarVoicing
     'mineur' => 'minor', 'mineur-7' => 'm7', 'mineur-6' => 'm6', 'mineur-septieme-majeure' => 'mmaj7',
     'septieme-de-dominante' => '7', '7-diese5' => 'aug7', '7-bemol5' => '7b5', '7-sus-4' => '7sus4',
     'triade-diminuee' => 'dim', 'demi-diminue' => 'm7b5', 'septieme-diminuee' => 'dim7',
-    'triade-augmentee' => 'aug', 'augmente-septieme-majeure' => 'maj7#5'
+    'triade-augmentee' => 'aug', 'augmente-septieme-majeure' => 'maj7#5',
+    'add-9' => 'add9', 'majeur-9' => 'maj9', 'majeur-6-9' => '69', 'mineur-9' => 'm9',
+    'neuvieme' => '9', '7-bemol9' => '7b9', '7-diese9' => '7#9', 'treizieme' => '13',
+    'sus-2' => 'sus2', 'sus-4' => 'sus4'
   }
 
   STRINGS = 6
