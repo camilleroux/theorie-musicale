@@ -28,5 +28,5 @@ Pousse sur GitHub et Heroku et régénère le sitemap. Cloudflare garde les page
 - [ ] Complete chords list
 - [ ] Complete modes list
 - [ ] Complete scales list
-- [ ] Add chord progressions
+- [x] Add chord progressions
 - [ ] I18n

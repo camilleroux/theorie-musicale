@@ -164,6 +164,18 @@ class Key
     !name[1..-1].blank?
   end
 
+  # Titles follow searches: "note c", "note g en français"
+  def seo_title
+    SeoTitle.fit("Note #{name.tr('♯♭', '#b')} (#{french_long_name} en français)", [" : portée et piano", " : piano"])
+  end
+
+  def seo_description
+    enharmonics = Key.all.uniq(&:name).select { |k| k.index == index && k.name != name }.map(&:to_s)
+    "La note #{name} correspond au #{french_long_name} en notation française." +
+      (enharmonics.any? ? " Enharmonies : #{enharmonics.to_sentence}." : '') +
+      " Position sur la portée et au piano."
+  end
+
   def double_altered?
     name.include?('♯♯') || name.include?('♭♭')
   end

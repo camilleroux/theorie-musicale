@@ -1,0 +1,25 @@
+-title SeoTitle.fit("Progressions d'accords", [" : II-V-I, anatole, blues…", " : II-V-I, blues…"])
+-description "Les progressions d'accords les plus utilisées en jazz et en pop (II-V-I majeur et mineur, anatole, grille de blues, I-V-VI-IV) dans les 12 tonalités."
+-set_meta_tags canonical: progressions_url
+
+%ol.breadcrumb
+  %li.breadcrumb-item= link_to 'Théorie musicale', root_path
+  %li.breadcrumb-item.active Progressions
+
+.page-header
+  %h1 Progressions d'accords
+%p.lead
+  Les enchaînements d'accords les plus courants en jazz et en pop, expliqués et transposés dans les 12 tonalités.
+
+.row.g-4.mt-2
+  - @progressions.each do |progression|
+    - c_major = Key.default
+    .col-12.col-md-6
+      .card.h-100.shadow-sm.border-0
+        .card-body.p-4
+          %h2.h4= link_to progression.name, progression_path(progression), class: 'stretched-link text-decoration-none'
+          %p.text-muted.mb-2= progression.roman_numerals
+          %p.mb-2
+            %strong En do :
+            = progression.chords_in(c_major).map(&:display_symbol).join(' – ')
+          %p.mb-0= progression.summary

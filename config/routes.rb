@@ -12,7 +12,9 @@ Rails.application.routes.draw do
       get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
     end
 
-    resources :intervals, only: [:show], path: 'intervalles'
+    resources :intervals, only: [:show], path: 'intervalles' do
+      get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
+    end
 
     resources :scales, only: [:index, :show], path: 'gammes' do
       resources :modes, only: [:index, :show], path: 'modes' do
@@ -32,7 +34,13 @@ Rails.application.routes.draw do
     get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
   end
 
-  resources :intervals, only: [:index, :show], path: 'intervalles'
+  resources :intervals, only: [:index, :show], path: 'intervalles' do
+    get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
+  end
 
-  resources :notes, only: [:index, :show]
+  resources :progressions, only: [:index, :show]
+
+  resources :notes, only: [:index, :show] do
+    get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
+  end
 end

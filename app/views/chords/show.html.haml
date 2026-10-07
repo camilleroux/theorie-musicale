@@ -23,7 +23,7 @@
 
 %section#piano.mt-5
   %h3 #{@chord.title(true)} au piano
-  = image_tag piano_diagram_url(@chord), alt: piano_diagram_alt(@chord), width: 338, height: 112, loading: 'lazy', class: 'img-fluid d-block mx-auto', style: 'width: 720px'
+  = piano_image_tag(@chord)
 
 -if @chord.chord_scales.size > 1
   %nav.related-modes.mt-3

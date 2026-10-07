@@ -1,6 +1,6 @@
-# Two-octave keyboard (from C of the first key's octave) with the given keys highlighted, as SVG
+# Keyboard of at least two octaves (from C of the first key's octave) with the given keys highlighted, as SVG
 class PianoDiagram
-  OCTAVES = 2
+  MIN_OCTAVES = 2
   WHITE_WIDTH, WHITE_HEIGHT = 24, 110
   BLACK_WIDTH, BLACK_HEIGHT = 14, 68
   LINE_COLOR, HIGHLIGHT_COLOR = '#34495e', '#1f8dd6'
@@ -11,17 +11,24 @@ class PianoDiagram
   def initialize(keys)
     @keys = keys
     @first_octave = keys.first&.octave || 4
+    @octaves = [MIN_OCTAVES, (keys.map(&:octave).max || @first_octave) - @first_octave + 1].max
+  end
+
+  def width
+    WHITE_WIDTH * WHITE_OFFSETS.size * @octaves + 2
+  end
+
+  def height
+    WHITE_HEIGHT + 2
   end
 
   def to_svg(title:)
-    width = WHITE_WIDTH * WHITE_OFFSETS.size * OCTAVES + 2
-    height = WHITE_HEIGHT + 2
     svg = []
     svg << %(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{width} #{height}" width="#{width * 2}" height="#{height * 2}" font-family="Lato, Helvetica, Arial, sans-serif">)
     svg << %(<title>#{ERB::Util.h(title)}</title>)
     svg << %(<rect width="#{width}" height="#{height}" fill="#fff"/>)
 
-    OCTAVES.times do |octave|
+    @octaves.times do |octave|
       WHITE_OFFSETS.each_with_index do |offset, i|
         x = 1 + (octave * WHITE_OFFSETS.size + i) * WHITE_WIDTH
         key = highlighted_key(octave, offset)
@@ -30,7 +37,7 @@ class PianoDiagram
       end
     end
 
-    OCTAVES.times do |octave|
+    @octaves.times do |octave|
       BLACK_OFFSETS.each do |offset, white_index|
         x = 1 + (octave * WHITE_OFFSETS.size + white_index + 1) * WHITE_WIDTH - BLACK_WIDTH / 2.0
         key = highlighted_key(octave, offset)

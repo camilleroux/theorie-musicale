@@ -30,4 +30,15 @@ class IntervalsControllerTest < ActionDispatch::IntegrationTest
     get '/intervalles/foo'
     assert_response :not_found
   end
+
+  test 'should use searched names in titles' do
+    get "/intervalles/#{Interval.new(5, :J).to_param}"
+    assert_select 'title', 'Quinte juste : 3,5 tons, renversement et piano | Théorie musicale'
+  end
+
+  test 'should render piano diagram' do
+    get "/intervalles/#{Interval.new(5, :J).to_param}/piano.svg"
+    assert_response :success
+    assert_equal 'image/svg+xml', response.media_type
+  end
 end

@@ -51,7 +51,7 @@
 
 %section#piano.mt-3
   %h3 Mode #{@mode.title} au piano
-  = image_tag piano_diagram_url(@mode), alt: piano_diagram_alt(@mode), width: 338, height: 112, loading: 'lazy', class: 'img-fluid d-block mx-auto', style: 'width: 720px'
+  = piano_image_tag(@mode)
 
   -if @scale.heptatonic?
     %nav#harmonization.mt-3

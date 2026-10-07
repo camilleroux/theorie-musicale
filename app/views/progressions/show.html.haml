@@ -1,0 +1,57 @@
+-title @progression.seo_title
+-description @progression.seo_description
+-set_meta_tags canonical: progression_url(@progression)
+- c_chords = @progression.chords_in(Key.default)
+
+%ol.breadcrumb
+  %li.breadcrumb-item= link_to 'Théorie musicale', root_path
+  %li.breadcrumb-item= link_to 'Progressions', progressions_path
+  %li.breadcrumb-item.active= @progression.short_name
+
+%article#progression
+  .page-header
+    %h1= @progression.name
+    %p.lead.text-muted= @progression.roman_numerals
+  %p.lead= @progression.summary
+
+  %section.mt-4
+    %h2.h3 En do
+    - if @progression.bars
+      .row.g-2.text-center
+        - @progression.bars.each_with_index do |step_index, bar|
+          .col-3
+            .card.border-0.shadow-sm
+              .card-body.py-3
+                .small.text-muted Mesure #{bar + 1}
+                .fs-5.fw-bold= render 'chord_link', chord: c_chords[step_index]
+    - else
+      %p.display-6
+        - c_chords.each_with_index do |chord, i|
+          = '–' if i > 0
+          = render 'chord_link', chord: chord
+
+  %section.mt-4
+    - @progression.paragraphs.each do |paragraph|
+      %p= paragraph
+
+  %section.mt-4
+    %h2.h3 #{@progression.short_name} dans les 12 tonalités
+    .table-responsive
+      %table.table.table-hover.table-striped
+        %thead
+          %tr
+            %th Tonalité
+            - @progression.steps.each do |step|
+              %th= step.roman
+        %tbody
+          - @tonics.each do |tonic|
+            %tr
+              %th= link_to "#{tonic} (#{tonic.french_long_name})", note_path(tonic), class: 'text-decoration-none'
+              - @progression.chords_in(tonic).each do |chord|
+                %td= render 'chord_link', chord: chord
+
+  %nav.mt-5
+    %h2.h4 Autres progressions
+    %ul
+      - (Progression.all - [@progression]).each do |progression|
+        %li= link_to progression.name, progression_path(progression)

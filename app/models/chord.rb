@@ -51,6 +51,11 @@ class Chord < ApplicationRecord
     'triade-augmentee' => 'aug', 'augmente-septieme-majeure' => 'maj7#5'
   }
 
+  # Symbol with ♯/♭ for display, e.g. "C♯m7", "B♭maj7"
+  def display_symbol
+    "#{key}#{SEARCH_SYMBOLS.fetch(slug) { primary_symbol.to_s }}"
+  end
+
   def search_symbol
     suffix = SEARCH_SYMBOLS.fetch(slug) { primary_symbol.to_s }
     key ? "#{key.name.tr('♯♭', '#b')}#{suffix}" : suffix

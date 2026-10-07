@@ -9,7 +9,17 @@ module DiagramsHelper
       record.key ? piano_key_chord_url(record.key, record, format: :svg) : piano_chord_url(record, format: :svg)
     when Mode
       record.key ? piano_key_scale_mode_url(record.key, record.scale, record, format: :svg) : piano_scale_mode_url(record.scale, record, format: :svg)
+    when Interval
+      record.key ? piano_key_interval_url(record.key, record, format: :svg) : piano_interval_url(record, format: :svg)
+    when Key
+      piano_note_url(record, format: :svg)
     end
+  end
+
+  def piano_image_tag(record)
+    diagram = PianoDiagram.new(record.is_a?(Key) ? [record] : record.keys)
+    image_tag piano_diagram_url(record), alt: piano_diagram_alt(record), width: diagram.width, height: diagram.height,
+      loading: 'lazy', class: 'img-fluid d-block mx-auto', style: "width: #{diagram.width * 720 / 338}px"
   end
 
   def guitar_diagram_alt(chord, position, voicing)
@@ -17,8 +27,13 @@ module DiagramsHelper
   end
 
   def piano_diagram_alt(record)
-    notes = "#{record.keys.map(&:to_s).to_sentence} (#{record.keys.map(&:french_name).to_sentence})"
-    name = record.is_a?(Chord) ? "Accord #{diagram_symbol(record)}" : record.seo_title.split(' : ').first
+    keys = record.is_a?(Key) ? [record] : record.keys
+    notes = "#{keys.map(&:to_s).to_sentence} (#{keys.map(&:french_name).to_sentence})"
+    name = case record
+           when Chord then "Accord #{diagram_symbol(record)}"
+           when Key then "Note #{record.name}"
+           else record.seo_title.split(' : ').first
+           end
     "#{name} au piano : #{notes}"
   end
 

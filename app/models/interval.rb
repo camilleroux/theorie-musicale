@@ -71,6 +71,35 @@ class Interval
     @degree.to_s + @quality.to_s
   end
 
+  # "½ ton", "1 ton", "3,5 tons"
+  def tones_label
+    tones = semitones / 2.0
+    return '½ ton' if semitones == 1
+    "#{format('%g', tones).tr('.', ',')} ton#{'s' if tones > 1}"
+  end
+
+  # Titles follow searches: "quinte juste", "tierce majeure de la"
+  def seo_title
+    if @key
+      first, last = keys.first, keys.last
+      SeoTitle.fit("#{long_name} de #{first.french_long_name} : #{first.name_for_seo.split(' ').first} – #{last.name_for_seo.split(' ').first}", [" (#{first.french_name} – #{last.french_name})"])
+    else
+      suffixes = compound? ? [" : #{tones_label} et piano"] : [" : #{tones_label}, renversement et piano", " : #{tones_label} et renversement"]
+      SeoTitle.fit(long_name, suffixes + [" : #{tones_label}"])
+    end
+  end
+
+  def seo_description
+    size = "#{tones_label} (#{semitones} demi-ton#{'s' if semitones > 1})"
+    notes = "#{keys.first} – #{keys.last} (#{keys.first.french_name} – #{keys.last.french_name})"
+    inversion_text = compound? ? '' : " Renversement : #{inversion.long_name.downcase}."
+    if @key
+      "#{long_name} de #{keys.first.french_long_name} : #{notes}, soit #{size}.#{inversion_text} Position sur la portée et au piano."
+    else
+      "La #{long_name.downcase} est un intervalle de #{size}, par exemple #{notes}.#{inversion_text} Position au piano et dans les 12 tonalités."
+    end
+  end
+
   def to_param
     symbol + '-' + Rack::Utils.escape(long_name.downcase)
   end

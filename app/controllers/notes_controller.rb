@@ -12,6 +12,11 @@ class NotesController < ApplicationController
     #respond_with @key
   end
 
+  def piano
+    expires_in 1.month, public: true
+    render plain: PianoDiagram.new([@key]).to_svg(title: helpers.piano_diagram_alt(@key)), content_type: 'image/svg+xml'
+  end
+
 
   protected
 
