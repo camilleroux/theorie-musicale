@@ -21,4 +21,10 @@ class ProgressionsControllerTest < ActionDispatch::IntegrationTest
     get '/progressions/nope'
     assert_response :not_found
   end
+
+  test 'should show the blues grid in the chosen key' do
+    get '/progressions/blues', params: { tonalite: 'bb' }
+    assert_select 'h2', 'Grille en si bémol'
+    assert_select 'link[rel=canonical][href$=?]', '/progressions/blues'
+  end
 end

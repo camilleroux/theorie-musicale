@@ -1,7 +1,6 @@
 -title @progression.seo_title
 -description @progression.seo_description
 -set_meta_tags canonical: progression_url(@progression)
-- c_chords = @progression.chords_in(Key.default)
 
 %ol.breadcrumb
   %li.breadcrumb-item= link_to 'Théorie musicale', root_path
@@ -14,21 +13,22 @@
     %p.lead.text-muted= @progression.roman_numerals
   %p.lead= typo_fr(@progression.summary)
 
-  %section.mt-4
-    %h2.h3 En do
-    - if @progression.bars
+  - if @progression.bars
+    %section.mt-4
+      %h2.h3 Grille en #{@tonic.french_long_name}
+      %nav.key-selector.mb-3{'aria-label': 'Tonalité'}
+        %span.key-selector__label Tonalité
+        %ul.pagination.pagination-sm
+          - @tonics.each do |tonic|
+            %li.page-item{class: ('active' if tonic == @tonic)}
+              = link_to tonic, progression_path(@progression, tonalite: (tonic.to_param unless tonic.main?)), class: 'page-link', 'aria-current': (tonic == @tonic ? 'page' : nil)
       .row.g-2.text-center
         - @progression.bars.each_with_index do |step_index, bar|
           .col-3
-            .card.border-0.shadow-sm
+            .card.mb-0
               .card-body.py-3
                 .small.text-muted Mesure #{bar + 1}
-                .fs-5.fw-bold= render 'chord_link', chord: c_chords[step_index]
-    - else
-      %p.display-6
-        - c_chords.each_with_index do |chord, i|
-          = '–' if i > 0
-          = render 'chord_link', chord: chord
+                .fs-5.fw-bold= render 'chord_link', chord: @grid_chords[step_index]
 
   %section.mt-4
     - @progression.paragraphs.each do |paragraph|
