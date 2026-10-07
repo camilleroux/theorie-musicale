@@ -3,7 +3,7 @@ class PianoDiagram
   MIN_OCTAVES = 2
   WHITE_WIDTH, WHITE_HEIGHT = 24, 110
   BLACK_WIDTH, BLACK_HEIGHT = 14, 68
-  LINE_COLOR, HIGHLIGHT_COLOR = '#34495e', '#1f8dd6'
+  LINE_COLOR, HIGHLIGHT_COLOR = '#16202b', '#1864ab'
   # Semitone offsets in an octave, and the white key a black key sits after
   WHITE_OFFSETS = [0, 2, 4, 5, 7, 9, 11]
   BLACK_OFFSETS = {1 => 0, 3 => 1, 6 => 3, 8 => 4, 10 => 5}

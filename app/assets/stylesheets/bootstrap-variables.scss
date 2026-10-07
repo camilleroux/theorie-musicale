@@ -1,66 +1,99 @@
 // Bootstrap 5.3 Variable Overrides
-// Override Bootstrap variables before importing Bootstrap
+// Override Bootstrap variables before importing Bootstrap.
+// Every text color below reaches at least 4.5:1 contrast (WCAG AA) on its background.
+
+// Palette
+$ink: #16202b;          // text, navbar, footer (15:1 on the page background)
+$ink-muted: #4a5866;    // secondary text (6.8:1)
+$page-bg: #f5f7fa;
+$surface: #ffffff;
+$border-color: #dde3ea;
+$primary: #1864ab;      // links, accents, buttons (6:1 on white)
+$primary-dark: #0f3d66; // hero, hover
+$primary-soft: #e3edf9; // badges and highlighted cells (7:1 with $primary-text)
+$primary-text: #0b4f8a;
+$success: #2b7a3d;
 
 // Options
-$enable-shadows: true;
-$enable-gradients: true;
+$enable-shadows: false;
+$enable-gradients: false;
 $enable-rounded: true;
+$min-contrast-ratio: 4.5;
 
 // Spacing
 $spacer: 1rem;
 
-// Cards
-$card-border-width: 0; // Modern look: no border, just shadow
-$card-box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
-$card-cap-bg: #fff; // White headers for cleaner look
-$card-cap-padding-y: 1rem;
-
-// Colors
-$primary: #1f8dd6;
-$success: #5cb85c;
-
-// Adjust the contrast threshold so Bootstrap uses white text on primary buttons
-$min-contrast-ratio: 3;
-
 // Gray scale (Bootstrap 5 naming)
-$gray-100: #f7f7f9;
-$gray-200: #eceeef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #636c72;
-$gray-700: #464a4c;
-$gray-800: #343a40;
-$gray-900: #292b2c;
+$gray-100: #f5f7fa;
+$gray-200: #e9edf2;
+$gray-300: $border-color;
+$gray-400: #c3ccd6;
+$gray-500: #8a96a3;
+$gray-600: $ink-muted;
+$gray-700: #36424f;
+$gray-800: #24303c;
+$gray-900: $ink;
 
 // Body
-$body-color: #34495e;
+$body-bg: $page-bg;
+$body-color: $ink;
+$body-secondary-color: $ink-muted;
+$text-muted: $ink-muted;
+$line-height-base: 1.6;
 
 // Links
 $link-color: $primary;
+$link-hover-color: $primary-dark;
+$link-decoration: none;
+$link-hover-decoration: underline;
 
-// Grid breakpoints
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
-);
+// Borders and radius
+$border-radius: .5rem;
+$border-radius-lg: .75rem;
+$border-radius-sm: .375rem;
+
+// Cards
+$card-border-width: 1px;
+$card-border-color: $border-color;
+$card-border-radius: $border-radius-lg;
+$card-cap-bg: $surface;
+$card-cap-padding-y: .75rem;
+$card-bg: $surface;
 
 // Fonts
 $font-family-sans-serif: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif: Merriweather, Georgia, "Times New Roman", Times, serif;
 
 // Headings
-$headings-font-family: Lato, serif;
+$headings-font-family: $font-family-sans-serif;
 $headings-font-weight: 800;
-$headings-line-height: 2;
+$headings-line-height: 1.25;
+$headings-color: $ink;
+$lead-font-weight: 400;
+$display-font-weight: 800;
 
 // Tables
 $table-bg: transparent;
 $table-striped-bg: $gray-100;
+$table-color: $ink;
+
+// Buttons
+$btn-font-weight: 700;
+
+// Badges
+$badge-font-weight: 700;
 
 // Navbar
-$navbar-dark-color: #FFF;
+$navbar-dark-color: rgba(255, 255, 255, .85);
+$navbar-dark-hover-color: #fff;
+$navbar-dark-active-color: #fff;
+
+// Pagination (key selector)
+$pagination-color: $primary;
+$pagination-border-color: $border-color;
+$pagination-active-bg: $primary;
+$pagination-active-border-color: $primary;
+
+// Breadcrumb
+$breadcrumb-divider-color: $gray-500;
+$breadcrumb-active-color: $ink-muted;

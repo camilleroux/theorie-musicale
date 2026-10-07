@@ -51,207 +51,253 @@
 // Project styles
 @import "chord";
 
-// Modern General Styles
+// Base
 body {
-  background-color: #f4f7f9; // Very light blue-gray background for a fresher look
+  -webkit-font-smoothing: antialiased;
 }
 
-// Ensure primary buttons have white text and modern look
-.btn-primary {
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(31, 141, 214, 0.3);
-  transition: all 0.2s ease-in-out;
-  
-  &:hover, &:focus, &:active {
-    color: #fff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(31, 141, 214, 0.4);
+h1, .h1 { letter-spacing: -.02em; }
+h2, .h2, h3, .h3 { letter-spacing: -.01em; }
+h2, .h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
+h3, .h3 { margin-top: 2rem; margin-bottom: .75rem; }
+
+// Links inside running text are underlined; navigation, chips and buttons are not
+#content-wrapper :is(p, ul:not(.pagination)) a:not(.btn):not(.badge),
+footer a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.lead { color: $ink-muted; }
+
+:focus-visible {
+  outline: 3px solid rgba($primary, .45);
+  outline-offset: 2px;
+}
+
+#content-wrapper {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+// Navbar: solid, no gradient
+nav.navbar.bg-dark {
+  background-color: $ink !important;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  border-bottom: 3px solid $primary;
+
+  .navbar-brand { font-weight: 800; letter-spacing: -.01em; }
+  .nav-link { font-weight: 700; }
+}
+
+// Page header
+.page-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-color;
+
+  h1 { margin-bottom: 0; }
+  .lead { margin-top: .5rem; margin-bottom: 0; }
+}
+
+// Breadcrumb
+.breadcrumb {
+  margin-bottom: 1.5rem;
+  font-size: .9rem;
+
+  a {
+    color: $ink-muted;
+    &:hover { color: $primary; }
   }
+  .breadcrumb-item + .breadcrumb-item::before { content: "›"; }
 }
 
-// Modern Card Styles
+// Cards
 .card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-bottom: 1rem;
-  
-  &:hover {
-    // Subtle lift effect on hover for interactive cards
-    &.hover-lift {
-      transform: translateY(-3px);
-      box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-    }
-  }
+  box-shadow: 0 1px 2px rgba($ink, .05);
+  transition: box-shadow .15s ease, transform .15s ease, border-color .15s ease;
 
   .card-header {
-    background-color: transparent;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    font-weight: 700;
-    color: $gray-600;
+    border-bottom: 1px solid $border-color;
+    color: $ink-muted;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .06em;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+  }
+
+  &.hover-lift:hover,
+  &:has(> a:hover), &:has(.stretched-link:hover) {
+    border-color: rgba($primary, .45);
+    box-shadow: 0 6px 16px rgba($ink, .08);
   }
 }
 
-// Modern Footer
-footer {
-  background-color: #2d3e50; // Dark blue-grey matching navbar
-  padding: 4rem 0;
-  color: rgba(255, 255, 255, 0.7);
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 4rem;
-  
-  a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.2s;
-    
-    &:hover {
-      color: $primary;
-      text-decoration: none;
-    }
+// Chord and mode cards: the header is the title
+.chord .card, .mode.card {
+  > a { color: inherit; text-decoration: none; }
+
+  .card-header {
+    color: $ink;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    text-transform: none;
   }
 }
 
-// Modern Navbar
-nav.navbar.bg-dark {
-  background-color: rgba(45, 62, 80, 0.95) !important; // Slightly transparent
-  backdrop-filter: blur(10px); // Blur effect behind navbar
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
+.chord .card > a .card-header { color: $primary; }
 
-// Clean Breadcrumbs (Transparent)
-.breadcrumb {
-  background-color: transparent;
-  padding-left: 0;
-  padding-right: 0;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  
-  .breadcrumb-item {
-    a {
-      color: $gray-600;
-      text-decoration: none;
-      
-      &:hover {
-        color: $primary;
-      }
-    }
-    
-    &.active {
-      color: $gray-500;
-    }
-    
-    // Custom separator
-    & + .breadcrumb-item::before {
-      content: "›";
-      font-size: 1.4em; // Slightly larger
-      line-height: 0.8; // Reduced line-height to center it better vertically
-      vertical-align: text-top; // Better alignment with text
-      color: $gray-400;
-      padding-top: 2px; // Fine-tuning position
-    }
-  }
-}
-
-// Modern Hero / Jumbotron replacement
+// Home hero
 .jumbotron {
-  padding: 3rem 2rem;
+  padding: 3rem 1.5rem;
   margin-bottom: 3rem;
-  // Modern Gradient
-  background: linear-gradient(135deg, #1f8dd6 0%, #155e8e 100%);
-  border-radius: 1rem;
+  background-color: $primary-dark;
+  border-radius: $border-radius-lg;
   color: #fff;
-  box-shadow: 0 4px 15px rgba(31, 141, 214, 0.3);
 
   h1 {
+    color: #fff;
     font-weight: 900;
-    letter-spacing: -1px;
+    letter-spacing: -.03em;
     margin-bottom: 1rem;
   }
 
   p {
+    color: rgba(#fff, .92);
     font-size: 1.15rem;
-    font-weight: 300;
-    opacity: 0.9;
-    max-width: 800px;
+    max-width: 760px;
+    margin-bottom: 0;
   }
 
   @media (min-width: 576px) {
-    padding: 5rem 3rem;
+    padding: 4.5rem 3rem;
   }
 }
 
+// Buttons
+.btn { border-radius: $border-radius; }
+.btn-primary {
+  color: #fff;
+  &:hover, &:focus { color: #fff; background-color: $primary-dark; border-color: $primary-dark; }
+}
 
-// Modern Table Styles
-.table {
-  --bs-table-bg: transparent;
-  --bs-table-striped-bg: rgba(31, 141, 214, 0.03);
-  --bs-table-active-bg: rgba(31, 141, 214, 0.08); // A nice light blue instead of gray
-  
-  th {
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    border-top: none;
-    border-bottom: 2px solid $gray-200;
-    padding: 1rem 0.75rem;
+// Note and interval chips
+.badge {
+  &.bg-light {
+    background-color: $surface !important;
+    color: $ink !important;
+    border: 1px solid $gray-400 !important;
+    &:hover { border-color: $primary !important; color: $primary !important; }
   }
-  
-  td {
-    padding: 1rem 0.75rem;
-    vertical-align: middle;
-    border-bottom: 1px solid $gray-100;
-  }
-  
-  // Hover effect for rows
-  &.table-hover tbody tr:hover {
-    background-color: rgba(31, 141, 214, 0.05);
-  }
-
-  // Links in table
-  a {
-    font-weight: 600;
-    text-decoration: none;
-    
-    &:hover {
-      text-decoration: underline;
-    }
+  &.bg-primary {
+    background-color: $primary-soft !important;
+    color: $primary-text !important;
+    &:hover { background-color: darken($primary-soft, 5%) !important; }
   }
 }
 
-// Rounded tables wrapper
+// Tables
 .table-responsive {
-  border-radius: 0.5rem;
-  background-color: #fff;
-  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
-  padding: 0.5rem;
+  background-color: $surface;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
   margin-bottom: 2rem;
+  padding: .25rem .5rem;
 }
 
-.staff {
-  canvas {
-    max-width: 100%;
-    height: auto;
+.table {
+  --bs-table-striped-bg: #{$gray-100};
+  --bs-table-hover-bg: #{$primary-soft};
+  margin-bottom: 0;
+
+  th {
+    color: $ink-muted;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    border-bottom: 2px solid $border-color;
+    padding: .9rem .75rem;
+    vertical-align: bottom;
+  }
+  tbody th {
+    color: $ink;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1rem;
+    border-bottom: 1px solid $gray-200;
+    vertical-align: middle;
+  }
+
+  td {
+    padding: .9rem .75rem;
+    vertical-align: middle;
+    border-bottom: 1px solid $gray-200;
+  }
+
+  a { font-weight: 700; }
+}
+
+// Key selector
+.pagination {
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  .page-link { font-weight: 700; min-width: 2.75rem; text-align: center; }
+}
+
+// Music notation
+.staff canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+// Diagrams (guitar and piano images)
+#guitare figure {
+  background-color: $surface;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  padding: .75rem .5rem .5rem;
+  height: 100%;
+
+  figcaption {
+    margin-top: .25rem;
+    color: $ink-muted;
+    code { color: $ink; font-size: .85rem; font-weight: 700; }
   }
 }
 
-.page-header {
-  margin-bottom: 2rem;
-  border-bottom: .05rem solid #eee
+#piano img {
+  background-color: $surface;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  padding: 1rem;
 }
 
-#content-wrapper {
-  margin-top: 2rem;
+// Author box
+.author {
+  img { border: 3px solid $primary-soft; }
+}
+
+// Footer
+footer {
+  background-color: $ink;
+  border-top: 3px solid $primary;
+  padding: 3rem 1rem;
+  color: rgba(#fff, .8);
+  text-align: center;
+  font-size: .95rem;
+
+  a {
+    color: #fff;
+    font-weight: 700;
+    &:hover { color: #fff; text-decoration-thickness: 2px; }
+  }
 }
 
 // Media component replacement (removed in Bootstrap 5)
-// Use flexbox utilities instead
 .media {
   display: flex;
   align-items: flex-start;

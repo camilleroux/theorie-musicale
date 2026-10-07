@@ -52,7 +52,7 @@ class Progression
       paragraphs: [
         "Le II-V-I enchaîne l'accord mineur 7 construit sur le 2e degré, l'accord de septième de dominante du 5e degré et l'accord majeur 7 de la tonique. Les fondamentales descendent par quintes, ce qui crée une forte sensation de résolution.",
         "La septième de l'accord II descend d'un demi-ton vers la tierce de l'accord V, tandis que la tierce du II reste en place et devient la septième du V, qui descend à son tour vers la tierce du I. C'est ce mouvement des voix (les « guide tones ») qu'il faut entendre et viser en improvisation.",
-        "Pour improviser, on peut jouer le mode dorien sur le II, le mode mixolydien sur le V et le mode ionien (la gamme majeure) sur le I, qui partagent tous les notes de la gamme majeure de la tonalité."
+        "Pour improviser, on peut jouer le mode dorien sur le II, le mode mixolydien sur le V et le mode ionien (la gamme majeure) sur le I, qui partagent toutes les notes de la gamme majeure de la tonalité."
       ]
     ),
     new(

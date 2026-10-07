@@ -54,33 +54,33 @@ class GuitarVoicing
     svg << %(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{width} #{height}" width="#{width * 2}" height="#{height * 2}" font-family="Lato, Helvetica, Arial, sans-serif">)
     svg << %(<title>#{ERB::Util.h(title)}</title>)
     svg << %(<rect width="#{width}" height="#{height}" fill="#fff"/>)
-    (0..FRETS).each { |f| svg << %(<line x1="#{left}" y1="#{top + f * fret_gap}" x2="#{right}" y2="#{top + f * fret_gap}" stroke="#212529" stroke-width="1"/>) }
-    (0...STRINGS).each { |s| svg << %(<line x1="#{x.(s)}" y1="#{top}" x2="#{x.(s)}" y2="#{bottom}" stroke="#212529" stroke-width="1"/>) }
+    (0..FRETS).each { |f| svg << %(<line x1="#{left}" y1="#{top + f * fret_gap}" x2="#{right}" y2="#{top + f * fret_gap}" stroke="#16202b" stroke-width="1"/>) }
+    (0...STRINGS).each { |s| svg << %(<line x1="#{x.(s)}" y1="#{top}" x2="#{x.(s)}" y2="#{bottom}" stroke="#16202b" stroke-width="1"/>) }
 
     if base_fret == 1
-      svg << %(<rect x="#{left - 1}" y="#{top - 4}" width="#{right - left + 2}" height="4" fill="#212529"/>)
+      svg << %(<rect x="#{left - 1}" y="#{top - 4}" width="#{right - left + 2}" height="4" fill="#16202b"/>)
     else
-      svg << %(<text x="#{left - 8}" y="#{y.(1) + 4}" font-size="11" text-anchor="end" fill="#212529">#{base_fret}fr</text>)
+      svg << %(<text x="#{left - 8}" y="#{y.(1) + 4}" font-size="11" text-anchor="end" fill="#16202b">#{base_fret}fr</text>)
     end
 
     frets.each_with_index do |fret, s|
       next unless fret <= 0
       svg << if fret < 0
-        %(<text x="#{x.(s)}" y="#{top - 10}" font-size="11" text-anchor="middle" fill="#212529">×</text>)
+        %(<text x="#{x.(s)}" y="#{top - 10}" font-size="11" text-anchor="middle" fill="#16202b">×</text>)
       else
-        %(<circle cx="#{x.(s)}" cy="#{top - 14}" r="4" fill="none" stroke="#212529" stroke-width="1"/>)
+        %(<circle cx="#{x.(s)}" cy="#{top - 14}" r="4" fill="none" stroke="#16202b" stroke-width="1"/>)
       end
     end
 
     barres.each do |barre|
       strings = (0...STRINGS).select { |s| frets[s] == barre }
       next if strings.size < 2
-      svg << %(<rect x="#{x.(strings.first) - 7}" y="#{y.(barre) - 7}" width="#{x.(strings.last) - x.(strings.first) + 14}" height="14" rx="7" fill="#212529"/>)
+      svg << %(<rect x="#{x.(strings.first) - 7}" y="#{y.(barre) - 7}" width="#{x.(strings.last) - x.(strings.first) + 14}" height="14" rx="7" fill="#16202b"/>)
     end
 
     frets.each_with_index do |fret, s|
       next unless fret > 0
-      svg << %(<circle cx="#{x.(s)}" cy="#{y.(fret)}" r="7" fill="#212529"/>)
+      svg << %(<circle cx="#{x.(s)}" cy="#{y.(fret)}" r="7" fill="#16202b"/>)
       svg << %(<text x="#{x.(s)}" y="#{y.(fret) + 4}" font-size="10" text-anchor="middle" fill="#fff">#{fingers[s]}</text>) if fingers[s].to_i > 0
     end
 
