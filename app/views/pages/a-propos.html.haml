@@ -5,29 +5,19 @@
 
 .page-header
   %h1 À propos
+  %p.lead
+    Ce site rassemble la théorie musicale utile au jazz et aux musiques improvisées : #{Chord.count} accords, les gammes et leurs modes, les intervalles et les progressions d'accords les plus courantes, dans les 12 tonalités.
 
-%p.lead
-  Ce site rassemble la théorie musicale utile au jazz et aux musiques improvisées : 28 accords, les gammes et leurs modes, les intervalles et les progressions d'accords les plus courantes, dans les 12 tonalités.
 %p
-  Pour chaque accord, vous trouverez ses notes, ses intervalles, ses symboles, sa position à la guitare et au piano, et les gammes qui vont avec. Une recherche comprend les symboles (Am7, Bbmaj7) comme les noms en français (la mineur 7, ré dorien).
-%p
-  Pour toute remarque, faites-moi signe sur #{link_to 'X', 'https://twitter.com/CamilleRoux', target: '_blank', rel: 'noopener nofollow'} ou #{link_to 'Bluesky', 'https://bsky.app/profile/camilleroux.com', target: '_blank', rel: 'noopener me'}
+  Pour chaque accord, vous trouverez ses notes, ses intervalles, ses symboles, sa position à la guitare et au piano, et les gammes qui vont avec. La recherche comprend les symboles (Am7, Bbmaj7) comme les noms en français (la mineur 7, ré dorien).
 
-%h2 Qui suis-je ?
-= render "layouts/author"
-%p.mt-4
-  J'ai aussi raconté sur mon blog
-  = link_to "mon apprentissage de la guitare électrique", 'https://www.camilleroux.com/comment-jai-appris-la-guitare-electrique-en-6-mois/'
-  et
-  = succeed '.' do
-    = link_to "comment je me suis formé à la production de musique électronique", 'https://www.camilleroux.com/se-former-a-la-production-de-musique-electronique-et-publier-un-morceau-en-moins-dun-an/'
-%p.lead
-  Vous voulez me soutenir ? Venez #{link_to 'écouter ma musique', 'https://music.camilleroux.com/', target:'_blank', rel: 'noopener', title: 'Découvrir la musique de Camille Roux'} que je fais, ou visitez #{link_to 'mon site personnel', 'https://www.camilleroux.com/', target:'_blank', rel: 'author noopener', title: 'Camille Roux - Site personnel'} pour en savoir plus sur mes projets :)
+%h2 L'auteur
+= render "layouts/author", full: true
 
 %h2 On parle du site
 
 .table-responsive
-  %table.table.table-hover
+  %table.table.table-hover.mb-0
     %tbody
       %tr
         %td

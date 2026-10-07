@@ -20,12 +20,12 @@
       %span{itemprop: "name"}>= @mode.heading
     %meta{itemprop: "position", content: "4"}
 
-%header.chord-hero.card
+%header.detail-hero.card
   .card-body
     .row.g-4.align-items-center
       .col-12.col-lg-5
         %h1.mb-3= @mode.heading
-        %dl.chord-hero__facts
+        %dl.detail-hero__facts
           %dt Notes
           %dd
             - @mode.keys.each do |key|
@@ -35,16 +35,10 @@
           %dt Gamme
           %dd= link_to "Gamme #{@scale.name.downcase}", scale_path(@scale)
       .col-12.col-lg-7
-        .chord-hero__staff
+        .detail-hero__staff
           .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 360}
   .card-footer
-    %nav.key-selector{'aria-label': 'Tonalité'}
-      %span.key-selector__label Tonalité
-      %ul.pagination.pagination-sm
-        - Key.primaries.each do |key|
-          - current = (@key == key) || (@key.nil? && key.main?)
-          %li.page-item{class: ('active' if current)}
-            = link_to key, [key, @scale, @mode], class: 'page-link', 'aria-current': (current ? 'page' : nil)
+    = render 'shared/key_selector', current: @key, path: ->(key) { url_for([key, @scale, @mode]) }
 
 %section#piano
   %h2.h3 #{@mode.heading} au piano

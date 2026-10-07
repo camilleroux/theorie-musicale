@@ -12,7 +12,7 @@
 
 .page-header
   %h1 Accords
-%h2.lead= description 'Liste des accords classés en fonction de leur qualité'
+  %p.lead= description 'Les accords classés par famille, avec leur symbole et leur composition'
 
 %nav.quality-nav{'aria-label': "Familles d'accords"}
   - @chord_qualities.each do |quality|

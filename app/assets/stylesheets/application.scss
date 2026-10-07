@@ -181,7 +181,7 @@ nav.navbar.bg-dark {
 .chord-quality { scroll-margin-top: 1rem; }
 
 // Chord page hero
-.chord-hero {
+.detail-hero {
   margin-bottom: 2.5rem;
 
   .card-body { padding: 1.5rem; }
@@ -196,6 +196,11 @@ nav.navbar.bg-dark {
     font-weight: 800;
     letter-spacing: -.03em;
     line-height: 1;
+  }
+
+  &__symbol--text {
+    font-size: #{"clamp(2rem, calc(1.6rem + 2vw), 2.75rem)"};
+    color: $ink;
   }
 
   &__name {
@@ -472,10 +477,93 @@ nav.navbar.bg-dark {
 
 // Author box
 .author {
-  img { border: 3px solid $primary-soft; }
-  @media (max-width: 575.98px) {
-    .card-body { flex-direction: column; align-items: flex-start !important; gap: 1rem !important; }
+  border-left: 4px solid $primary;
+  margin-top: 2rem;
+
+  .card-body { padding: 1.75rem; }
+  @media (min-width: 768px) { .card-body { padding: 2rem 2.25rem; } }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
   }
+
+  &__photo {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    border: 3px solid $primary-soft;
+    flex-shrink: 0;
+  }
+
+  &__eyebrow, &__subtitle {
+    margin: 0;
+    color: $ink-muted;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  &__name {
+    margin: .1rem 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    a { text-decoration: none; }
+  }
+
+  &__role { margin: 0; color: $ink-muted; }
+  &__bio { max-width: 72ch; }
+  &__subtitle { margin-top: 1.25rem; margin-bottom: .5rem; }
+
+  &__articles {
+    padding-left: 1.1rem;
+    margin-bottom: 1.25rem;
+    li + li { margin-top: .35rem; }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1rem;
+    margin-top: 1rem;
+    .btn-link { padding-left: 0; font-weight: 700; }
+  }
+
+  &__contact {
+    color: $ink-muted;
+    font-size: .9375rem;
+    a { text-decoration: underline; text-underline-offset: 2px; }
+  }
+}
+
+// Resources and scales lists
+.resources + .resources { margin-top: 1rem; }
+
+.resource-card, .scale-card {
+  position: relative;
+  .card-body { padding: 1.5rem; }
+  h2 a, h3 a { text-decoration: none; }
+}
+
+.resource-card__tag {
+  margin-bottom: .35rem;
+  color: $ink-muted;
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.scale-card__modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  .badge { font-size: .875rem; padding: .4em .6em; }
 }
 
 // Footer

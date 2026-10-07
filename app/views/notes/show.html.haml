@@ -16,33 +16,29 @@
       %span{itemprop: "name"}>= @key.name
     %meta{itemprop: "position", content: "3"}
 
-.page-header
-  %h1
-    = @key.name
-    %small.text-muted= @key.french_name
+%header.detail-hero.card
+  .card-body
+    .row.g-4.align-items-center
+      .col-12.col-lg-6
+        %h1.detail-hero__title
+          %span.detail-hero__symbol= @key.name
+          = ' '
+          %span.detail-hero__name Note #{@key.french_long_name}
+        %dl.detail-hero__facts
+          %dt Nom complet
+          %dd= @key.long_name
+          %dt En français
+          %dd= @key.french_long_name
+          - enharmonics = Key.all.uniq(&:name).select { |key| key.index == @key.index && key.name != @key.name }
+          - if enharmonics.any?
+            %dt Enharmonies
+            %dd
+              - enharmonics.each do |key|
+                = link_to key, note_path(key), title: key.name_for_seo, class: 'badge bg-light'
+      .col-12.col-lg-6
+        .detail-hero__staff
+          .staff.note-staff{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 200}
 
-%section#note
-  .row
-    .col-12.col-md-3
-      .card
-        .card-header
-          Notation
-        .card-body
-          .staff.note-staff.img-fluid{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 223}
-
-%section#infos.mt-3
-  %h3 Informations complémentaires
-  %p
-    %label Nom complet :
-    = @key.long_name
-  %p
-    %label Notation française :
-    = @key.french_name
-  %p
-    %label Enharmonies :
-    - Key.all.uniq{ |key| key.name }.select {|key| key.index == @key.index}.each do |key|
-      = link_to key, note_path(key), title: key.name_for_seo
-
-%section#piano.mt-3
-  %h3 Note #{@key.name} au piano
+%section#piano
+  %h2.h3 Note #{@key.name} au piano
   = piano_image_tag(@key)

@@ -12,73 +12,38 @@
       %span{itemprop: "name"}>= "Intervalles"
     %meta{itemprop: "position", content: "2"}
   %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: (@key ? key_interval_path(@key, @interval) : interval_path(@interval)), title: @interval.long_name_with_key, class: "disable"}
-      %span{itemprop: "name"}>= @interval.long_name_with_key
+    %a{itemprop: "item", href: (@key ? key_interval_path(@key, @interval) : interval_path(@interval)), title: @interval.heading, class: "disable"}
+      %span{itemprop: "name"}>= @interval.heading
     %meta{itemprop: "position", content: "3"}
 
-.page-header
-  %h1
-    = @interval.long_name_with_key
-    %small= @interval.symbol
+%header.detail-hero.card
+  .card-body
+    .row.g-4.align-items-center
+      .col-12.col-lg-6
+        %h1.detail-hero__title
+          %span.detail-hero__symbol.detail-hero__symbol--text= @interval.heading
+          = ' '
+          %span.detail-hero__name= "#{@interval.tones_label} · #{@interval.semitones} demi-ton#{'s' if @interval.semitones > 1}"
+        %dl.detail-hero__facts
+          %dt Notes
+          %dd
+            - @interval.keys.each do |key|
+              = link_to key, note_path(key), title: key.name_for_seo, class: 'badge bg-light'
+          %dt Symbole
+          %dd= @interval.symbol
+          %dt Type
+          %dd= @interval.compound? ? 'Intervalle redoublé' : 'Intervalle simple'
+          - unless @interval.compound?
+            %dt Renversement
+            %dd
+              - inversion = @interval.inversion
+              = link_to inversion.long_name, interval_path(inversion), class: 'badge bg-primary'
+      .col-12.col-lg-6
+        .detail-hero__staff
+          .staff.interval-staff{"data-id" => @interval.to_param, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 260}
+  .card-footer
+    = render 'shared/key_selector', current: @key, path: ->(key) { key_interval_path(key, @interval) }
 
-
-%section#note
-  .row.g-3
-    .col-12.col-md-3
-      .card.h-100
-        .card-header
-          Notation
-        .card-body.d-flex.align-items-center.justify-content-center
-          .staff.interval-staff{"data-id" => @interval.to_param, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 223}
-    .col-6.col-md-3
-      .card.h-100
-        .card-header
-          Symbole
-        .card-body.d-flex.align-items-center.justify-content-center
-          %h3.mb-0.fw-bold.text-primary.display-3=@interval.symbol
-    .col-6.col-md-3
-      .card.h-100
-        .card-header
-          Tons
-        .card-body.d-flex.align-items-center.justify-content-center
-          %h3.mb-0.fw-bold.text-primary.display-3= number_to_human(@interval.semitones / 2.0, precision: 3)
-    .col-6.col-md-3
-      .card.h-100
-        .card-header
-          Demi-tons
-        .card-body.d-flex.align-items-center.justify-content-center
-          %h3.mb-0.fw-bold.text-primary.display-3= @interval.semitones
-
-
-%section.infos.mt-3
-  %h3 Informations complémentaires
-  - unless @interval.compound?
-    %p
-      %label Renversement :
-      - inversion = @interval.inversion
-      =link_to inversion.long_name, interval_path(inversion)
-  %p
-    %label Type d'intervalle :
-    Intervalle
-    = @interval.compound? ? 'redoublé' : 'simple'
-  %p
-    %label Seconde note par rapport à #{@interval.notes.first} :
-    = link_to @interval.keys.last, note_path(@interval.keys.last), title: @interval.keys.last.long_name
-
-%section#piano.mt-3
-  %h3 #{@interval.name_with_key} au piano
+%section#piano
+  %h2.h3 #{@interval.heading} au piano
   = piano_image_tag(@interval)
-
-
-%nav#key-selector.mt-5
-  .card
-    .card-header
-      Afficher la #{@interval.long_name} de
-    .card-body
-      .nav
-        %ul.pagination
-          - Key.primaries.each do |key|
-            %li.page-item{:class => ("active" if @key == key)}= link_to key, key_interval_path(key, @interval), class: "page-link"
-
-
-

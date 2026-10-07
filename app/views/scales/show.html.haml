@@ -10,24 +10,23 @@
       %span{itemprop: "name"}>= "Gammes"
     %meta{itemprop: "position", content: "2"}
   %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: url_for([@key, @scale]), title: @scale.title, class: "disable"}
-      %span{itemprop: "name"}>= @scale.title
+    %a{itemprop: "item", href: url_for([@key, @scale]), title: "Gamme #{@scale.name.downcase}", class: "disable"}
+      %span{itemprop: "name"}>= "Gamme #{@scale.name.downcase}"
     %meta{itemprop: "position", content: "3"}
 
 %article#scale
-  %header
-    .page-header
+  %header.detail-hero.card
+    .card-body
       -title @scale.seo_title
-      %h1= @scale.title
-    %p= description @scale.information
-
-  %nav#intervals-list
-    %h2 Intervalles
-    %p
-      Elle est composée des intervalles suivants :
-      %ul
-        - @scale.intervals.each do |i|
-          %li= link_to i.long_name, interval_path(i)
+      %h1.mb-3= "Gamme #{@scale.name.downcase}"
+      %p.mb-3= description @scale.information
+      %dl.detail-hero__facts
+        %dt Intervalles
+        %dd
+          - @scale.intervals.each do |i|
+            = link_to i.long_name, interval_path(i), class: 'badge bg-primary'
+        %dt Modes
+        %dd= @scale.modes.count
 
   %nav#modes-list
     %h2 Modes de la gamme
@@ -54,5 +53,5 @@
 
   -if @scale.heptatonic?
     %nav#harmonization
-      %h2 Harmonisation de la #{@scale.title}
+      %h2 Harmonisation de la gamme #{@scale.name.downcase}
       =render partial: 'harmonization', locals: {scale: @scale}

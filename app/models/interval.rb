@@ -78,6 +78,11 @@ class Interval
     "#{format('%g', tones).tr('.', ',')} ton#{'s' if tones > 1}"
   end
 
+  # "Quinte juste", "Tierce majeure de la"
+  def heading
+    @key ? "#{long_name} de #{keys.first.french_long_name}" : long_name
+  end
+
   # Titles follow searches: "quinte juste", "tierce majeure de la"
   def seo_title
     if @key

@@ -1,0 +1,8 @@
+-# locals: current (Key or nil for C), path (lambda key -> path)
+%nav.key-selector{'aria-label': 'Tonalité'}
+  %span.key-selector__label Tonalité
+  %ul.pagination.pagination-sm
+    - Key.primaries.each do |key|
+      - active = current ? current == key : key.main?
+      %li.page-item{class: ('active' if active)}
+        = link_to key, path.(key), class: 'page-link', 'aria-current': (active ? 'page' : nil)

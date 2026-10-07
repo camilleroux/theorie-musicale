@@ -8,7 +8,7 @@ Scale.create!(:name => 'Majeure', :specify_tones => "1 2 3 4 5 6 7", :informatio
   s.modes.create!(:mode => 7, :name => 'Locrien')
 end
 
-Scale.create!(:name => 'Mineure mélodique', :specify_tones => "1 2 3m 4 5 6 7", :information => "La gamme mineure mélodique est similaire à la gamme majeure avec une seule différente, elle a une tierce mineure au lieu d'une tierce majeure.").tap do |s|
+Scale.create!(:name => 'Mineure mélodique', :specify_tones => "1 2 3m 4 5 6 7", :information => "La gamme mineure mélodique est similaire à la gamme majeure avec une seule différence : elle a une tierce mineure au lieu d'une tierce majeure.").tap do |s|
   s.modes.create!(:mode => 1, :name => 'Mineure mélodique')
   s.modes.create!(:mode => 2, :name => 'Dorien ♭9', :synonyms => 'Phrygien ♮13')
   s.modes.create!(:mode => 3, :name => 'Lydien augmenté')
@@ -32,12 +32,12 @@ Scale.create!(:name => 'Ton-Ton', :specify_tones => "1 2 3 4aug 5aug 7m", :symme
   s.modes.create!(:mode => 1, :name => 'Ton-Ton')
 end
 
-Scale.create!(:name => 'Pentatonique', :specify_tones => "1 2 3 5 6", :information => "La gamme pentatonique est une des fondation de la gamme bebop majeure et est significativement utilisée dans le jazz. La gamme pentatonique correspond aux touches noires du piano.").tap do |s|
+Scale.create!(:name => 'Pentatonique', :specify_tones => "1 2 3 5 6", :information => "La gamme pentatonique est une des fondations de la gamme bebop majeure et est significativement utilisée dans le jazz. La gamme pentatonique correspond aux touches noires du piano.").tap do |s|
   s.modes.create!(:mode => 1, :name => 'Pentatonique majeure')
   s.modes.create!(:mode => 5, :name => 'Pentatonique mineure')
 end
 
-Scale.create!(:name => 'Blues', :specify_tones => "1 2 3m 3 5 6", :information => "L'utilisation de la gamme blues est assez répandue dans le jazz").tap do |s|
+Scale.create!(:name => 'Blues', :specify_tones => "1 2 3m 3 5 6", :information => "L'utilisation de la gamme blues est assez répandue dans le jazz.").tap do |s|
   s.modes.create!(:mode => 1, :name => 'Blues majeure')
   s.modes.create!(:mode => 6, :name => 'Blues mineure')
 end

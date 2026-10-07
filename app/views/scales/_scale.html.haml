@@ -1,8 +1,9 @@
-%article[scale]
-  %h2= link_to scale.title, scale
-  %p= scale.information
-  -if scale.modes.count > 1
-    %h4 Modes
-    %ul.modes
-      - scale.modes.order(:mode).each do |mode|
-        %li= link_to mode.title, [scale, mode]
+.col-12.col-md-6
+  %article.scale-card.card.h-100[scale]
+    .card-body
+      %h2.h4.mt-0= link_to "Gamme #{scale.name.downcase}", scale
+      %p= scale.information
+      - if scale.modes.count > 1
+        .scale-card__modes
+          - scale.modes.order(:mode).each do |mode|
+            = link_to mode.name, [scale, mode], class: 'badge bg-primary'

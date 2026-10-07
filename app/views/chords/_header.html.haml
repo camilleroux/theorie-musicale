@@ -1,13 +1,13 @@
 -# Hero summary: symbol, name, notes, intervals, staff and key selector in one block
-%header.chord-hero.card
+%header.detail-hero.card
   .card-body
     .row.g-4.align-items-center
       .col-12.col-lg-6
-        %h1.chord-hero__title
-          %span.chord-hero__symbol= @chord.display_symbol
+        %h1.detail-hero__title
+          %span.detail-hero__symbol= @chord.display_symbol
           = ' '
-          %span.chord-hero__name Accord #{@chord.full_name}
-        %dl.chord-hero__facts
+          %span.detail-hero__name Accord #{@chord.full_name}
+        %dl.detail-hero__facts
           %dt Notes
           %dd
             - @chord.keys.each do |key|
@@ -25,7 +25,7 @@
         - if @chord.information.present?
           %p.mb-0= @chord.information
       .col-12.col-lg-6
-        .chord-hero__staff
+        .detail-hero__staff
           .staff.chord-staff{"data-id" => @chord.id, "data-staff" => @chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 260}
   .card-footer
     = render "chords/key_selector"

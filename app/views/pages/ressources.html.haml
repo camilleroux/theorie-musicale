@@ -1,88 +1,24 @@
 -set_meta_tags canonical: page_url('ressources')
+-title 'Ressources'
+-description 'Livres, sites et articles pour apprendre la théorie musicale, la guitare et la production musicale.'
 
 .page-header
-  %h1
-    = title 'Ressources'
-%p.lead= description 'Liste de livres, sites web, vidéos... sur la théorie musicale'
+  %h1 Ressources
+  %p.lead Livres, sites et articles pour aller plus loin en théorie musicale, à la guitare et en production.
 
-%section#ressources
-  %h2 Livres
-  .mb-4
-    %h4
-      =link_to "http://www.amazon.fr/gp/product/2907891030/ref=as_li_tl?ie=UTF8&camp=1642&creative=19458&creativeASIN=2907891030&linkCode=as2&tag=theoriemusicale-21", rel:'nofollow noopener', target: "_blank" do
-        La partition intérieure
-        %small.text-muted (Jacques SIRON)
-    %p
-      Livre de référence sur la théorie musicale qui s'est largement imposé dans les domaines du jazz et des musiques improvisées.
-      %br/
-      Il s'agit d'une vraie bible pour musicien. Du haut de ses 768 pages, vous y trouverez tout ce que vous avez besoin de savoir, que vous soyez débutant, improvisateur aguerri, enseignant ou simplement curieux.
+- ResourcesHelper::RESOURCE_SECTIONS.each do |name, resources|
+  %section.resources
+    %h2= name
+    .row.g-4
+      - resources.each do |resource|
+        .col-12.col-md-6
+          %article.resource-card.card.h-100
+            .card-body
+              %p.resource-card__tag= resource[:tag]
+              %h3.h5.mt-0= link_to resource[:title], resource[:url], rel: resource[:rel], target: (resource[:rel] ? '_blank' : nil), class: 'stretched-link'
+              %p.mb-0= typo_fr(resource[:text])
 
-  .mb-4
-    %h4
-      =link_to "http://www.amazon.fr/gp/product/B00006RJNJ/ref=as_li_tl?ie=UTF8&camp=1642&creative=19458&creativeASIN=B00006RJNJ&linkCode=as2&tag=theoriemusicale-21", rel:'nofollow noopener', target: "_blank" do
-        Théorie de la musique
-        %small.text-muted (Adolphe Danhauser)
-    %p
-      Ce livre est l'un des piliers de la pédagogie musicale. La "Théorie de la musique" est très centrée sur la notation. C'est un peu le Bescherelle de la musique.
-
-  %h2 Sites web
-
-
-  .media.mb-4
-    .media-body
-      %h4
-        =link_to 'http://www.musictheory.net/', rel:'nofollow noopener', target: "_blank" do
-          musictheory.net
-          %small.text-muted (EN)
-      %p
-        Ce site anglophone permet de s'initier à la musique grâce à des animations très bien faites. Les cours commencent par la notation musicale (les clés, les durées, les silences, les altérations...), puis expliquent les notions de gammes, d'intervalles, d'accords, de progressions d'accords,...
-        %br/
-        Il y a aussi une partie exercice qui est très intéressante. Vous pourrez vous entrainer à reconnaitre des notes/intervalles/accords/gammes sur une partition, un clavier de piano, un manche de guitare... ou encore à l'oreille (Ear Training).
-
-  .media.mb-4
-    .media-body
-      %h4
-        =link_to 'https://github.com/rubiety/jazzity', rel:'nofollow noopener', target: "_blank" do
-          Jazzity
-          %small.text-muted (EN)
-      %p
-        Site dont le code source a servi de base à celui-ci.
-        Comme ici, vous trouverez une liste d'accords, de gammes, de mode, de grilles et progressions d'accords...
-
-
-  %h3 Guitare
-  .media.mb-4
-    .media-body
-      %h4
-        = link_to "Comment j'ai appris la guitare électrique en 6 mois", 'https://www.camilleroux.com/comment-jai-appris-la-guitare-electrique-en-6-mois/'
-      %p
-        Mon retour d'expérience sur l'apprentissage de la guitare électrique : méthode, outils, progression et erreurs à éviter.
-  .media.mb-4
-    .media-body
-      %h4
-        =link_to 'http://www.guitare-improvisation.com/', rel:'nofollow noopener', target: "_blank" do
-          Guitare::Improvisation
-      %p
-        Très bon site francophone pour apprendre à improviser à la guitare. Les explications sont toujours très claires, bien illustrées et accompagnées d'exemples.
-        %br/
-        Vous y trouverez également toute une série de vidéos pas très chères (5€ max) centrées sur un style ou un morceau en particulier.
-
-  %h3 Production musicale
-  .media.mb-4
-    .media-body
-      %h4
-        = link_to "S'initier à la production musicale et publier un morceau en moins d'un an", 'https://www.camilleroux.com/se-former-a-la-production-de-musique-electronique-et-publier-un-morceau-en-moins-dun-an/'
-      %p
-        Mon parcours pour apprendre à composer et produire de la musique électronique, de la découverte du logiciel à la publication d'un premier morceau.
-  .media.mb-4
-    .media-body
-      %h4
-        = link_to 'Ressources pour se former à la production de musique électronique', 'https://www.camilleroux.com/ressources-pour-se-former-a-la-production-de-musique-electronique/'
-      %p
-        Une sélection de cours, de livres, de chaînes et d'outils pour se lancer dans la production musicale.
-
-  %h3 Crédits
-  %p
-    Les diagrammes d'accords de guitare sont générés à partir des données de
-    = link_to 'chords-db', 'https://github.com/tombatossals/chords-db', rel: 'nofollow noopener', target: '_blank'
-    (licence MIT).
+%p.small.text-muted.mt-5
+  Les diagrammes d'accords de guitare sont générés à partir des données de
+  = link_to 'chords-db', 'https://github.com/tombatossals/chords-db', rel: 'nofollow noopener', target: '_blank'
+  (licence MIT). Les liens vers Amazon sont des liens affiliés.

@@ -14,7 +14,7 @@
       = link_to chord.display_symbol, (chord.key.main? ? chord_path(chord) : key_chord_path(chord.key, chord)), title: chord.heading(display: true), class: 'badge bg-light'
 
 .row.g-4.home-sections
-  - [['Accords', chords_path, "28 accords, de la triade au 13, avec leurs symboles, leurs notes et leurs positions à la guitare et au piano."],
+  - [['Accords', chords_path, "#{Chord.count} accords, de la triade au 13, avec leurs symboles, leurs notes et leurs positions à la guitare et au piano."],
      ['Gammes et modes', scales_path, "Gammes majeure, mineures, pentatonique, blues, bebop… et leurs modes, avec l'harmonisation de chaque degré."],
      ['Intervalles', intervals_path, "Intervalles simples et redoublés : nombre de tons, demi-tons et renversements."],
      ['Progressions', progressions_path, "II-V-I, anatole, grille de blues, I-V-VI-IV : les enchaînements clés dans les 12 tonalités."]].each do |name, path, text|
