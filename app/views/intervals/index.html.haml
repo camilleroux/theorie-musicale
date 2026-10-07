@@ -14,43 +14,21 @@
   %h1= title "Intervalles"
   %p.lead= description 'Les intervalles simples et redoublés, avec leur nom et leur symbole'
 
-#section#intervals
-  %h2 Intervalles simples
-  .table-responsive
-    %table.table.table-hover
-      %thead
-        %tr
-          %th Intervalle
-          %th Seconde note par rapport à C
-          %th Nombre de tons
-          %th Nombre de demi-tons
+%p.text-muted Intervalles regroupés par taille. En bleu les intervalles usuels (justes, majeurs, mineurs), en contour leurs équivalents diminués ou augmentés. La note indiquée part de do.
 
-      %tbody
-      -@intervals.select {|i| i.degree < 8  }.each do |interval|
-        %tr{class: interval.semitones.even? ? "table-active" : ""}
-          %td
-            %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
-          -key = Key.from_index(interval.semitones, interval.letter_index)
-          %td= link_to key, note_path(key), title: key.name_for_seo
-          %td= number_to_human(interval.semitones / 2.0, precision: 3)
-          %td= interval.semitones
-
-  %h2 Intervalles redoublés
-  .table-responsive
-    %table.table.table-hover
-      %thead
-        %tr
-          %th Intervalle
-          %th Seconde note par rapport à C
-          %th Nombre de tons
-          %th Nombre de demi-tons
-
-      %tbody
-      -@intervals.select {|i| i.degree >= 8  }.each do |interval|
-        %tr{class: interval.semitones.even? ? "table-active" : ""}
-          %td
-            %strong= link_to interval.long_name, interval_path(interval), title: interval.long_name
-          -key = Key.from_index(interval.semitones, interval.letter_index)
-          %td= link_to key, note_path(key), title: key.long_name
-          %td= number_to_human(interval.semitones / 2.0, precision: 3)
-          %td= interval.semitones
+- groups = [['Intervalles simples', @intervals.select { |i| i.degree < 8 }], ['Intervalles redoublés', @intervals.select { |i| i.degree >= 8 }]]
+- groups.each do |name, intervals|
+  %section.mb-5
+    %h2= name
+    .group-list.card
+      - intervals.group_by(&:semitones).sort.each do |semitones, group|
+        .group-list__row
+          .group-list__label
+            %strong= "#{semitones} demi-ton#{'s' if semitones > 1}"
+            %span= group.first.tones_label
+          .group-list__items
+            - group.sort_by { |i| [:J, :M, :m].include?(i.quality) ? 0 : 1 }.each do |interval|
+              - key = Key.from_index(interval.semitones, interval.letter_index)
+              = link_to interval_path(interval), class: "chip #{[:J, :M, :m].include?(interval.quality) ? 'chip--main' : 'chip--alt'}", title: "#{interval.long_name} : de C à #{key}" do
+                %span.chip__name= interval.long_name
+                %span.chip__note= "C → #{key}"

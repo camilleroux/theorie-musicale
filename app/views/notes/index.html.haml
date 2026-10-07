@@ -14,23 +14,18 @@
   %h1= title "Notes"
   %p.lead= description 'Les notes et leurs équivalents enharmoniques, en notation anglaise et française'
 
-#section#notes
-  .table-responsive
-    %table.table.table-hover
-      %thead
-        %tr
-          %th Note
-          %th Notation anglaise
-          %th Notation française
-
-      %tbody
-      -(0...12).each do |index|
-        -@keys.select {|key| key.index == index}.each do |key|
-          %tr{class: key.index.even? ? "table-active" : ""}
-            %td
-              %strong= link_to key, note_path(key), title: key.name_for_seo
-            %td
-              =key.name
-            %td
-              =key.french_name
-
+%p.text-muted Les notes regroupées par touche du clavier. En bleu les noms usuels, en contour les écritures avec double dièse ou double bémol.
+.group-list.card
+  - (0...12).each do |index|
+    - keys = @keys.select { |key| key.index == index }
+    - usual = keys.reject(&:double_altered?).sort_by { |key| key.name.include?('♭') ? 1 : 0 }
+    - naturals = usual.reject(&:altered?)
+    .group-list__row
+      .group-list__label
+        %strong= (naturals.presence || usual).map(&:french_name).join(' / ')
+        %span= naturals.any? ? 'Touche blanche' : 'Touche noire'
+      .group-list__items
+        - keys.sort_by { |key| [key.double_altered? ? 1 : 0, key.altered? ? 1 : 0, key.name.include?('♭') ? 1 : 0] }.each do |key|
+          = link_to note_path(key), class: "chip #{key.double_altered? ? 'chip--alt' : 'chip--main'}", title: key.name_for_seo do
+            %span.chip__name= key.name
+            %span.chip__note= key.french_long_name

@@ -541,6 +541,57 @@ nav.navbar.bg-dark {
   }
 }
 
+// Grouped lists (intervals by size, notes by key)
+.group-list {
+  overflow: hidden;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: .75rem 1.5rem;
+    align-items: center;
+    padding: .9rem 1.25rem;
+    & + & { border-top: 1px solid $gray-200; }
+    @media (max-width: 575.98px) { grid-template-columns: 1fr; }
+  }
+
+  &__label {
+    strong { display: block; color: $ink; }
+    span { color: $ink-muted; font-size: .875rem; }
+  }
+
+  &__items { display: flex; flex-wrap: wrap; gap: .5rem; }
+}
+
+.chip {
+  display: inline-flex;
+  flex-direction: column;
+  padding: .4rem .75rem;
+  border: 1px solid transparent;
+  border-radius: $border-radius;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: border-color .15s ease, background-color .15s ease;
+
+  &__name { font-weight: 700; }
+  &__note { font-size: .8125rem; }
+
+  &--main {
+    background-color: $primary-soft;
+    color: $primary-text;
+    .chip__note { color: $primary-text; opacity: .85; }
+  }
+
+  &--alt {
+    background-color: $surface;
+    border-color: $gray-400;
+    color: $ink;
+    .chip__note { color: $ink-muted; }
+  }
+
+  &:hover { border-color: $primary; text-decoration: none; }
+}
+
 // Resources and scales lists
 .resources + .resources { margin-top: 1rem; }
 
