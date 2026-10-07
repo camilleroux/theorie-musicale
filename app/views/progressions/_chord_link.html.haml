@@ -1,2 +1,2 @@
 -# Key-less URL for C, which is the canonical chord page
-= link_to chord.display_symbol, (chord.key.main? ? chord_path(chord) : key_chord_path(chord.key, chord)), title: chord.title(true), class: 'text-decoration-none'
+= link_to chord.display_symbol, (chord.key.main? ? chord_path(chord) : key_chord_path(chord.key, chord)), title: chord.heading(display: true), class: 'text-decoration-none'

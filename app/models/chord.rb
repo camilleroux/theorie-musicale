@@ -54,9 +54,13 @@ class Chord < ApplicationRecord
     'sus-2' => 'sus2', 'sus-4' => 'sus4'
   }
 
-  # Symbol with ♯/♭ for display, e.g. "C♯m7", "B♭maj7"
+  # Symbol with ♯/♭ for display, e.g. "C♯m7", "B♭m7♭5"; the search symbol stays ASCII for titles
   def display_symbol
-    "#{key}#{SEARCH_SYMBOLS.fetch(slug) { primary_symbol.to_s }}"
+    "#{key}#{display_suffix}"
+  end
+
+  def display_suffix
+    SEARCH_SYMBOLS.fetch(slug) { primary_symbol.to_s }.gsub(/b(?=\d)/, '♭').tr('#', '♯')
   end
 
   def search_symbol
@@ -64,12 +68,23 @@ class Chord < ApplicationRecord
     key ? "#{key.name.tr('♯♭', '#b')}#{suffix}" : suffix
   end
 
+  # "la mineur 7", or "mineur 7" without key
+  def full_name
+    key ? "#{key.french_long_name} #{name.downcase}" : name.downcase
+  end
+
+  # "Accord Am7 (la mineur 7)": ASCII symbol for page titles, ♯/♭ symbol on the page
+  def heading(display: false)
+    symbol = display ? display_symbol : search_symbol
+    key ? "Accord #{symbol} (#{full_name})" : "Accord #{full_name} (#{symbol})"
+  end
+
   def seo_title
     if key
       suffixes = guitar? ? [" : notes, guitare et piano", " : guitare et piano", " : guitare"] : [" : notes et piano", " : notes"]
-      SeoTitle.fit("Accord #{search_symbol} (#{key.french_long_name} #{name.downcase})", suffixes)
+      SeoTitle.fit(heading, suffixes)
     else
-      SeoTitle.fit("Accord #{name.downcase} (#{search_symbol})", [" : composition et intervalles", " : composition"])
+      SeoTitle.fit(heading, [" : composition et intervalles", " : composition"])
     end
   end
 

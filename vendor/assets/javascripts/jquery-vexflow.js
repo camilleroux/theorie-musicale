@@ -33,10 +33,17 @@
     if (!render_options.scale) { render_options.scale = parseFloat($(element).attr("data-scale") || "1"); }
     if (!render_options.clef && $(element).attr("data-clef")) { render_options.clef = $(element).attr("data-clef").split(","); }
 
-    var canvas_element = $("<canvas width='" + render_options.width + "' height='" + render_options.height + "'></canvas>");
+    // HiDPI: draw at 2x (or the screen density if higher) and display at the logical size,
+    // so staves stay sharp on retina screens and when CSS scales them down
+    var ratio = Math.max(2, Math.ceil(window.devicePixelRatio || 1));
+    var width = parseInt(render_options.width, 10), height = parseInt(render_options.height, 10);
+    var canvas_element = $("<canvas width='" + (width * ratio) + "' height='" + (height * ratio) + "'></canvas>");
+    canvas_element.css({ width: width + "px", height: height + "px" });
     canvas_element.appendTo(element)
-    
-    return (new Vex.Flow.JSON(data)).render(canvas_element[0], render_options);
+
+    return (new Vex.Flow.JSON(data)).render(canvas_element[0], $.extend({}, render_options, {
+      width: width, height: height, scale: render_options.scale * ratio
+    }));
   };
 
 })(jQuery);

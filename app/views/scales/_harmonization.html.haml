@@ -4,18 +4,18 @@
     %thead
       %tr
         %th{rowspan:"2"} Degré
-        %th{colspan:"4"} Composantes de l'accord
-        %th{colspan:"3"} Extensions
+        %th.d-none.d-md-table-cell{colspan:"4"} Composantes de l'accord
+        %th.d-none.d-lg-table-cell{colspan:"3"} Extensions
         %th{colspan:"2"} Triade
         %th{colspan:"2"} Tétrade
       %tr
-        %th Fondamentale
-        %th Tierce
-        %th Quinte
-        %th Septième
-        %th 9eme
-        %th 11eme
-        %th 13eme
+        %th.d-none.d-md-table-cell Fondamentale
+        %th.d-none.d-md-table-cell Tierce
+        %th.d-none.d-md-table-cell Quinte
+        %th.d-none.d-md-table-cell Septième
+        %th.d-none.d-lg-table-cell 9e
+        %th.d-none.d-lg-table-cell 11e
+        %th.d-none.d-lg-table-cell 13e
         %th Accord
         %th Qualité
         %th Accord
@@ -25,11 +25,11 @@
         - mode = mode.in_key_of(@scale.key || 'C')
         %tr
           %td= @mode ? mode.degree(@mode.mode) : mode.degree
-          - mode.thirds.each do |note|
-            %td= link_to note.name, note_path(note), title: note.name_for_seo
+          - mode.thirds.each_with_index do |note, i|
+            %td{class: (i < 4 ? 'd-none d-md-table-cell' : 'd-none d-lg-table-cell')}= link_to note.name, note_path(note), title: note.name_for_seo
           -if triad = Chord.find_by_keys(mode.thirds[0..2])
-            %td= link_to(triad.title,[triad.key,triad])
+            %td= link_to(triad.display_symbol, [triad.key, triad], title: triad.heading(display: true))
             %td= link_to(mode.degree+triad.primary_symbol.to_s,triad)
           -if tetrad = Chord.find_by_keys(mode.thirds[0..3])
-            %td= link_to(tetrad.title,[tetrad.key,tetrad])
+            %td= link_to(tetrad.display_symbol, [tetrad.key, tetrad], title: tetrad.heading(display: true))
             %td= link_to(mode.degree+tetrad.primary_symbol.to_s,tetrad)

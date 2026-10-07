@@ -22,4 +22,4 @@
           %p.mb-2
             %strong En do :
             = progression.chords_in(c_major).map(&:display_symbol).join(' – ')
-          %p.mb-0= progression.summary
+          %p.mb-0= typo_fr(progression.summary)

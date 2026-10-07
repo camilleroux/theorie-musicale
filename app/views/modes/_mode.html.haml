@@ -1,10 +1,8 @@
 - mode = mode.in_key_of(key) if local_assigns[:key]
 
-.col-12.col-md-4.mt-3
+.col-12.col-md-4
   .mode.card.h-100
     .card-header
-      = mode.title
-    .card-body.d-flex.flex-column.align-items-center
+      = link_to mode.heading, [local_assigns[:key], mode.scale, mode].compact, class: 'stretched-link'
+    .card-body.d-flex.align-items-center.justify-content-center
       .staff.scale-staff{"data-id" => mode.id, "data-staff" => mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 350}
-      = link_to [local_assigns[:key], mode.scale, mode].compact, class:'btn btn-primary mt-auto' do
-        voir

@@ -12,69 +12,54 @@
       %span{itemprop: "name"}>= "Gammes"
     %meta{itemprop: "position", content: "2"}
   %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: scale_path(@scale), title: @scale.title}
-      %span{itemprop: "name"}>= @scale.title
+    %a{itemprop: "item", href: scale_path(@scale), title: "Gamme #{@scale.name.downcase}"}
+      %span{itemprop: "name"}>= "Gamme #{@scale.name.downcase}"
     %meta{itemprop: "position", content: "3"}
   %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: url_for([@key, @scale, @mode]), title: @mode.title, class: "disable"}
-      %span{itemprop: "name"}>= "Mode #{@mode.title}"
+    %a{itemprop: "item", href: url_for([@key, @scale, @mode]), title: @mode.heading, class: "disable"}
+      %span{itemprop: "name"}>= @mode.heading
     %meta{itemprop: "position", content: "4"}
 
-%article#scale
-  %header
-    .page-header
-      %h1= "Mode #{@mode.title}"
-
-
-%section#mode
-  .row.g-4
-    .col-12.col-md-6
-      .card.h-100.shadow-sm.border-0
-        .card-header.bg-transparent
-          Notation
-        .card-body.d-flex.align-items-center.justify-content-center
-          .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 313}
-    .col-6.col-md-3
-      .card.h-100.shadow-sm.border-0
-        .card-header.bg-transparent
-          Notes
-        .card-body.d-flex.align-items-center.justify-content-center
-          .d-flex.flex-wrap.justify-content-center
+%header.chord-hero.card
+  .card-body
+    .row.g-4.align-items-center
+      .col-12.col-lg-5
+        %h1.mb-3= @mode.heading
+        %dl.chord-hero__facts
+          %dt Notes
+          %dd
             - @mode.keys.each do |key|
-              = link_to key, note_path(key), title: key.name_for_seo, class: 'badge bg-light text-dark text-decoration-none border me-1 mb-1 fs-6'
-    .col-6.col-md-3
-      .card.h-100.shadow-sm.border-0
-        .card-header.bg-transparent
-          Intervalles
-        .card-body.d-flex.align-items-center.justify-content-center
-          .text-center.fs-5=@mode.step_names.join(", ")
+              = link_to key, note_path(key), title: key.name_for_seo, class: 'badge bg-light'
+          %dt Intervalles
+          %dd= @mode.step_names.join(' – ')
+          %dt Gamme
+          %dd= link_to "Gamme #{@scale.name.downcase}", scale_path(@scale)
+      .col-12.col-lg-7
+        .chord-hero__staff
+          .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 360}
+  .card-footer
+    %nav.key-selector{'aria-label': 'Tonalité'}
+      %span.key-selector__label Tonalité
+      %ul.pagination.pagination-sm
+        - Key.primaries.each do |key|
+          - current = (@key == key) || (@key.nil? && key.main?)
+          %li.page-item{class: ('active' if current)}
+            = link_to key, [key, @scale, @mode], class: 'page-link', 'aria-current': (current ? 'page' : nil)
 
-%section#piano.mt-3
-  %h3 Mode #{@mode.title} au piano
+%section#piano
+  %h2.h3 #{@mode.heading} au piano
   = piano_image_tag(@mode)
 
   -if @scale.heptatonic?
     %nav#harmonization.mt-3
-      %h2
-        Harmonisation du mode #{@mode.title}
-        %small.text-muted #{@scale.title}
+      %h2.h3 Harmonisation
+      %p.text-muted Accords construits sur chaque degré du mode.
       =render partial: 'scales/harmonization', locals: {scale: @scale, mode: @mode}
 
 
   - unless @mode.chord_scales.empty?
     %nav.related-chords.mt-3
-      %h3 Accords associés :
+      %h2.h3 Accords associés
       .chords-list.row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
         - @mode.chord_scales.each do |chord_scale|
           = render chord_scale.chord, :key => (@scale.key || Key.default).shifted(-1 * chord_scale.offset)
-
-%nav#key-selector.mt-5
-  .card
-    .card-header
-      Afficher dans la tonalité
-    .card-body
-      %nav
-        %ul.pagination
-          - Key.primaries.each do |key|
-            %li.page-item{:class => ("active" if @key == key || (@key.nil? && key.name == "C"))}= link_to key, [key, @scale, @mode], class: "page-link"
-

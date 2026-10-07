@@ -40,6 +40,8 @@ Rails.application.routes.draw do
 
   resources :progressions, only: [:index, :show]
 
+  get 'recherche' => 'search#show', as: :search
+
   resources :notes, only: [:index, :show] do
     get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
   end

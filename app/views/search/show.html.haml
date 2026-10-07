@@ -1,0 +1,20 @@
+-title @search.query.present? ? "Recherche : #{@search.query}" : 'Recherche'
+-set_meta_tags noindex: true
+
+.page-header
+  %h1 Recherche
+= render 'search/form', autofocus: @results.empty?
+
+- if @search.query.present?
+  - if @results.any?
+    %p.lead.mt-4 #{@results.size} résultats pour « #{@search.query} »
+    .list-group.search-results
+      - @results.each do |record|
+        = link_to search_result_path(record), class: 'list-group-item list-group-item-action' do
+          %span.search-results__kind= search_result_kind(record)
+          %span.search-results__label= search_result_label(record)
+  - else
+    %p.lead.mt-4 Aucun résultat pour « #{@search.query} ».
+    %p
+      Essayez un symbole d'accord (Am7, Bbmaj7, F#m7b5), un nom en français (la mineur 7, ré dorien),
+      un intervalle (quinte juste) ou une progression (2 5 1, blues).

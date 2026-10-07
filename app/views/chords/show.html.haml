@@ -13,28 +13,29 @@
     %meta{itemprop: "position", content: "2"}
   %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
     %a{itemprop: "item", href: url_for([@chord.key, @chord]), title: @chord.title, class: "disable"}
-      %span{itemprop: "name"}>= @chord.title(true)
+      %span{itemprop: "name"}>= @chord.heading(display: true)
     %meta{itemprop: "position", content: "3"}
 
 %article#chord
   = render "chords/header"
 
-= render "chords/guitar"
-
-%section#piano.mt-5
-  %h3 #{@chord.title(true)} au piano
-  = piano_image_tag(@chord)
+- guitar = GuitarVoicing.for(@chord).any?
+.row.g-4.instruments
+  - if guitar
+    .col-12.col-lg-6
+      = render "chords/guitar"
+  %section#piano{class: (guitar ? 'col-12 col-lg-6' : 'col-12')}
+    %h2.h3 #{@chord.display_symbol} au piano
+    = piano_image_tag(@chord)
 
 -if @chord.chord_scales.size > 1
   %nav.related-modes.mt-3
-    %h3 Gammes et modes relatifs :
+    %h2.h3 Gammes et modes associés
     .modes-list
-      .row
+      .row.g-3
         - @chord.chord_scales.includes(mode: [:scale]).each do |chord_scale|
           = render chord_scale.mode, :key => (@chord.key || Key.default).shifted(chord_scale.offset)
 
-
-= render "chords/key_selector"
 
 -#- if @chord.voicings.present?
 -#  %nav.related-voicings

@@ -1,39 +1,27 @@
 -set_meta_tags canonical: root_url
+- popular = [%w[a mineur-7], %w[d mineur-7], %w[e mineur-7], %w[g septieme-de-dominante], %w[c majeur-7], %w[f majeur-7],
+  %w[g mineur-7], %w[b mineur-7], %w[a septieme-de-dominante], %w[e septieme-de-dominante], %w[bb majeur-7], %w[b demi-diminue]]
 
-.jumbotron.text-center
-  %h1
-    La référence sur la théorie musicale
-  %p.mx-auto
-    Vous cherchez la composition d'un accord de septième de dominante ? Les notes composant la gamme mineure mélodique ? Le nom du deuxième mode de la gamme majeure ?
-    %br
-    Vous trouverez tout ce dont vous avez besoin ici !
+%section.home-hero
+  %h1 Théorie musicale pour le jazz et l'improvisation
+  %p.home-hero__lead
+    Accords, gammes, modes, intervalles et progressions, avec leurs notes, leur position à la guitare et au piano, dans les 12 tonalités.
+  = render 'search/form', size: 'search-form--hero', autofocus: false
+  .home-hero__popular
+    %span= typo_fr('Accords populaires :')
+    - popular.each do |key_param, slug|
+      - chord = Chord.friendly.find(slug).in_key_of(Key[key_param])
+      = link_to chord.display_symbol, (chord.key.main? ? chord_path(chord) : key_chord_path(chord.key, chord)), title: chord.heading(display: true), class: 'badge bg-light'
 
-.row.g-4
-  .col-12.col-md-4
-    .card.h-100.shadow-sm.hover-lift
-      .card-body.text-center.p-4
-        .mb-3
-          %i.fas.fa-music.fa-3x.text-primary
-        %h2.h3.mb-3 Intervalles
-        %p.text-muted.mb-4 Parcourez les intervalles simples et redoublés. Consultez le nombre de tons, demi-tons et les renversements.
-        = link_to "Voir les intervalles", intervals_path, class: "btn btn-primary btn-lg rounded-pill w-100 stretched-link"
-
-  .col-12.col-md-4
-    .card.h-100.shadow-sm.hover-lift
-      .card-body.text-center.p-4
-        .mb-3
-          %i.fas.fa-guitar.fa-3x.text-primary
-        %h2.h3.mb-3 Accords
-        %p.text-muted.mb-4 Découvrez les accords jazz essentiels. Analysez leur composition, appellations et gammes d'origine.
-        = link_to "Voir les accords", chords_path, class: "btn btn-primary btn-lg rounded-pill w-100 stretched-link"
-
-  .col-12.col-md-4
-    .card.h-100.shadow-sm.hover-lift
-      .card-body.text-center.p-4
-        .mb-3
-          %i.fas.fa-layer-group.fa-3x.text-primary
-        %h2.h3.mb-3 Gammes et modes
-        %p.text-muted.mb-4 Explorez les gammes et leurs modes. Visualisez les intervalles, notes et accords associés.
-        = link_to "Voir les gammes", scales_path, class: "btn btn-primary btn-lg rounded-pill w-100 stretched-link"
+.row.g-4.home-sections
+  - [['Accords', chords_path, "28 accords, de la triade au 13, avec leurs symboles, leurs notes et leurs positions à la guitare et au piano."],
+     ['Gammes et modes', scales_path, "Gammes majeure, mineures, pentatonique, blues, bebop… et leurs modes, avec l'harmonisation de chaque degré."],
+     ['Intervalles', intervals_path, "Intervalles simples et redoublés : nombre de tons, demi-tons et renversements."],
+     ['Progressions', progressions_path, "II-V-I, anatole, grille de blues, I-V-VI-IV : les enchaînements clés dans les 12 tonalités."]].each do |name, path, text|
+    .col-12.col-md-6.col-lg-3
+      .card.h-100
+        .card-body
+          %h2.h4.mt-0= link_to name, path, class: 'stretched-link'
+          %p.mb-0= typo_fr(text)
 
 = render "layouts/author"

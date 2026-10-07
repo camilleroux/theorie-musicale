@@ -1,10 +1,10 @@
 - chord = chord.in_key_of(key) if local_assigns[:key]
 
 .col
-  .chord
-    .card.h-100
-      = link_to(chord) do
-        .card-header
-          =chord.name
-        .card-body
-          .staff.chord-staff{"data-id" => chord.id, "data-staff" => chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 150}
+  .chord.card.h-100
+    .card-header
+      = link_to chord.name, chord, class: 'stretched-link'
+    .card-body.d-flex.align-items-center.gap-3
+      .chord-card__symbol= "#{chord.key || Key.default}#{chord.display_suffix}"
+      .chord-card__staff.flex-grow-1
+        .staff.chord-staff{"data-id" => chord.id, "data-staff" => chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 150}

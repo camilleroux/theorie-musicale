@@ -14,15 +14,17 @@
                         :site_name => 'Théorie musicale',
                         :locale => "fr_FR",
                         :url => :canonical,
+                        :image => { _: image_url('/og-image.png'), width: 1200, height: 630, alt: "Théorie musicale : accords, gammes et modes pour le jazz" },
                         :description => :description},
-                      :twitter => { card: 'summary',
+                      :twitter => { card: 'summary_large_image',
                         :site => '@CamilleRoux',
                         :creator => '@CamilleRoux'}
 
   = favicon_link_tag
   %link{rel: "preconnect", href: "https://fonts.googleapis.com"}
   %link{rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true}
-  <link href="//fonts.googleapis.com/css?family=Lato:400,300,700,900|Merriweather:300italic,300,700,700italic" rel="stylesheet" type="text/css">
+  -# Inter lacks ♯ ♭ ♮: browsers fall back to the system symbol font, which renders them better than Noto Music
+  %link{rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap'}
   <meta name="google-site-verification" content="SueIOm5OP8R5QoMCc_V3ODVd-jZZeynl1iE17FXH8vc" />
   = render :partial => 'layouts/stylesheets'
 

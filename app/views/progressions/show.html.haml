@@ -12,7 +12,7 @@
   .page-header
     %h1= @progression.name
     %p.lead.text-muted= @progression.roman_numerals
-  %p.lead= @progression.summary
+  %p.lead= typo_fr(@progression.summary)
 
   %section.mt-4
     %h2.h3 En do
@@ -32,7 +32,7 @@
 
   %section.mt-4
     - @progression.paragraphs.each do |paragraph|
-      %p= paragraph
+      %p= typo_fr(paragraph)
 
   %section.mt-4
     %h2.h3 #{@progression.short_name} dans les 12 tonalités

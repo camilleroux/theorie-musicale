@@ -51,15 +51,27 @@
 // Project styles
 @import "chord";
 
-// Base
+// Typography
 body {
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  // Inter: serif capital I (roman numerals II, IV, VII) and tailed l, so I/l/1 never look alike
+  font-feature-settings: "cv05", "cv08";
 }
 
-h1, .h1 { letter-spacing: -.02em; }
-h2, .h2, h3, .h3 { letter-spacing: -.01em; }
-h2, .h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
-h3, .h3 { margin-top: 2rem; margin-bottom: .75rem; }
+h1, .h1 { font-size: #{"clamp(1.875rem, calc(1.3rem + 2.4vw), 2.5rem)"}; letter-spacing: -.025em; }
+h2, .h2 { letter-spacing: -.02em; margin-top: 2.75rem; margin-bottom: 1rem; }
+h3, .h3, h4, .h4 { letter-spacing: -.01em; margin-top: 2rem; margin-bottom: .75rem; }
+h2:first-child, h3:first-child { margin-top: 0; }
+
+// Comfortable line length for running text
+#content-wrapper :is(article, section, .page-header) > p,
+.author p { max-width: 72ch; }
+
+// Numbers line up in tables and chips
+.table, .badge, .pagination, figcaption code { font-variant-numeric: tabular-nums; }
+
+small, .small { font-size: .875rem; }
 
 // Links inside running text are underlined; navigation, chips and buttons are not
 #content-wrapper :is(p, ul:not(.pagination)) a:not(.btn):not(.badge),
@@ -89,7 +101,7 @@ nav.navbar.bg-dark {
   border-bottom: 3px solid $primary;
 
   .navbar-brand { font-weight: 800; letter-spacing: -.01em; }
-  .nav-link { font-weight: 700; }
+  .nav-link { font-weight: 700; white-space: nowrap; }
 }
 
 // Page header
@@ -136,21 +148,197 @@ nav.navbar.bg-dark {
   }
 }
 
-// Chord and mode cards: the header is the title
-.chord .card, .mode.card {
-  > a { color: inherit; text-decoration: none; }
+// Chord and mode cards: the whole card is a link, the header is the title
+.chord.card, .mode.card {
+  position: relative;
 
   .card-header {
-    color: $ink;
-    font-size: 1.05rem;
+    font-size: 1.0625rem;
     letter-spacing: 0;
     text-transform: none;
+
+    a { color: $primary; text-decoration: none; }
+  }
+  &:has(.stretched-link:hover) .card-header a { text-decoration: underline; }
+}
+
+.chord-card__symbol {
+  min-width: 5.5rem;
+  color: $ink;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+// Jump links to chord families
+.quality-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.chord-quality { scroll-margin-top: 1rem; }
+
+// Chord page hero
+.chord-hero {
+  margin-bottom: 2.5rem;
+
+  .card-body { padding: 1.5rem; }
+  @media (min-width: 992px) { .card-body { padding: 2rem 2.5rem; } }
+
+  &__title { margin: 0 0 1.25rem; }
+
+  &__symbol {
+    display: block;
+    color: $primary;
+    font-size: #{"clamp(3rem, calc(2rem + 4vw), 4.5rem)"};
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1;
+  }
+
+  &__name {
+    display: block;
+    margin-top: .5rem;
+    color: $ink;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+
+  &__facts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: .6rem 1.25rem;
+    align-items: center;
+    margin-bottom: 0;
+
+    dt {
+      color: $ink-muted;
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    dd { margin: 0; }
+    .badge { font-size: .9375rem; margin: 0 .25rem .25rem 0; padding: .4em .65em; }
+  }
+
+  &__staff {
+    display: flex;
+    justify-content: center;
+    background-color: $gray-100;
+    border-radius: $border-radius;
+    padding: 1rem;
+  }
+
+  .card-footer {
+    background-color: $surface;
+    border-top: 1px solid $border-color;
+    padding: .75rem 1.5rem;
   }
 }
 
-.chord .card > a .card-header { color: $primary; }
+// Key selector
+.key-selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem 1rem;
 
-// Home hero
+  &__label {
+    color: $ink-muted;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .pagination { gap: .25rem; }
+  .page-link { border-radius: $border-radius-sm !important; min-width: 2.5rem; }
+}
+
+// Search
+.search-form {
+  .form-control { border-color: $gray-400; }
+  .form-control:focus { border-color: $primary; box-shadow: 0 0 0 .2rem rgba($primary, .2); }
+}
+
+.search-form--nav {
+  min-width: 13rem;
+  .form-control { background-color: rgba(#fff, .1); border-color: rgba(#fff, .35); color: #fff; }
+  .form-control::placeholder { color: rgba(#fff, .7); }
+  .form-control:focus { background-color: #fff; color: $ink; }
+  .btn { display: none; }
+}
+
+.search-form--hero {
+  max-width: 640px;
+  margin: 2rem auto 0;
+  .form-control, .btn { font-size: 1.125rem; padding: .8rem 1rem; }
+  .form-control { border: 0; }
+  .btn { background-color: $ink; border-color: $ink; }
+}
+
+.search-results {
+  .list-group-item { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 1.25rem; }
+  &__kind {
+    min-width: 8rem;
+    color: $ink-muted;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  &__label { color: $primary; font-weight: 700; }
+}
+
+// Home
+.home-hero {
+  padding: 3rem 1.5rem;
+  margin-bottom: 2.5rem;
+  background-color: $primary-dark;
+  border-radius: $border-radius-lg;
+  color: #fff;
+  text-align: center;
+
+  h1 {
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: -.03em;
+    max-width: 18ch;
+    margin: 0 auto 1rem;
+  }
+
+  &__lead {
+    color: rgba(#fff, .92);
+    font-size: 1.15rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  &__popular {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    margin-top: 1.5rem;
+
+    > span { color: rgba(#fff, .85); font-weight: 700; margin-right: .25rem; }
+    .badge { font-size: 1rem; padding: .45em .7em; }
+  }
+
+  @media (min-width: 576px) { padding: 4.5rem 3rem; }
+}
+
+.home-sections {
+  .card-body { padding: 1.5rem; }
+  h2 a { text-decoration: none; }
+  p { color: $ink-muted; }
+}
+
+// Legacy home hero
 .jumbotron {
   padding: 3rem 1.5rem;
   margin-bottom: 3rem;
@@ -251,7 +439,7 @@ nav.navbar.bg-dark {
 // Music notation
 .staff canvas {
   max-width: 100%;
-  height: auto;
+  height: auto !important; // keep the ratio when the logical width is scaled down
 }
 
 // Diagrams (guitar and piano images)
@@ -276,9 +464,18 @@ nav.navbar.bg-dark {
   padding: 1rem;
 }
 
+// Guitar and piano side by side on large screens
+.instruments {
+  h2 { margin-top: 0; }
+  #piano img { width: 100% !important; }
+}
+
 // Author box
 .author {
   img { border: 3px solid $primary-soft; }
+  @media (max-width: 575.98px) {
+    .card-body { flex-direction: column; align-items: flex-start !important; gap: 1rem !important; }
+  }
 }
 
 // Footer

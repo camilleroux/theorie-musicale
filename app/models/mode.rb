@@ -37,10 +37,11 @@ class Mode < ApplicationRecord
     super || scale.information
   end
 
-  # Titles follow searches: "gamme de ré mineur harmonique", "mode do dorien", "gamme pentatonique mineure de la"
-  def seo_title
+  # Follows searches: "Gamme de ré mineur harmonique", "Mode do dorien", "Gamme pentatonique mineure de la".
+  # Shared by the page title, the h1, the breadcrumb and mode cards.
+  def heading
     note = mode_key.french_long_name if key
-    base = if !scale.heptatonic?
+    if !scale.heptatonic?
       note ? "Gamme #{search_name} de #{note}" : "Gamme #{search_name}"
     elsif slug == 'eolien'
       note ? "Gamme de #{note} mineur naturel (mode éolien)" : "Mode éolien (gamme mineure naturelle)"
@@ -49,17 +50,20 @@ class Mode < ApplicationRecord
     else
       note ? "Mode #{note} #{name.downcase}" : "Mode #{name.downcase}"
     end
-    SeoTitle.fit(base, note ? [" : notes et piano", " : notes"] : [" : notes, intervalles et piano", " : notes et intervalles", " : intervalles"])
+  end
+
+  def seo_title
+    SeoTitle.fit(heading, key ? [" : notes et piano", " : notes"] : [" : notes, intervalles et piano", " : notes et intervalles", " : intervalles"])
   end
 
   def seo_description
     position = "#{mode == 1 ? '1er' : "#{mode}e"} mode de la gamme #{scale.name.downcase}"
     extras = scale.heptatonic? ? 'position au piano, harmonisation et accords associés' : 'position au piano'
     if key
-      "#{seo_title.split(' : ').first} : notes #{keys.map(&:to_s).to_sentence} (#{keys.map(&:french_name).to_sentence}). " \
+      "#{heading} : notes #{keys.map(&:to_s).to_sentence} (#{keys.map(&:french_name).to_sentence}). " \
         "Intervalles : #{step_names.join(' - ')}. #{position.capitalize}, #{extras}."
     else
-      name = seo_title.split(' : ').first.sub(/\A\w/, &:downcase)
+      name = heading.sub(/\A\w/, &:downcase)
       subject = name.start_with?('gamme') ? "La #{name} est composée" : "Le #{name}, #{position}, est composé"
       "#{subject} des intervalles suivants : #{step_names.join(' - ')}. Notes, #{extras}."
     end

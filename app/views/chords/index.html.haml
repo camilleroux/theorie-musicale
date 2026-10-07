@@ -14,5 +14,9 @@
   %h1 Accords
 %h2.lead= description 'Liste des accords classés en fonction de leur qualité'
 
+%nav.quality-nav{'aria-label': "Familles d'accords"}
+  - @chord_qualities.each do |quality|
+    = link_to quality.heading, "##{quality.slug}", class: 'btn btn-outline-primary btn-sm'
+
 %section#chords
   = render @chord_qualities

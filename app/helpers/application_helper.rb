@@ -2,6 +2,11 @@ module ApplicationHelper
   AUTHOR_ID = 'https://www.camilleroux.com/#person'
   AUTHOR_PHOTO_URL = 'https://www.camilleroux.com/content/images/size/w256h256/format/jpeg/2025/05/camillecouleur---lowres-2.jpg'
 
+  # French typography: non-breaking spaces before ; : ! ? » and after «, so they never start a line
+  def typo_fr(text)
+    text.to_s.gsub(/ ([;:!?»])/, "\u00A0\\1").gsub(/« /, "«\u00A0")
+  end
+
   # JSON-LD describing the site and its author (E-E-A-T, link with camilleroux.com)
   def structured_data
     {

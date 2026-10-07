@@ -1,0 +1,7 @@
+- autofocus = local_assigns.fetch(:autofocus, false)
+- size = local_assigns.fetch(:size, nil)
+%form.search-form{action: search_path, method: 'get', role: 'search', class: size}
+  %label.visually-hidden{for: "q-#{size}"} Rechercher un accord, une gamme, un intervalle
+  .input-group
+    %input.form-control{type: 'search', name: 'q', id: "q-#{size}", value: (@search&.query), placeholder: 'Am7, ré dorien, quinte juste…', autocomplete: 'off', autofocus: autofocus, spellcheck: 'false'}
+    %button.btn.btn-primary{type: 'submit'} Rechercher

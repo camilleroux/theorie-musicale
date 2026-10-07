@@ -16,6 +16,7 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     get '/tonalite/a/accords/mineur-7'
     assert_select 'title', 'Accord Am7 (la mineur 7) : notes, guitare et piano | Théorie musicale'
     assert_select 'meta[name=description][content^=?]', 'Accord Am7 (la mineur 7) : notes A, C, E et G'
+    assert_select 'h1', /Am7/
     assert_select 'img[src$=?]', '/tonalite/a/accords/mineur-7/guitare-1.svg'
     assert_select 'img[src$=?]', '/tonalite/a/accords/mineur-7/piano.svg'
   end

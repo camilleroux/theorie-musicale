@@ -32,6 +32,7 @@ module DiagramsHelper
     name = case record
            when Chord then "Accord #{diagram_symbol(record)}"
            when Key then "Note #{record.name}"
+           when Mode then record.heading
            else record.seo_title.split(' : ').first
            end
     "#{name} au piano : #{notes}"
