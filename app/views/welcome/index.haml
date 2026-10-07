@@ -3,6 +3,11 @@
   %w[g mineur-7], %w[b mineur-7], %w[a septieme-de-dominante], %w[e septieme-de-dominante], %w[bb majeur-7], %w[b demi-diminue]]
 
 %section.home-hero
+  %p.home-hero__eyebrow
+    %span Gratuit
+    %span #{Chord.count} accords
+    %span 12 tonalités
+    %span Depuis 2015
   %h1 Théorie musicale pour le jazz et l'improvisation
   %p.home-hero__lead
     Accords, gammes, modes, intervalles et progressions, avec leurs notes, leur position à la guitare et au piano, dans les 12 tonalités.
@@ -14,14 +19,16 @@
       = link_to chord.display_symbol, (chord.key.main? ? chord_path(chord) : key_chord_path(chord.key, chord)), title: chord.heading(display: true), class: 'badge bg-light'
 
 .row.g-4.home-sections
-  - [['Accords', chords_path, "#{Chord.count} accords, de la triade au 13, avec leurs symboles, leurs notes et leurs positions à la guitare et au piano."],
-     ['Gammes et modes', scales_path, "Gammes majeure, mineures, pentatonique, blues, bebop… et leurs modes, avec l'harmonisation de chaque degré."],
-     ['Intervalles', intervals_path, "Intervalles simples et redoublés : nombre de tons, demi-tons et renversements."],
-     ['Progressions', progressions_path, "II-V-I, anatole, grille de blues, I-V-VI-IV : les enchaînements clés dans les 12 tonalités."]].each do |name, path, text|
+  - [['Accords', chords_path, 'maj7', "#{Chord.count} accords, de la triade au 13, avec leurs symboles, leurs notes et leurs positions à la guitare et au piano."],
+     ['Gammes et modes', scales_path, 'C D E', "Gammes majeure, mineures, pentatonique, blues, bebop… et leurs modes, avec l'harmonisation de chaque degré."],
+     ['Intervalles', intervals_path, '5te', "Intervalles simples et redoublés : nombre de tons, demi-tons et renversements."],
+     ['Progressions', progressions_path, 'II V I', "II-V-I, anatole, grille de blues, I-V-VI-IV : les enchaînements clés dans les 12 tonalités."]].each do |name, path, glyph, text|
     .col-12.col-md-6.col-lg-3
-      .card.h-100
+      .card.h-100.home-section
         .card-body
+          %span.home-section__glyph{'aria-hidden': true}= glyph
           %h2.h4.mt-0= link_to name, path, class: 'stretched-link'
-          %p.mb-0= typo_fr(text)
+          %p= typo_fr(text)
+          %span.home-section__more{'aria-hidden': true} Explorer →
 
 = render "layouts/author"

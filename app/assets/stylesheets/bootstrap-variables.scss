@@ -4,15 +4,18 @@
 
 // Palette
 $ink: #16202b;          // text, navbar, footer (15:1 on the page background)
-$ink-muted: #4a5866;    // secondary text (6.8:1)
-$page-bg: #f5f7fa;
+$ink-muted: #4f5b67;    // secondary text (6.6:1 on the page background)
+$page-bg: #f8f6f1;      // warm paper
 $surface: #ffffff;
-$border-color: #dde3ea;
+$border-color: #e5e0d6;
 $primary: #1864ab;      // links, accents, buttons (6:1 on white)
 $primary-dark: #0f3d66; // hero, hover
 $primary-soft: #e3edf9; // badges and highlighted cells (7:1 with $primary-text)
 $primary-text: #0b4f8a;
 $success: #2b7a3d;
+$accent: #d9822b;       // brass: decorative only (rules, dots, glyphs), never body text
+$accent-text: #9a4a0f;  // brass text (6.4:1 on white)
+$accent-soft: #fbefe1;
 
 // Options
 $enable-shadows: false;
@@ -24,10 +27,10 @@ $min-contrast-ratio: 4.5;
 $spacer: 1rem;
 
 // Gray scale (Bootstrap 5 naming)
-$gray-100: #f5f7fa;
-$gray-200: #e9edf2;
+$gray-100: #f6f3ec;
+$gray-200: #ece8df;
 $gray-300: $border-color;
-$gray-400: #c3ccd6;
+$gray-400: #cdc6b8;
 $gray-500: #8a96a3;
 $gray-600: $ink-muted;
 $gray-700: #36424f;
@@ -69,6 +72,8 @@ $h2-font-size: 1.75rem;
 $h3-font-size: 1.375rem;
 $h4-font-size: 1.125rem;
 $h5-font-size: 1.0625rem;
+
+$font-family-serif: Fraunces, Georgia, "Times New Roman", serif;
 
 // Headings
 $headings-font-family: $font-family-sans-serif;

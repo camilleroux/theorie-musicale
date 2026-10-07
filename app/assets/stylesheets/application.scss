@@ -51,6 +51,11 @@
 // Project styles
 @import "chord";
 
+// Five staff lines, used as a discreet background motif
+@function staff-lines($color, $gap: 14px) {
+  @return repeating-linear-gradient(to bottom, transparent 0, transparent #{$gap - 1px}, $color #{$gap - 1px}, $color $gap);
+}
+
 // Typography
 body {
   -webkit-font-smoothing: antialiased;
@@ -59,8 +64,15 @@ body {
   font-feature-settings: "cv05", "cv08";
 }
 
-h1, .h1 { font-size: #{"clamp(1.875rem, calc(1.3rem + 2.4vw), 2.5rem)"}; letter-spacing: -.025em; }
-h2, .h2 { letter-spacing: -.02em; margin-top: 2.75rem; margin-bottom: 1rem; }
+h1, .h1 { font-size: #{"clamp(2rem, calc(1.3rem + 2.6vw), 2.75rem)"}; letter-spacing: -.02em; }
+h2, .h2 { letter-spacing: -.015em; margin-top: 2.75rem; margin-bottom: 1rem; }
+
+// Page and section titles in a serif: a reference-book feel, warmer than an all-sans page
+h1, h2 {
+  font-family: $font-family-serif;
+  font-weight: 650;
+  font-optical-sizing: auto;
+}
 h3, .h3, h4, .h4 { letter-spacing: -.01em; margin-top: 2rem; margin-bottom: .75rem; }
 h2:first-child, h3:first-child { margin-top: 0; }
 
@@ -93,24 +105,66 @@ footer a {
   padding-bottom: 3rem;
 }
 
-// Navbar: solid, no gradient
-nav.navbar.bg-dark {
-  background-color: $ink !important;
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  border-bottom: 3px solid $primary;
-
-  .navbar-brand { font-weight: 800; letter-spacing: -.01em; }
-  .nav-link { font-weight: 700; white-space: nowrap; }
+// Logo
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: .55rem;
+  background-color: $accent;
+  color: $ink;
+  svg { width: 1.3rem; height: 1.3rem; }
 }
 
-// Page header
+// Navbar
+nav.navbar.bg-dark {
+  background-color: rgba($ink, .97) !important;
+  backdrop-filter: saturate(140%) blur(8px);
+  padding-top: .7rem;
+  padding-bottom: .7rem;
+  box-shadow: 0 1px 0 rgba(#fff, .06), 0 4px 18px rgba($ink, .12);
+
+  .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    font-family: $font-family-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: -.01em;
+  }
+  .nav-link {
+    position: relative;
+    font-weight: 700;
+    white-space: nowrap;
+    &:hover::after, &.active::after {
+      content: "";
+      position: absolute;
+      left: .5rem;
+      right: .5rem;
+      bottom: .15rem;
+      height: 2px;
+      border-radius: 1px;
+      background-color: $accent;
+    }
+  }
+}
+
+// Page header: a short brass rule replaces the full-width border
 .page-header {
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid $border-color;
+  margin-bottom: 2.25rem;
 
   h1 { margin-bottom: 0; }
+  h1::after {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin-top: .9rem;
+    border-radius: 2px;
+    background-color: $accent;
+  }
   .lead { margin-top: .5rem; margin-bottom: 0; }
 }
 
@@ -129,7 +183,7 @@ nav.navbar.bg-dark {
 // Cards
 .card {
   margin-bottom: 1rem;
-  box-shadow: 0 1px 2px rgba($ink, .05);
+  box-shadow: 0 1px 2px rgba($ink, .04), 0 2px 8px rgba($ink, .03);
   transition: box-shadow .15s ease, transform .15s ease, border-color .15s ease;
 
   .card-header {
@@ -143,8 +197,9 @@ nav.navbar.bg-dark {
 
   &.hover-lift:hover,
   &:has(> a:hover), &:has(.stretched-link:hover) {
-    border-color: rgba($primary, .45);
-    box-shadow: 0 6px 16px rgba($ink, .08);
+    border-color: rgba($primary, .4);
+    box-shadow: 0 10px 24px rgba($ink, .09);
+    transform: translateY(-2px);
   }
 }
 
@@ -178,11 +233,17 @@ nav.navbar.bg-dark {
   margin-bottom: 1rem;
 }
 
-.chord-quality { scroll-margin-top: 1rem; }
+.chord-quality {
+  scroll-margin-top: 5rem; // clear the sticky navbar
+  & + & { margin-top: 3rem; } // the h2 is a first child, so its own top margin is reset
+  .card { margin-bottom: 0; } // the grid gutter already spaces the cards
+}
 
 // Chord page hero
 .detail-hero {
   margin-bottom: 2.5rem;
+  overflow: hidden;
+  border-top: 4px solid $primary;
 
   .card-body { padding: 1.5rem; }
   @media (min-width: 992px) { .card-body { padding: 2rem 2.5rem; } }
@@ -192,6 +253,7 @@ nav.navbar.bg-dark {
   &__symbol {
     display: block;
     color: $primary;
+    font-family: $font-family-sans-serif; // chord symbols stay in the sans, like on a lead sheet
     font-size: #{"clamp(3rem, calc(2rem + 4vw), 4.5rem)"};
     font-weight: 800;
     letter-spacing: -.03em;
@@ -239,7 +301,7 @@ nav.navbar.bg-dark {
   }
 
   .card-footer {
-    background-color: $surface;
+    background-color: $gray-100;
     border-top: 1px solid $border-color;
     padding: .75rem 1.5rem;
   }
@@ -271,7 +333,7 @@ nav.navbar.bg-dark {
 
 .search-form--nav {
   min-width: 13rem;
-  .form-control { background-color: rgba(#fff, .1); border-color: rgba(#fff, .35); color: #fff; }
+  .form-control { background-color: rgba(#fff, .08); border-color: rgba(#fff, .25); border-radius: 999px !important; padding-left: 1rem; color: #fff; }
   .form-control::placeholder { color: rgba(#fff, .7); }
   .form-control:focus { background-color: #fff; color: $ink; }
   .btn { display: none; }
@@ -281,8 +343,16 @@ nav.navbar.bg-dark {
   max-width: 640px;
   margin: 2rem auto 0;
   .form-control, .btn { font-size: 1.125rem; padding: .8rem 1rem; }
-  .form-control { border: 0; }
-  .btn { background-color: $ink; border-color: $ink; }
+  @media (max-width: 575.98px) { .form-control, .btn { font-size: 1rem; padding: .7rem .8rem; } }
+  .input-group {
+    padding: .35rem;
+    background-color: #fff;
+    border-radius: .9rem;
+    box-shadow: 0 12px 32px rgba(#000, .25);
+  }
+  .form-control { border: 0; box-shadow: none; background-color: #fff; }
+  .btn { border-radius: .6rem !important; background-color: $accent; border-color: $accent; color: $ink; }
+  .btn:hover, .btn:focus { background-color: lighten($accent, 6%); border-color: lighten($accent, 6%); color: $ink; }
 }
 
 .search-results {
@@ -303,16 +373,32 @@ nav.navbar.bg-dark {
   padding: 3rem 1.5rem;
   margin-bottom: 2.5rem;
   background-color: $primary-dark;
-  border-radius: $border-radius-lg;
+  border-radius: 1.25rem;
   color: #fff;
   text-align: center;
 
+  &__eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    color: rgba(#fff, .85);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+
+  }
+
   h1 {
     color: #fff;
-    font-weight: 900;
-    letter-spacing: -.03em;
+    font-size: #{"clamp(2.25rem, calc(1.4rem + 3.4vw), 3.5rem)"};
+    font-weight: 650;
+    letter-spacing: -.02em;
+    line-height: 1.1;
     max-width: 18ch;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1.1rem;
   }
 
   &__lead {
@@ -331,16 +417,45 @@ nav.navbar.bg-dark {
     margin-top: 1.5rem;
 
     > span { color: rgba(#fff, .85); font-weight: 700; margin-right: .25rem; }
-    .badge { font-size: 1rem; padding: .45em .7em; }
+    .badge.bg-light {
+      font-size: 1rem;
+      padding: .45em .75em;
+      border-radius: 999px;
+      background-color: rgba(#fff, .1) !important;
+      border-color: rgba(#fff, .25) !important;
+      color: #fff !important;
+      &:hover { background-color: #fff !important; color: $primary-dark !important; border-color: #fff !important; }
+    }
   }
 
-  @media (min-width: 576px) { padding: 4.5rem 3rem; }
+  @media (min-width: 576px) { padding: 4.5rem 3rem 4rem; }
 }
 
 .home-sections {
-  .card-body { padding: 1.5rem; }
-  h2 a { text-decoration: none; }
-  p { color: $ink-muted; }
+  .card-body { display: flex; flex-direction: column; padding: 1.5rem; }
+  h2 { margin-bottom: .5rem; font-family: $font-family-serif; font-weight: 650; }
+  h2 a { color: $ink; text-decoration: none; }
+  p { color: $ink-muted; flex-grow: 1; margin-bottom: 1rem; }
+}
+
+.home-section {
+  &__glyph {
+    display: inline-grid;
+    place-items: center;
+    align-self: flex-start;
+    min-width: 3.25rem;
+    height: 3.25rem;
+    padding: 0 .75rem;
+    margin-bottom: 1.1rem;
+    border-radius: .8rem;
+    background-color: $primary-soft;
+    color: $primary-text;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    transition: background-color .15s ease, color .15s ease;
+  }
+  &__more { color: $primary; font-size: .9375rem; font-weight: 700; }
+  &:has(.stretched-link:hover) &__glyph { background-color: $primary; color: #fff; }
 }
 
 // Legacy home hero
@@ -477,8 +592,8 @@ nav.navbar.bg-dark {
 
 // Author box
 .author {
-  border-left: 4px solid $primary;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+  background-color: $surface;
 
   .card-body { padding: 1.75rem; }
   @media (min-width: 768px) { .card-body { padding: 2rem 2.25rem; } }
@@ -494,13 +609,14 @@ nav.navbar.bg-dark {
     width: 104px;
     height: 104px;
     border-radius: 50%;
-    border: 3px solid $primary-soft;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px $accent, 0 6px 16px rgba($ink, .15);
     flex-shrink: 0;
   }
 
   &__eyebrow, &__subtitle {
     margin: 0;
-    color: $ink-muted;
+    color: $accent-text;
     font-size: .8rem;
     font-weight: 800;
     letter-spacing: .06em;
@@ -509,8 +625,9 @@ nav.navbar.bg-dark {
 
   &__name {
     margin: .1rem 0;
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-family: $font-family-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
     letter-spacing: -.01em;
     a { text-decoration: none; }
   }
@@ -618,18 +735,46 @@ nav.navbar.bg-dark {
 }
 
 // Footer
-footer {
+.site-footer {
+  position: relative;
+  margin-top: 2rem;
+  padding: 3.5rem 0 3rem;
   background-color: $ink;
-  border-top: 3px solid $primary;
-  padding: 3rem 1rem;
-  color: rgba(#fff, .8);
-  text-align: center;
+  background-image: staff-lines(rgba(#fff, .035), 12px);
+  background-size: 100% 60px;
+  background-repeat: no-repeat;
+  color: rgba(#fff, .75);
   font-size: .95rem;
 
-  a {
+  a { color: #fff; &:hover { color: #fff; text-decoration-thickness: 2px; } }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-bottom: .75rem;
     color: #fff;
+    font-family: $font-family-serif;
+    font-size: 1.3rem;
     font-weight: 700;
-    &:hover { color: #fff; text-decoration-thickness: 2px; }
+  }
+  &__about { max-width: 40ch; margin: 0; }
+  &__about a { font-weight: 700; }
+
+  &__title {
+    margin-bottom: .75rem;
+    color: $accent;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  &__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li + li { margin-top: .4rem; }
+    a { color: rgba(#fff, .85); text-decoration: none; &:hover { color: #fff; text-decoration: underline; } }
   }
 }
 

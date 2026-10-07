@@ -5,7 +5,9 @@
   %body
     %nav.navbar.sticky-top.navbar-expand-lg.navbar-dark.bg-dark
       .container
-        =link_to "Théorie musicale", root_path, class: "navbar-brand", title: "Théorie de la musique"
+        = link_to root_path, class: "navbar-brand", title: "Théorie de la musique" do
+          %span.brand-mark{'aria-hidden': true}= brand_mark_svg
+          Théorie musicale
         %button.navbar-toggler{"aria-controls" => "navbarText", "aria-expanded" => "false", "aria-label" => "Afficher le menu", "data-bs-target" => "#navbarText", "data-bs-toggle" => "collapse", :type => "button"}
           %span.navbar-toggler-icon
         #navbarText.collapse.navbar-collapse
@@ -27,13 +29,32 @@
       .container
         = yield
 
-  %footer
-    Créé avec ♥ par
-    =link_to "Camille Roux", "https://www.camilleroux.com/", target: '_blank', title: "Site personnel de Camille Roux", rel: 'author me'
-    \•
-    =link_to "Écouter ma musique", "https://music.camilleroux.com/", target: '_blank', title: "Musique de Camille Roux", rel: 'noopener'
-    \•
-    =link_to "Code source", "https://github.com/camilleroux/theorie-musicale", target: '_blank', rel: 'nofollow noopener'
+  %footer.site-footer
+    .container
+      .row.g-4
+        .col-12.col-lg-5
+          %p.site-footer__brand
+            %span.brand-mark{'aria-hidden': true}= brand_mark_svg
+            Théorie musicale
+          %p.site-footer__about
+            = typo_fr("La théorie utile au jazz et à l'improvisation, en accès libre depuis 2015. Créé et maintenu par")
+            = succeed '.' do
+              = link_to "Camille Roux", "https://www.camilleroux.com/", target: '_blank', title: "Site personnel de Camille Roux", rel: 'author me'
+        .col-6.col-lg-3.offset-lg-1
+          %p.site-footer__title Explorer
+          %ul.site-footer__links
+            %li= link_to 'Notes', notes_path
+            %li= link_to 'Intervalles', intervals_path
+            %li= link_to 'Accords', chords_path
+            %li= link_to 'Gammes et modes', scales_path
+            %li= link_to 'Progressions', progressions_path
+        .col-6.col-lg-3
+          %p.site-footer__title Le site
+          %ul.site-footer__links
+            %li= link_to 'À propos', page_path('a-propos')
+            %li= link_to 'Ressources', page_path('ressources')
+            %li= link_to "Écouter ma musique", "https://music.camilleroux.com/", target: '_blank', title: "Musique de Camille Roux", rel: 'noopener'
+            %li= link_to "Code source", "https://github.com/camilleroux/theorie-musicale", target: '_blank', rel: 'nofollow noopener'
 
     -# Javascript at the bottom for fast page loading
   = render :partial => 'layouts/javascripts_bottom'
