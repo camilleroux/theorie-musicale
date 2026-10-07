@@ -1,4 +1,5 @@
--description "Le mode #{@mode.title}, issu de la gamme #{@scale.name}, est composé des intervalles suivants : #{@mode.step_names.join(" - ")}"
+-title @mode.seo_title
+-description @mode.seo_description
 -set_meta_tags canonical: url_for([@key, @scale, @mode, {only_path: false}])
 
 %ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
@@ -22,7 +23,7 @@
 %article#scale
   %header
     .page-header
-      %h1= title "Mode #{@mode.title}"
+      %h1= "Mode #{@mode.title}"
 
 
 %section#mode
@@ -50,7 +51,7 @@
 
 %section#piano.mt-3
   %h3 Mode #{@mode.title} au piano
-  =render "layouts/piano", keys: @mode.keys
+  = image_tag piano_diagram_url(@mode), alt: piano_diagram_alt(@mode), width: 338, height: 112, loading: 'lazy', class: 'img-fluid d-block mx-auto', style: 'width: 720px'
 
   -if @scale.heptatonic?
     %nav#harmonization.mt-3

@@ -15,6 +15,11 @@ class ModesController < ApplicationController
     respond_with @scale, @mode
   end
 
+  def piano
+    expires_in 1.month, public: true
+    render plain: PianoDiagram.new(@mode.keys).to_svg(title: helpers.piano_diagram_alt(@mode)), content_type: 'image/svg+xml'
+  end
+
 
   protected
 

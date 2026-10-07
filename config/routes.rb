@@ -15,12 +15,16 @@ Rails.application.routes.draw do
     resources :intervals, only: [:show], path: 'intervalles'
 
     resources :scales, only: [:index, :show], path: 'gammes' do
-      resources :modes, only: [:index, :show], path: 'modes'
+      resources :modes, only: [:index, :show], path: 'modes' do
+        get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
+      end
     end
   end
 
   resources :scales, only: [:index, :show], path: 'gammes' do
-    resources :modes, only: [:index, :show]
+    resources :modes, only: [:index, :show] do
+      get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
+    end
   end
 
   resources :chords, only: [:index, :show], path: 'accords' do

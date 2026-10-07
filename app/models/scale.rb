@@ -36,6 +36,11 @@ class Scale < ApplicationRecord
     notes.size == 7
   end
 
+  def seo_title
+    suffixes = heptatonic? ? [" : notes, modes et harmonisation", " : notes et modes"] : [" : notes et modes", " : notes"]
+    SeoTitle.fit("Gamme #{name.downcase}", suffixes)
+  end
+
   def self.resolve(symbol)
     in_key = nil
   

@@ -56,17 +56,12 @@ class Chord < ApplicationRecord
     key ? "#{key.name.tr('♯♭', '#b')}#{suffix}" : suffix
   end
 
-  # Leaves room for the " | Théorie musicale" suffix within meta-tags' 70 chars limit
-  SEO_TITLE_MAX_LENGTH = 51
-
   def seo_title
     if key
-      base = "Accord #{search_symbol} (#{key.french_long_name} #{name.downcase})"
-      suffixes = guitar? ? [" : notes, guitare et piano", " : guitare et piano", " : guitare", ""] : [" : notes et piano", " : notes", ""]
-      suffixes.map { |suffix| base + suffix }.find { |t| t.length <= SEO_TITLE_MAX_LENGTH } || base
+      suffixes = guitar? ? [" : notes, guitare et piano", " : guitare et piano", " : guitare"] : [" : notes et piano", " : notes"]
+      SeoTitle.fit("Accord #{search_symbol} (#{key.french_long_name} #{name.downcase})", suffixes)
     else
-      base = "Accord #{name.downcase} (#{search_symbol})"
-      [" : composition et intervalles", " : composition", ""].map { |suffix| base + suffix }.find { |t| t.length <= SEO_TITLE_MAX_LENGTH } || base
+      SeoTitle.fit("Accord #{name.downcase} (#{search_symbol})", [" : composition et intervalles", " : composition"])
     end
   end
 

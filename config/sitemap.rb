@@ -66,12 +66,15 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
+  image = ->(path) { [{ loc: SitemapGenerator::Sitemap.default_host + path }] }
+
   Scale.includes(:modes).find_each do |scale|
     add scale_path(scale), :priority => 0.75
     scale.modes.find_each do |mode|
-      add scale_mode_path(scale,mode), :priority => 0.70
-      Key.primaries.each do |key|
-        add key_scale_mode_path(key,scale,mode)
+      add scale_mode_path(scale,mode), :priority => 0.70, :images => image.(piano_scale_mode_path(scale, mode, format: :svg))
+      # C pages are canonicalized to the key-less mode page
+      Key.primaries.reject(&:main?).each do |key|
+        add key_scale_mode_path(key,scale,mode), :images => image.(piano_key_scale_mode_path(key, scale, mode, format: :svg))
       end
     end
   end
