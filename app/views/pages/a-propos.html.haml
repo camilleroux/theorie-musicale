@@ -15,7 +15,13 @@
 
 %h2 Qui suis-je ?
 = render "layouts/author"
-%p.lead.mt-4
+%p.mt-4
+  J'ai aussi raconté sur mon blog
+  = link_to "mon apprentissage de la guitare électrique", 'https://www.camilleroux.com/comment-jai-appris-la-guitare-electrique-en-6-mois/'
+  et
+  = succeed '.' do
+    = link_to "comment je me suis formé à la production de musique électronique", 'https://www.camilleroux.com/se-former-a-la-production-de-musique-electronique-et-publier-un-morceau-en-moins-dun-an/'
+%p.lead
   Vous voulez me soutenir ? Venez #{link_to 'écouter ma musique', 'https://music.camilleroux.com/', target:'_blank', rel: 'noopener', title: 'Découvrir la musique de Camille Roux'} que je fais, ou visitez #{link_to 'mon site personnel', 'https://www.camilleroux.com/', target:'_blank', rel: 'author noopener', title: 'Camille Roux - Site personnel'} pour en savoir plus sur mes projets :)
 
 %h2 On parle du site
