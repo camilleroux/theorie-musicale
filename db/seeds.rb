@@ -19,4 +19,4 @@ end
 %w(
   scales
   chords
-).each { |f| require Rails.root.join("db/seeds/#{f}.rb") }
+).each { |f| load Rails.root.join("db/seeds/#{f}.rb") }
