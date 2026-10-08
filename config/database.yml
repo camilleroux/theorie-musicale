@@ -20,8 +20,7 @@ test:
   <<: *default
   database: storage/test.sqlite3
 
-# Production uses DATABASE_URL environment variable (set by Heroku)
+# Read-only reference data, built into the Docker image by db:schema:load db:seed
 production:
-  url: <%= ENV['DATABASE_URL'] %>
-  encoding: utf8mb4
-  collation: utf8mb4_unicode_ci
+  <<: *default
+  database: db/production.sqlite3

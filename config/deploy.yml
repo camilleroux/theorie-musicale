@@ -1,0 +1,49 @@
+# Deployed with Kamal on the shared "kamal" server, next to feedcast and bskyfollow.
+service: theoriemusicale
+
+image: camilleroux/theorie-musicale
+
+servers:
+  web:
+    - 89.167.15.162
+
+# Let's Encrypt through kamal-proxy. The DNS record is proxied by Cloudflare,
+# like feedcast.camilleroux.com.
+proxy:
+  ssl: true
+  host: theoriemusicale.camilleroux.com
+  app_port: 3000
+  healthcheck:
+    interval: 3
+    path: /up
+    timeout: 3
+
+registry:
+  server: ghcr.io
+  username: camilleroux
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  secret:
+    - SECRET_KEY_BASE
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
+    # Sitemap bucket, not secret, but kept out of the repo like the keys
+    - FOG_DIRECTORY
+    - FOG_REGION
+  clear:
+    FOG_PROVIDER: AWS
+    RAILS_LOG_LEVEL: info
+    WEB_CONCURRENCY: 0
+
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  sitemap: app exec --reuse "bin/rails sitemap:refresh:no_ping"
+
+asset_path: /rails/public/assets
+
+builder:
+  arch: amd64

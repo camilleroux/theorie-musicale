@@ -40,9 +40,10 @@ gem 'roman-numerals'
 gem 'fog-aws'
 gem 'sitemap_generator'
 
-group :development, :test do
-  gem 'sqlite3', '>= 2.1'
+# Reference data only, rebuilt from db/seeds.rb when the Docker image is built
+gem 'sqlite3', '>= 2.1'
 
+group :development, :test do
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 
   # Static analysis for security vulnerabilities
@@ -51,15 +52,13 @@ end
 
 group :development do
   gem 'web-console'
+
+  # Deploy to the kamal server
+  gem 'kamal', require: false
 end
 
 group :test do
   # Use system testing
   gem 'capybara'
   gem 'selenium-webdriver'
-end
-
-group :production do
-  # Heroku uses MySQL (JawsDB)
-  gem 'mysql2'
 end

@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
-# Deploys HEAD to GitHub and Heroku, refreshes the sitemap and purges the Cloudflare cache.
-# Purges Cloudflare immediately if CLOUDFLARE_API_TOKEN (Zone > Cache Purge) and CLOUDFLARE_ZONE_ID are in the Heroku
-# config; otherwise pages refresh within the hour.
+# Deploys HEAD to GitHub and to the kamal server, refreshes the sitemap and purges the Cloudflare cache.
+# Purges Cloudflare immediately if CLOUDFLARE_API_TOKEN (Zone > Cache Purge) and CLOUDFLARE_ZONE_ID are in .env;
+# otherwise pages refresh within the hour.
 set -euo pipefail
 
-APP=theoriemusicale
 HOST=theoriemusicale.camilleroux.com
 
 git push origin HEAD:master
-git push https://git.heroku.com/$APP.git HEAD:master
-heroku run --no-tty -a $APP rake sitemap:refresh:no_ping
+bin/kamal deploy
+bin/kamal sitemap
 
-token=$(heroku config:get CLOUDFLARE_API_TOKEN -a $APP)
-zone=$(heroku config:get CLOUDFLARE_ZONE_ID -a $APP)
+token=$(grep '^CLOUDFLARE_API_TOKEN=' .env | cut -d= -f2- || true)
+zone=$(grep '^CLOUDFLARE_ZONE_ID=' .env | cut -d= -f2- || true)
 if [ -z "$token" ] || [ -z "$zone" ]; then
   echo "No Cloudflare credentials: pages will refresh within the hour (s-maxage)"
   exit 0

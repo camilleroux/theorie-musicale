@@ -1,0 +1,17 @@
+/.git/
+/.gitignore
+/.kamal/
+/.env*
+/.dockerignore
+/Dockerfile*
+/config/master.key
+/log/*
+/tmp/*
+/storage/*
+/db/*.sqlite3*
+/public/assets
+/node_modules/
+/test/
+/vendor/bundle
+/app/assets/builds/*
+!/app/assets/builds/.keep

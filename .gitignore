@@ -34,3 +34,6 @@
 
 # Ignore precompiled assets (Heroku compiles them automatically)
 /public/assets
+
+# Kamal secrets source
+/.env
