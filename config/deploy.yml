@@ -5,12 +5,18 @@ image: camilleroux/theorie-musicale
 
 servers:
   web:
-    - 89.167.15.162
+    - 2.28.71.76
 
-# Let's Encrypt through kamal-proxy. The DNS record is proxied by Cloudflare,
-# like feedcast.camilleroux.com.
 proxy:
-  ssl: true
+  # Behind the host nginx on apps-nbg1 (TLS terminated there, see adminsysperso/CLAUDE.md):
+  # kamal-proxy only listens on localhost. Keep this block identical in every app sharing the server.
+  run:
+    http_port: 8080
+    https_port: 8443
+    bind_ips:
+      - 127.0.0.1
+  ssl: false
+  forward_headers: true
   host: theoriemusicale.camilleroux.com
   app_port: 3000
   healthcheck:
