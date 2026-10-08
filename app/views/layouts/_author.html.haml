@@ -14,6 +14,11 @@
     %p.author__bio
       = typo_fr("J'ai créé ce site en 2015 pour rassembler la théorie musicale utile au jazz et à l'improvisation. Je joue de la guitare et je produis de la musique électronique.")
     - if full
+      %p.author__bio
+        = typo_fr("Je compose aussi mes propres morceaux, et la théorie finit souvent par s'y glisser.")
+        = succeed ',' do
+          = link_to 'Ear Rebirth', 'https://music.camilleroux.com/albums/ear-rebirth/'
+        = typo_fr('un morceau sur mes acouphènes, commence et se termine en 19/8, avec un passage en 6/8 au milieu.')
       %p.author__subtitle Sur mon blog
       %ul.author__articles
         %li= link_to "Comment j'ai appris la guitare électrique en 6 mois", guitar_url
@@ -24,7 +29,7 @@
         = link_to "comment j'ai appris la guitare électrique en 6 mois", guitar_url
     .author__actions
       = link_to 'Mon site personnel', 'https://www.camilleroux.com/', class: 'btn btn-primary btn-sm', rel: 'author'
-      = link_to 'Écouter ma musique', 'https://music.camilleroux.com/', class: 'btn btn-outline-primary btn-sm', rel: 'noopener'
+      = link_to 'Écouter mes morceaux', 'https://music.camilleroux.com/', class: 'btn btn-outline-primary btn-sm', rel: 'noopener'
       - if full
         %span.author__contact
           = typo_fr('Une remarque ? Écrivez-moi sur')

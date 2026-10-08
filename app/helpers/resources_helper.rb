@@ -28,7 +28,9 @@ module ResourcesHelper
         text: "Mon parcours pour apprendre à composer et produire de la musique électronique, de la découverte du logiciel à la publication d'un premier morceau." },
       { title: 'Ressources pour se former à la production de musique électronique', tag: 'Mon blog',
         url: "#{BLOG}/ressources-pour-se-former-a-la-production-de-musique-electronique/",
-        text: "Une sélection de cours, de livres, de chaînes et d'outils pour se lancer dans la production musicale." }
+        text: "Une sélection de cours, de livres, de chaînes et d'outils pour se lancer dans la production musicale." },
+      { title: 'Mes morceaux', tag: 'Ma musique', url: 'https://music.camilleroux.com/albums/',
+        text: "Les singles que j'ai composés et produits depuis mes débuts en production musicale." }
     ]]
   ].freeze
 end
