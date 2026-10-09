@@ -33,7 +33,6 @@ gem 'haml-rails'
 gem 'high_voltage', '~> 5.0'
 gem 'jquery-rails'
 gem 'meta-tags'
-gem 'newrelic_rpm'
 gem 'responders'
 gem 'roman-numerals'
 
