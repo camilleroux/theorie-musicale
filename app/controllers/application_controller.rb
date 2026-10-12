@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # An unknown key in the URL (e.g. /notes/null) is a 404, not a nil @key crashing the view
+  def key_from_param!(value)
+    Key[value] or raise ActiveRecord::RecordNotFound, "Unknown key #{value.inspect}"
+  end
+
   # Browsers always revalidate pages; Cloudflare keeps them one hour, so a deploy is live everywhere within the hour.
   # Requires the Cloudflare cache rule to respect origin cache headers.
   def set_cache_headers
