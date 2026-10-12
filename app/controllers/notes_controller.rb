@@ -22,7 +22,7 @@ class NotesController < ApplicationController
 
   def find_key
     if params[:id]
-      @key = Key[params[:id]]
+      @key = key_from_param!(params[:id])
     end
   end
 
