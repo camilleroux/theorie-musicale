@@ -294,7 +294,10 @@ nav.navbar.bg-dark {
 
   &__staff {
     display: flex;
+    flex-wrap: wrap; // the play buttons go under the staff when there's no room beside it
+    align-items: center;
     justify-content: center;
+    gap: 1rem;
     background-color: $gray-100;
     border-radius: $border-radius;
     padding: 1rem;
@@ -786,4 +789,26 @@ nav.navbar.bg-dark {
 
 .media-body {
   flex: 1;
+}
+
+// Play buttons under a staff (app/helpers/player_helper.rb)
+.play-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.play-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+
+  .play-icon { width: 1em; height: 1em; fill: currentColor; }
+  .icon-stop { display: none; }
+
+  &[aria-pressed="true"] {
+    .icon-play { display: none; }
+    .icon-stop { display: inline; }
+  }
 }

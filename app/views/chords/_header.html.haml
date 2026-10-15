@@ -27,5 +27,6 @@
       .col-12.col-lg-6
         .detail-hero__staff
           .staff.chord-staff{"data-id" => @chord.id, "data-staff" => @chord.octavized_notes.to_json, "data-staff-clef" => "treble", "width" => 260}
+          = play_buttons(@chord.octavized_notes, :chord, :arpeggio)
   .card-footer
     = render "chords/key_selector"

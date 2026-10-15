@@ -41,6 +41,7 @@
       .col-12.col-lg-6
         .detail-hero__staff
           .staff.interval-staff{"data-id" => @interval.to_param, "data-staff" => @interval.octavized_notes.map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 260}
+          = play_buttons(@interval.octavized_notes, :chord, :arpeggio)
   .card-footer
     = render 'shared/key_selector', current: @key, path: ->(key) { key_interval_path(key, @interval) }
 
