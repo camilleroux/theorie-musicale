@@ -9,11 +9,16 @@
 // or "scale" (up and back down). Clicking a playing button stops it.
 //
 //   <button class="play-button" data-play="sequence" data-steps='[{"notes":[38,60,65,69],"beats":4,"step":0}]'
-//           data-highlight='[data-play-key="c"]' data-loop="progression-loop">
+//           data-highlight='[data-play-key="c"]' data-loop="progression-loop"
+//           data-tempo="progression-tempo" data-keyboard="progression-keyboard">
 //
-// A "sequence" plays its steps (MIDI notes) in time, again and again while
-// the `data-loop` checkbox is ticked, lighting up the elements with the
-// step's data-play-step or data-play-bar inside those `data-highlight` selects.
+// A "sequence" plays its steps (MIDI notes) in time, at the tempo of the
+// `data-tempo` input and again and again while the `data-loop` checkbox is
+// ticked. It lights up the elements with the step's data-play-step or
+// data-play-bar inside those `data-highlight` selects, and the step's notes on
+// the `data-keyboard` element, where a keyboard is drawn (bass first).
+//
+// The Space bar plays and stops the button marked data-shortcut.
 (function () {
   "use strict"
 
@@ -44,6 +49,37 @@
         return [{ notes, beats: 4, hold: 4, spread: 0.008 }]
     }
   }
+
+  // A keyboard from C2 to B5 drawn as SVG, each key with its data-midi
+  const KEYBOARD_LOW = 36
+  const KEYBOARD_HIGH = 83
+  const BLACK = [1, 3, 6, 8, 10]
+
+  function drawKeyboard(element) {
+    if (element.querySelector("svg")) return
+    const whiteWidth = 14
+    const whites = []
+    const blacks = []
+    let x = 0
+    for (let midi = KEYBOARD_LOW; midi <= KEYBOARD_HIGH; midi++) {
+      if (BLACK.includes(midi % 12)) {
+        blacks.push(`<rect class="key key--black" data-midi="${midi}" x="${x - 4.5}" y="0" width="9" height="40" rx="1.5"/>`)
+      } else {
+        whites.push(`<rect class="key key--white" data-midi="${midi}" x="${x}" y="0" width="${whiteWidth}" height="64" rx="2"/>`)
+        x += whiteWidth
+      }
+    }
+    element.innerHTML = `<svg viewBox="-1 -1 ${x + 2} 66" role="img" aria-label="Clavier : notes de l'accord joué">${whites.join("")}${blacks.join("")}</svg>`
+  }
+
+  function lightKeys(button, notes) {
+    const keyboard = document.getElementById(button.dataset.keyboard)
+    if (!keyboard) return
+    keyboard.querySelectorAll(".key.is-on, .key.is-bass").forEach((key) => key.classList.remove("is-on", "is-bass"))
+    ;(notes || []).forEach((midi, i) => keyboard.querySelector(`[data-midi="${midi}"]`)?.classList.add(i === 0 ? "is-bass" : "is-on"))
+  }
+
+  document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".player-keyboard").forEach(drawKeyboard))
 
   // Chords of a sequence, slightly spread like a pianist's hands
   function sequenceSteps(steps) {
@@ -82,6 +118,7 @@
     const kind = button.dataset.play
     const buttons = group(button)
     const loop = document.getElementById(button.dataset.loop)
+    const tempo = document.getElementById(button.dataset.tempo)
     await audio.start()
 
     const player = {
@@ -94,12 +131,16 @@
       audio.release(player)
       press(buttons, null)
       highlight(button, null)
+      lightKeys(button, null)
     }
     const sequencer = kind === "sequence"
       ? new audio.Sequencer(sequenceSteps(JSON.parse(button.dataset.steps)), {
-        tempo: () => TEMPO,
+        tempo: () => Number(tempo?.value) || TEMPO,
         loop: () => !!loop?.checked,
-        onStep: (step) => highlight(button, step),
+        onStep: (step) => {
+          highlight(button, step)
+          lightKeys(button, step.notes)
+        },
         onEnd: done
       })
       : new audio.Sequencer(steps(kind, JSON.parse(button.dataset.notes).flat().map(midi).filter((note) => note !== null)), { tempo: () => TEMPO, onEnd: done })
@@ -108,4 +149,22 @@
     press(buttons, player)
     sequencer.start()
   })
+
+  // Space plays and stops the page's main player, unless typing or on a control that Space already works
+  document.addEventListener("keydown", (event) => {
+    if (event.code !== "Space" || event.repeat || event.metaKey || event.ctrlKey || event.altKey) return
+    if (event.target.closest("input, textarea, select, button, a, [contenteditable]")) return
+    const button = document.querySelector(".play-button[data-shortcut]")
+    if (!button) return
+    event.preventDefault()
+    button.click()
+  })
+
+  // Shows the tempo next to its slider
+  const showValue = (event) => {
+    const output = event.target.id && document.querySelector(`output[for="${event.target.id}"]`)
+    if (output) output.textContent = event.target.value
+  }
+  document.addEventListener("input", showValue)
+  document.addEventListener("change", showValue)
 })()

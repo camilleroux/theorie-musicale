@@ -14,10 +14,18 @@
   %p.lead= typo_fr(@progression.summary)
 
   .progression-player
-    = progression_play_button(@progression, @tonic, text: "Écouter en #{@tonic}")
-    .form-check.mb-0
-      %input.form-check-input#progression-loop{type: 'checkbox', checked: true}
-      %label.form-check-label{for: 'progression-loop'} En boucle
+    .progression-player__controls
+      = progression_play_button(@progression, @tonic, text: "Écouter en #{@tonic}", shortcut: true)
+      .form-check.mb-0
+        %input.form-check-input#progression-loop{type: 'checkbox', checked: true}
+        %label.form-check-label{for: 'progression-loop'} En boucle
+      .progression-player__tempo
+        %label.form-label.mb-0{for: 'progression-tempo'} Tempo
+        %input.form-range#progression-tempo{type: 'range', min: 60, max: 200, step: 5, value: 100}
+        %output{for: 'progression-tempo'} 100
+        %span.text-muted BPM
+      %span.player-hint.text-muted.small Espace pour lancer ou arrêter
+    .player-keyboard#progression-keyboard
 
   %section.mt-4{data: {play_key: @tonic.to_param}}
     %h2.h3 Grille en #{@tonic.french_long_name}

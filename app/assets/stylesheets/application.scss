@@ -813,13 +813,36 @@ nav.navbar.bg-dark {
   }
 }
 
-// Progression player: its button and loop switch, and the chords lit up as they sound
+// Progression player: its button, loop switch and tempo, the keyboard showing the
+// sounding chord (bass in brass, right hand in blue), and the chords lit up as they sound
 .progression-player {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
   margin: 1rem 0;
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .75rem 1.25rem;
+  }
+
+  &__tempo {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    .form-range { width: 8rem; }
+    output { min-width: 2ch; font-variant-numeric: tabular-nums; }
+  }
+}
+
+.player-keyboard {
+  max-width: 40rem;
+  margin-top: .75rem;
+
+  svg { display: block; width: 100%; height: auto; }
+  .key--white { fill: #fff; stroke: $ink; stroke-width: .75; }
+  .key--black { fill: $ink; }
+  .key.is-on { fill: $primary; }
+  .key.is-bass { fill: $accent; }
 }
 
 .play-column { width: 1%; }

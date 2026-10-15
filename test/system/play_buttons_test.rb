@@ -69,4 +69,25 @@ class PlayButtonsTest < ApplicationSystemTestCase
     assert_no_selector ".play-button[aria-pressed=true]"
     assert_no_selector ".play-cell.is-playing"
   end
+
+  test "shows the sounding chord on the keyboard, at the chosen tempo" do
+    visit "/progressions/ii-v-i-majeur"
+    find("#progression-tempo").set(200)
+    assert_selector "output[for=progression-tempo]", text: "200"
+    click_button "Écouter en C"
+
+    # Dm7: D3 in the bass, C4 F4 A4 in the right hand
+    assert_selector "#progression-keyboard .key.is-bass[data-midi='50']"
+    assert_selector "#progression-keyboard .key.is-on", count: 3
+    click_button "Écouter en C"
+    assert_no_selector "#progression-keyboard .key.is-on"
+  end
+
+  test "plays and stops with the Space bar" do
+    visit "/tonalite/eb/accords/majeur-7"
+    find("body").send_keys(:space)
+    assert_selector ".play-button[data-play=chord][aria-pressed=true]"
+    find("body").send_keys(:space)
+    assert_selector ".play-button[data-play=chord][aria-pressed=false]"
+  end
 end

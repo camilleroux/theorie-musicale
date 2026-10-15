@@ -2,17 +2,20 @@ module PlayerHelper
   LABELS = {chord: 'Écouter', arpeggio: 'Arpège', scale: 'Écouter'}
 
   # Buttons playing notes written as on the staff ("Eb/4"), see app/assets/javascripts/player.js
+  # The first one plays with the Space bar
   def play_buttons(notes, *kinds)
     tag.div(class: 'play-buttons', role: 'group', aria: {label: 'Écouter'}) do
-      safe_join(kinds.map { |kind| play_button(LABELS.fetch(kind), play: kind, notes: notes.to_json) })
+      safe_join(kinds.each_with_index.map { |kind, i| play_button(LABELS.fetch(kind), play: kind, notes: notes.to_json, shortcut: (true if i.zero?)) })
     end
   end
 
   # A button playing a progression in a key (Progression#playback), lighting up the
-  # cells of that key's data-play-key elements; `text: nil` makes it an icon only
-  def progression_play_button(progression, tonic, text: 'Écouter', loop: 'progression-loop')
+  # cells of that key's data-play-key elements; `text: nil` makes it an icon only,
+  # with the tempo, loop switch and keyboard of the page's progression player
+  def progression_play_button(progression, tonic, text: 'Écouter', shortcut: false)
     play_button(text, label: "Écouter #{progression.short_name} en #{tonic}", play: :sequence,
-      steps: progression.playback(tonic).to_json, highlight: %([data-play-key="#{tonic.to_param}"]), loop: loop)
+      steps: progression.playback(tonic).to_json, highlight: %([data-play-key="#{tonic.to_param}"]),
+      loop: 'progression-loop', tempo: 'progression-tempo', keyboard: 'progression-keyboard', shortcut: (true if shortcut))
   end
 
   private
