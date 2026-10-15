@@ -6,7 +6,7 @@ class Progression
   # A chord of the progression: degree (1-7) of the major scale, semitones above the tonic, chord slug
   Step = Data.define(:degree, :semitones, :chord_slug, :roman)
 
-  FAMILIES = ['Cadences classiques', 'Cadences jazz', 'Turnarounds', 'Blues', 'Pop']
+  FAMILIES = ['Cadences classiques', 'Cadences jazz', 'Turnarounds', 'Cycles et enchaînements', 'Blues', 'Pop']
   MAJOR_SCALE = [0, 2, 4, 5, 7, 9, 11]
   ROMANS = %w[I II III IV V VI VII]
   # Chord suffixes after the roman numeral, as written in French method books
@@ -230,6 +230,66 @@ class Progression
         "La basse descend la moitié haute de la gamme mineure, degré par degré (la, sol, fa, mi en la mineur), jusqu'à un accord de dominante majeur. Cet accord final, qui sonne comme une tonique en mode phrygien, donne au flamenco sa couleur caractéristique.",
         "On la retrouve aussi bien dans la musique de la Renaissance que dans le rock et la variété : « Hit the Road Jack », « Walk Don't Run », « Stray Cat Strut », de nombreux tangos et chansons.",
         "Pour improviser, la gamme mineure naturelle (mode éolien) fonctionne sur les trois premiers accords ; sur l'accord V, le mode phrygien dominant (5e mode de la mineure harmonique) fait entendre sa tierce majeure."
+      ]
+    ),
+    new(
+      slug: 'cadence-plagale-mineure', name: 'Cadence plagale mineure (IV-IVm-I)', short_name: 'Cadence plagale mineure', family: 'Cadences classiques',
+      chart: '| IV | IVm | I | % |',
+      summary: "La cadence plagale mineure fait passer l'accord IV au mineur avant la tonique : en do, F – Fm – C.",
+      paragraphs: [
+        "Entre l'accord IV et la tonique, l'accord IV devient mineur : sa tierce descend d'un demi-ton (la puis la♭ en do), puis continue vers la quinte de la tonique (sol). Cette petite ligne chromatique descendante, la – la♭ – sol, fait tout le charme de l'enchaînement.",
+        "L'accord IVm est emprunté à la tonalité homonyme mineure (fa mineur vient de do mineur). On l'entend dans des ballades, au cinéma, et dans des chansons comme « Creep » de Radiohead ou « In My Life » des Beatles.",
+        "En jazz, on enrichit souvent le IVm en IVm6 (Fm6 en do), qui a les mêmes notes qu'un B♭9 sans fondamentale : c'est le lien avec le backdoor II-V, où l'on joue Fm7 – B♭7 avant la tonique."
+      ]
+    ),
+    new(
+      slug: 'ii-v-en-chaine', name: 'II-V en chaîne (chromatiques)', short_name: 'II-V en chaîne', family: 'Cycles et enchaînements',
+      chart: '| IIIm7 VI7 | ♭IIIm7 ♭VI7 | IIm7 V7 | IΔ |',
+      summary: "Des II-V qui descendent par demi-tons jusqu'à la tonique : en do, Em7 A7 – E♭m7 A♭7 – Dm7 G7 – Cmaj7.",
+      paragraphs: [
+        "Chaque couple d'accords est un II-V qui ne résout pas : au lieu d'aller sur son accord I, il glisse d'un demi-ton vers le II-V suivant. Le dernier, Dm7 – G7, résout enfin sur la tonique.",
+        "Les notes guides (tierces et septièmes) descendent chromatiquement d'un accord à l'autre, ce qui rend l'enchaînement très fluide malgré les tonalités qui changent. On le trouve dans « Satin Doll » de Duke Ellington, et des II-V qui descendent par tons dans « Tune Up » ou « Joy Spring ».",
+        "Pour le travailler, jouez chaque II-V comme une petite cadence indépendante, dans sa propre tonalité : c'est un excellent exercice pour enchaîner rapidement les II-V dans toutes les tonalités."
+      ]
+    ),
+    new(
+      slug: 'coltrane-changes', name: 'Coltrane changes (Giant Steps)', short_name: 'Coltrane changes', family: 'Cycles et enchaînements',
+      chart: '| IIm7 ♭III7 | ♭VIΔ VII7 | IIIΔ V7 | IΔ |',
+      summary: "Les Coltrane changes traversent trois tonalités à une tierce majeure d'écart : en do, Dm7 E♭7 A♭maj7 B7 Emaj7 G7 Cmaj7.",
+      paragraphs: [
+        "John Coltrane a construit « Giant Steps » (1959) sur un cycle de tierces majeures : les tonalités de do, la♭ et mi divisent l'octave en trois parts égales. Chacune est atteinte par son accord de dominante, ce qui donne des enchaînements très rapides et des sauts de tonalité inattendus.",
+        "Il a ensuite utilisé ces substitutions sur des standards : la grille de « Countdown » est celle de « Tune Up » réharmonisée, celle de « 26-2 » vient de « Confirmation ». La version présentée ici remplace le II-V-I de do majeur par ce cycle.",
+        "Pour improviser, travaillez les arpèges majeurs de chaque tonalité et les motifs 1-2-3-5, qui s'adaptent facilement aux changements d'accords rapides, comme le faisait Coltrane."
+      ]
+    ),
+    new(
+      slug: 'bird-blues', name: 'Bird blues (Blues for Alice)', short_name: 'Bird blues', family: 'Blues',
+      chart: '| IΔ | VIIø III7 | VIm7 II7 | Vm7 I7 | IV7 | IVm7 ♭VII7 | IIIm7 VI7 | ♭IIIm7 ♭VI7 | IIm7 | V7 | IIIm7 VI7 | IIm7 V7 |',
+      summary: "Le Bird blues, grille de « Blues for Alice » de Charlie Parker : un blues de 12 mesures rempli de II-V qui descendent.",
+      paragraphs: [
+        "Charlie Parker garde la forme du blues (le IV7 en mesure 5, le II-V en mesures 9 et 10) mais remplace presque tous les accords par des II-V. Les quatre premières mesures descendent par quintes depuis la tonique jusqu'au IV, puis des II-V chromatiques ramènent au II-V final.",
+        "On l'appelle aussi « Swedish blues », d'après « Swedish Schnapps », un autre thème de Parker sur la même grille. On la joue surtout en fa, la tonalité de « Blues for Alice ».",
+        "C'est une étape exigeante après le blues jazz : il faut suivre un nouvel accord tous les deux temps. Travaillez d'abord les notes guides (tierces et septièmes) de chaque accord, qui s'enchaînent par demi-tons."
+      ]
+    ),
+    new(
+      slug: 'i-vi-iv-v', name: 'Progression I-VI-IV-V (années 50)', short_name: 'I-VI-IV-V', family: 'Pop',
+      chart: '| I | VIm | IV | V |',
+      summary: "Le I-VI-IV-V est la grille du doo-wop et des slows des années 50 : en do, C – Am – F – G.",
+      paragraphs: [
+        "Ces quatre accords de la gamme majeure s'enchaînent en boucle : le VIm adoucit la tonique, le IV et le V relancent vers le début de la grille. On l'appelle souvent la « progression des années 50 » tant elle a été utilisée par le doo-wop et le rock'n'roll.",
+        "On l'entend dans « Stand by Me » de Ben E. King, « Earth Angel » ou « Every Breath You Take » de The Police. En remplaçant le IV par un IIm7 (I-VI-II-V), on obtient l'anatole du jazz.",
+        "Toutes les notes appartiennent à la gamme majeure de la tonalité, et la pentatonique majeure fonctionne sur toute la grille."
+      ]
+    ),
+    new(
+      slug: 'canon-de-pachelbel', name: 'Canon de Pachelbel (grille)', short_name: 'Canon de Pachelbel', family: 'Pop',
+      chart: '| I V | VIm IIIm | IV I | IV V |',
+      summary: "La grille du Canon de Pachelbel, huit accords en boucle : en ré, la tonalité du Canon, D A Bm F♯m G D G A.",
+      paragraphs: [
+        "Johann Pachelbel a écrit son Canon en ré majeur vers 1700 sur une basse obstinée de huit notes qui descend presque par degrés (ré, la, si, fa♯, sol, ré, sol, la). Les violons y superposent des variations de plus en plus ornées.",
+        "La grille est devenue l'une des plus reprises de la musique populaire : « Go West » des Village People et des Pet Shop Boys, « Basket Case » de Green Day ou le couplet de « Don't Look Back in Anger » d'Oasis en reprennent tout ou partie.",
+        "Deux accords par mesure, une basse qui descend, des accords tous issus de la gamme majeure : c'est une grille idéale pour travailler les renversements et la conduite des voix au piano."
       ]
     )
   ].freeze

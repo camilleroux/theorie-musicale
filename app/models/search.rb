@@ -26,7 +26,13 @@ class Search
     'rhythm-changes' => ['rhythm changes', 'rythm changes', 'i got rhythm', 'anatole rhythm'],
     'blues-mineur' => ['blues mineur', 'grille blues mineur', 'minor blues'],
     'blues-jazz' => ['blues jazz', 'jazz blues', 'grille blues jazz', 'bebop blues'],
-    'cadence-andalouse' => ['cadence andalouse', 'andalouse', 'flamenco']
+    'cadence-andalouse' => ['cadence andalouse', 'andalouse', 'flamenco'],
+    'cadence-plagale-mineure' => ['cadence plagale mineure', 'iv-ivm-i', 'iv ivm i'],
+    'ii-v-en-chaine' => ['ii-v en chaine', 'ii-v chromatiques', 'chaine de ii-v'],
+    'coltrane-changes' => ['coltrane changes', 'giant steps', 'coltrane'],
+    'bird-blues' => ['bird blues', 'blues for alice', 'swedish blues', 'parker blues'],
+    'i-vi-iv-v' => ['i-vi-iv-v', '1645', 'annees 50', 'doo wop', 'stand by me'],
+    'canon-de-pachelbel' => ['canon de pachelbel', 'pachelbel', 'canon']
   }
 
   attr_reader :query

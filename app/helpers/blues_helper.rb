@@ -2,7 +2,7 @@
 # visitors searching for "blues en fa" expect to find together
 module BluesHelper
   GRIDS = {'blues-majeure' => %w[blues blues-jazz], 'blues-mineure' => %w[blues blues-jazz blues-mineur]}
-  SCALES = {'blues' => %w[blues-mineure blues-majeure], 'blues-jazz' => %w[blues-mineure blues-majeure], 'blues-mineur' => %w[blues-mineure]}
+  SCALES = {'blues' => %w[blues-mineure blues-majeure], 'blues-jazz' => %w[blues-mineure blues-majeure], 'blues-mineur' => %w[blues-mineure], 'bird-blues' => %w[blues-mineure blues-majeure]}
   # Semitones from a blues mode's root down to its scale's key: the minor blues is the 6th mode of the major one
   MODE_OFFSETS = {'blues-majeure' => 0, 'blues-mineure' => 3}
 
