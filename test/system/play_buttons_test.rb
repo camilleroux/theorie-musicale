@@ -59,4 +59,14 @@ class PlayButtonsTest < ApplicationSystemTestCase
     assert_no_selector ".play-cell.is-playing"
     assert_equal [50, 60, 65, 69, 43, 62, 65, 71, 48, 64, 67, 71], played_notes
   end
+
+  test "shows a progression as playing on both of its buttons" do
+    visit "/progressions/ii-v-i-majeur"
+    click_button "Écouter en C"
+    assert_selector "tr[data-play-key=c] .play-button[aria-pressed=true]"
+
+    find("tr[data-play-key=c] .play-button").click
+    assert_no_selector ".play-button[aria-pressed=true]"
+    assert_no_selector ".play-cell.is-playing"
+  end
 end

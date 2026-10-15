@@ -59,8 +59,17 @@
     })
   }
 
-  function press(button, pressed) {
-    button.setAttribute("aria-pressed", String(pressed))
+  // The buttons playing the same thing as a button (a progression in a key has two)
+  function group(button) {
+    if (!button.dataset.highlight) return [button]
+    return [...document.querySelectorAll(".play-button")].filter((other) => other.dataset.highlight === button.dataset.highlight)
+  }
+
+  function press(buttons, player) {
+    buttons.forEach((button) => {
+      button.player = player
+      button.setAttribute("aria-pressed", String(!!player))
+    })
   }
 
   document.addEventListener("click", async (event) => {
@@ -71,6 +80,7 @@
     if (button.player) return button.player.stop()
 
     const kind = button.dataset.play
+    const buttons = group(button)
     const loop = document.getElementById(button.dataset.loop)
     await audio.start()
 
@@ -82,8 +92,7 @@
     }
     const done = () => {
       audio.release(player)
-      button.player = null
-      press(button, false)
+      press(buttons, null)
       highlight(button, null)
     }
     const sequencer = kind === "sequence"
@@ -96,8 +105,7 @@
       : new audio.Sequencer(steps(kind, JSON.parse(button.dataset.notes).flat().map(midi).filter((note) => note !== null)), { tempo: () => TEMPO, onEnd: done })
 
     audio.claim(player)
-    button.player = player
-    press(button, true)
+    press(buttons, player)
     sequencer.start()
   })
 })()
