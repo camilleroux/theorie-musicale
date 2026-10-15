@@ -22,4 +22,6 @@
 //= require paper-core.min
 //= require fretboard
 
+//= require jazzity-audio
+
 //= require_tree .

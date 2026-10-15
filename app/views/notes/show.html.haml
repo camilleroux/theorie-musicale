@@ -38,6 +38,7 @@
       .col-12.col-lg-6
         .detail-hero__staff
           .staff.note-staff{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 200}
+          = play_buttons([@key.to_vexflow_notation], :chord)
 
 %section#piano
   %h2.h3 Note #{@key.name} au piano
