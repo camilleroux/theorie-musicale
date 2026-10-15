@@ -4,6 +4,8 @@
 
 Application web pour explorer la théorie musicale (notamment pour le jazz et les musiques improvisées). Accessible sur https://theoriemusicale.camilleroux.com.
 
+Le projet est dérivé de [Jazzity](https://github.com/eigenben/jazzity) de Ben Hughes.
+
 Les données sur les [accords](db/seeds/chords.rb) et les [gammes/modes](db/seeds/scales.rb) sont dans [db/seeds](db/seeds).
 
 ### Setup
@@ -32,3 +34,7 @@ Les secrets sont lus dans `.env` (ignoré par git, voir `.kamal/secrets`) : `KAM
 - [ ] Complete scales list
 - [x] Add chord progressions
 - [ ] I18n
+
+### Licence
+
+MIT, voir [LICENSE](LICENSE).
