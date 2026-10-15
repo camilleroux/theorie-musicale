@@ -19,9 +19,9 @@ class VoiceLeadingTest < ActiveSupport::TestCase
     assert_equal [0, 1, 2], steps.first(3).map { |step| step[:bar] }
   end
 
-  test 'holds the last chord of a progression for two bars' do
+  test 'repeats the last chord of a ii-V-I for its second bar' do
     steps = Progression.find('ii-v-i-majeur').playback(Key.default)
-    assert_equal [4, 4, 8], steps.map { |step| step[:beats] }
-    assert_equal [0, 1, 2], steps.map { |step| step[:step] }
+    assert_equal [4, 4, 4, 4], steps.map { |step| step[:beats] }
+    assert_equal [0, 1, 2, 2], steps.map { |step| step[:step] }
   end
 end

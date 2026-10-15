@@ -14,9 +14,19 @@ class Search
   PROGRESSION_ALIASES = {
     'ii-v-i-majeur' => ['251', 'iivi', '2-5-1', 'ii-v-i', 'deux cinq un', 'ii v i'],
     'ii-v-i-mineur' => ['251 mineur', 'ii-v-i mineur', '2-5-1 mineur', 'ii v i mineur'],
-    'anatole' => ['anatole', 'turnaround', '1625', 'i-vi-ii-v', 'rythm changes', 'rhythm changes'],
+    'anatole' => ['anatole', 'turnaround', '1625', 'i-vi-ii-v'],
     'blues' => ['blues', 'grille blues', 'blues 12 mesures', 'douze mesures'],
-    'i-v-vi-iv' => ['i-v-vi-iv', '1564', 'pop']
+    'i-v-vi-iv' => ['i-v-vi-iv', '1564', 'pop'],
+    'cadence-parfaite' => ['cadence parfaite', 'cadence authentique'],
+    'cadence-plagale' => ['cadence plagale', 'iv-i', 'iv i', 'amen'],
+    'cadence-rompue' => ['cadence rompue', 'cadence evitee', 'v-vi', 'v vi'],
+    'demi-cadence' => ['demi cadence', 'demi-cadence', 'cadence suspensive'],
+    'substitution-tritonique' => ['substitution tritonique', 'sub v', 'tritone substitution', 'ii-bii-i'],
+    'backdoor' => ['backdoor', 'backdoor ii-v', 'backdoor 251'],
+    'rhythm-changes' => ['rhythm changes', 'rythm changes', 'i got rhythm', 'anatole rhythm'],
+    'blues-mineur' => ['blues mineur', 'grille blues mineur', 'minor blues'],
+    'blues-jazz' => ['blues jazz', 'jazz blues', 'grille blues jazz', 'bebop blues'],
+    'cadence-andalouse' => ['cadence andalouse', 'andalouse', 'flamenco']
   }
 
   attr_reader :query
