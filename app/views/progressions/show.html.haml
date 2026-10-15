@@ -40,6 +40,10 @@
   %section.mt-4
     - @progression.paragraphs.each do |paragraph|
       %p= typo_fr(paragraph)
+    - if (scales = blues_scale_links(@progression, @tonic)).any?
+      %p
+        Pour improviser en #{@tonic.french_long_name} :
+        = safe_join(scales.map { |name, path| link_to(name, path) }, ' · ')
 
   %section.mt-4
     %h2.h3 #{@progression.short_name} dans les 12 tonalités

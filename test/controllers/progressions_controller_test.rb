@@ -43,4 +43,12 @@ class ProgressionsControllerTest < ActionDispatch::IntegrationTest
       assert_select '[data-play-bar]', progression.bars.size
     end
   end
+
+  test 'should link the blues grids and the blues scales in the same key' do
+    get '/progressions/blues', params: { tonalite: 'f' }
+    assert_select 'a[href=?]', '/tonalite/ab/gammes/blues/modes/blues-mineure', text: 'Gamme blues mineure de fa'
+
+    get '/tonalite/f/gammes/blues/modes/blues-majeure'
+    assert_select '#blues-grids a[href=?]', '/progressions/blues?tonalite=f', text: 'Grille de blues 12 mesures en fa'
+  end
 end
