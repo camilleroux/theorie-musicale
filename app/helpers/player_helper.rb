@@ -4,15 +4,23 @@ module PlayerHelper
   # Buttons playing notes written as on the staff ("Eb/4"), see app/assets/javascripts/player.js
   def play_buttons(notes, *kinds)
     tag.div(class: 'play-buttons', role: 'group', aria: {label: 'Écouter'}) do
-      safe_join(kinds.map { |kind| play_button(notes, kind) })
+      safe_join(kinds.map { |kind| play_button(LABELS.fetch(kind), play: kind, notes: notes.to_json) })
     end
+  end
+
+  # A button playing a progression in a key (Progression#playback), lighting up the
+  # cells of that key's data-play-key elements; `text: nil` makes it an icon only
+  def progression_play_button(progression, tonic, text: 'Écouter', loop: 'progression-loop')
+    play_button(text, label: "Écouter #{progression.short_name} en #{tonic}", play: :sequence,
+      steps: progression.playback(tonic).to_json, highlight: %([data-play-key="#{tonic.to_param}"]), loop: loop)
   end
 
   private
 
-  def play_button(notes, kind)
-    tag.button(play_icon + tag.span(LABELS.fetch(kind)), type: 'button', class: 'play-button btn btn-outline-primary btn-sm',
-      aria: {pressed: false}, data: {play: kind, notes: notes.to_json})
+  def play_button(text, label: nil, **data)
+    content = text ? play_icon + tag.span(text) : play_icon
+    tag.button(content, type: 'button', class: ['play-button', 'btn', 'btn-sm', text ? 'btn-outline-primary' : 'btn-link'],
+      title: (label unless text), aria: {pressed: false, label: (label unless text)}, data: data)
   end
 
   # A triangle that becomes a square while its button is pressed

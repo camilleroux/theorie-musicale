@@ -36,6 +36,19 @@ class Progression
     end
   end
 
+  # What a player plays (app/assets/javascripts/player.js): each chord voiced
+  # for 4 beats, following the bars of the grid if there is one, otherwise
+  # holding the last chord for 2 bars. `step` and `bar` say what to light up.
+  def playback(tonic)
+    chords = chords_in(tonic)
+    order = bars ? bars.each_with_index.to_a : steps.each_index.map { |step| [step, nil] }
+    voiced = VoiceLeading.new(order.map { |step, _| chords[step] }).voiced
+
+    order.zip(voiced).each_with_index.map do |((step, bar), notes), i|
+      {notes: notes, beats: (bars || i < order.size - 1) ? 4 : 8, step: step, bar: bar}.compact
+    end
+  end
+
   def seo_title
     SeoTitle.fit(name, [" : accords dans les 12 tonalités", " : accords et tonalités", " : accords"])
   end

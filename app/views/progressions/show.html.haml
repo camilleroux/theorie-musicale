@@ -13,8 +13,14 @@
     %p.lead.text-muted= @progression.roman_numerals
   %p.lead= typo_fr(@progression.summary)
 
+  .progression-player
+    = progression_play_button(@progression, @tonic, text: "Écouter en #{@tonic}")
+    .form-check.mb-0
+      %input.form-check-input#progression-loop{type: 'checkbox', checked: true}
+      %label.form-check-label{for: 'progression-loop'} En boucle
+
   - if @progression.bars
-    %section.mt-4
+    %section.mt-4{data: {play_key: @tonic.to_param}}
       %h2.h3 Grille en #{@tonic.french_long_name}
       %nav.key-selector.mb-3{'aria-label': 'Tonalité'}
         %span.key-selector__label Tonalité
@@ -25,7 +31,7 @@
       .row.g-2.text-center
         - @progression.bars.each_with_index do |step_index, bar|
           .col-3
-            .card.mb-0
+            .card.mb-0.play-cell{data: {play_bar: bar}}
               .card-body.py-3
                 .small.text-muted Mesure #{bar + 1}
                 .fs-5.fw-bold= render 'chord_link', chord: @grid_chords[step_index]
@@ -40,15 +46,18 @@
       %table.table.table-hover.table-striped
         %thead
           %tr
+            %th.play-column
+              %span.visually-hidden Écouter
             %th Tonalité
             - @progression.steps.each do |step|
               %th= step.roman
         %tbody
           - @tonics.each do |tonic|
-            %tr
+            %tr{data: {play_key: tonic.to_param}}
+              %td.play-column= progression_play_button(@progression, tonic, text: nil)
               %th= link_to "#{tonic} (#{tonic.french_long_name})", note_path(tonic), class: 'text-decoration-none'
-              - @progression.chords_in(tonic).each do |chord|
-                %td= render 'chord_link', chord: chord
+              - @progression.chords_in(tonic).each_with_index do |chord, step|
+                %td.play-cell{data: {play_step: step}}= render 'chord_link', chord: chord
 
   %nav.mt-5
     %h2.h4 Autres progressions

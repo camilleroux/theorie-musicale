@@ -812,3 +812,21 @@ nav.navbar.bg-dark {
     .icon-stop { display: inline; }
   }
 }
+
+// Progression player: its button and loop switch, and the chords lit up as they sound
+.progression-player {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.play-column { width: 1%; }
+
+.play-cell { transition: background-color .15s, box-shadow .15s; }
+
+.play-cell.is-playing {
+  background-color: rgba($primary, .12) !important;
+  box-shadow: inset 0 0 0 2px $primary;
+}

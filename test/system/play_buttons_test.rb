@@ -46,4 +46,17 @@ class PlayButtonsTest < ApplicationSystemTestCase
     assert_selector ".play-button[aria-pressed=false]", wait: 10
     assert_equal [62, 64, 65, 67, 69, 71, 72, 74, 72, 71, 69, 67, 65, 64, 62], played_notes
   end
+
+  test "plays a progression, lighting up the sounding chord" do
+    visit "/progressions/ii-v-i-majeur"
+    listen
+    uncheck "En boucle"
+    click_button "Écouter en C"
+
+    assert_selector "tr[data-play-key=c] .play-cell.is-playing", count: 1
+    # Dm7 and G7 for a bar each, Cmaj7 for two, at 100 BPM
+    assert_selector ".play-button[aria-pressed=false]", text: "Écouter en C", wait: 15
+    assert_no_selector ".play-cell.is-playing"
+    assert_equal [50, 60, 65, 69, 43, 62, 65, 71, 48, 64, 67, 71], played_notes
+  end
 end

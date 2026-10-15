@@ -1,15 +1,23 @@
-// Play buttons: plays the notes of a chord, mode, interval or note through
-// Jazzity's electric piano (vendor/assets/javascripts/jazzity-audio.js).
+// Play buttons: plays the notes of a chord, mode, interval or note, or the
+// chords of a progression, through Jazzity's electric piano
+// (vendor/assets/javascripts/jazzity-audio.js).
 //
 //   <button class="play-button" data-play="chord" data-notes='["C/4","E/4","G/4"]'>
 //
 // `data-notes` are written as on the staff (VexFlow, octave of the letter).
 // `data-play` is "chord" (struck together), "arpeggio" (one by one, held)
 // or "scale" (up and back down). Clicking a playing button stops it.
+//
+//   <button class="play-button" data-play="sequence" data-steps='[{"notes":[38,60,65,69],"beats":4,"step":0}]'
+//           data-highlight='[data-play-key="c"]' data-loop="progression-loop">
+//
+// A "sequence" plays its steps (MIDI notes) in time, again and again while
+// the `data-loop` checkbox is ticked, lighting up the elements with the
+// step's data-play-step or data-play-bar inside those `data-highlight` selects.
 (function () {
   "use strict"
 
-  // Eighth notes at this tempo for arpeggios and scales.
+  // Eighth notes at this tempo for arpeggios and scales, beats for sequences.
   const TEMPO = 100
   const LETTERS = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 }
 
@@ -37,6 +45,20 @@
     }
   }
 
+  // Chords of a sequence, slightly spread like a pianist's hands
+  function sequenceSteps(steps) {
+    return steps.map((step) => ({ ...step, spread: 0.008 }))
+  }
+
+  function highlight(button, step) {
+    document.querySelectorAll(".play-cell.is-playing").forEach((cell) => cell.classList.remove("is-playing"))
+    if (!step || !button.dataset.highlight) return
+
+    document.querySelectorAll(button.dataset.highlight).forEach((scope) => {
+      scope.querySelectorAll(`[data-play-step="${step.step}"], [data-play-bar="${step.bar}"]`).forEach((cell) => cell.classList.add("is-playing"))
+    })
+  }
+
   function press(button, pressed) {
     button.setAttribute("aria-pressed", String(pressed))
   }
@@ -48,7 +70,8 @@
     const audio = window.JazzityAudio
     if (button.player) return button.player.stop()
 
-    const notes = JSON.parse(button.dataset.notes).flat().map(midi).filter((note) => note !== null)
+    const kind = button.dataset.play
+    const loop = document.getElementById(button.dataset.loop)
     await audio.start()
 
     const player = {
@@ -61,8 +84,16 @@
       audio.release(player)
       button.player = null
       press(button, false)
+      highlight(button, null)
     }
-    const sequencer = new audio.Sequencer(steps(button.dataset.play, notes), { tempo: () => TEMPO, onEnd: done })
+    const sequencer = kind === "sequence"
+      ? new audio.Sequencer(sequenceSteps(JSON.parse(button.dataset.steps)), {
+        tempo: () => TEMPO,
+        loop: () => !!loop?.checked,
+        onStep: (step) => highlight(button, step),
+        onEnd: done
+      })
+      : new audio.Sequencer(steps(kind, JSON.parse(button.dataset.notes).flat().map(midi).filter((note) => note !== null)), { tempo: () => TEMPO, onEnd: done })
 
     audio.claim(player)
     button.player = player
