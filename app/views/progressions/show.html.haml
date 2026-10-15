@@ -19,22 +19,23 @@
       %input.form-check-input#progression-loop{type: 'checkbox', checked: true}
       %label.form-check-label{for: 'progression-loop'} En boucle
 
-  - if @progression.bars
-    %section.mt-4{data: {play_key: @tonic.to_param}}
-      %h2.h3 Grille en #{@tonic.french_long_name}
-      %nav.key-selector.mb-3{'aria-label': 'Tonalité'}
-        %span.key-selector__label Tonalité
-        %ul.pagination.pagination-sm
-          - @tonics.each do |tonic|
-            %li.page-item{class: ('active' if tonic == @tonic)}
-              = link_to tonic, progression_path(@progression, tonalite: (tonic.to_param unless tonic.main?)), class: 'page-link', 'aria-current': (tonic == @tonic ? 'page' : nil)
-      .row.g-2.text-center
-        - @progression.bars.each_with_index do |step_index, bar|
-          .col-3
-            .card.mb-0.play-cell{data: {play_bar: bar}}
-              .card-body.py-3
-                .small.text-muted Mesure #{bar + 1}
-                .fs-5.fw-bold= render 'chord_link', chord: @grid_chords[step_index]
+  %section.mt-4{data: {play_key: @tonic.to_param}}
+    %h2.h3 Grille en #{@tonic.french_long_name}
+    %nav.key-selector.mb-3{'aria-label': 'Tonalité'}
+      %span.key-selector__label Tonalité
+      %ul.pagination.pagination-sm
+        - @tonics.each do |tonic|
+          %li.page-item{class: ('active' if tonic == @tonic)}
+            = link_to tonic, progression_path(@progression, tonalite: (tonic.to_param unless tonic.main?)), class: 'page-link', 'aria-current': (tonic == @tonic ? 'page' : nil)
+    .row.g-2.text-center
+      - @progression.bars.each_with_index do |steps, bar|
+        .col-3
+          .card.mb-0.play-cell{data: {play_bar: bar}}
+            .card-body.py-3
+              .small.text-muted Mesure #{bar + 1}
+              .fs-5.fw-bold
+                - steps.each do |step|
+                  = render 'chord_link', chord: @grid_chords[step]
 
   %section.mt-4
     - @progression.paragraphs.each do |paragraph|
