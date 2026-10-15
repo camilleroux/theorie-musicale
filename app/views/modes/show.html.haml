@@ -41,6 +41,13 @@
   .card-footer
     = render 'shared/key_selector', current: @key, path: ->(key) { url_for([key, @scale, @mode]) }
 
+- if (grids = blues_grid_links(@mode)).any?
+  %nav#blues-grids.mb-4
+    %h2.h3 Grilles de blues
+    %p
+      Pour jouer cette gamme sur une grille :
+      = safe_join(grids.map { |name, path| link_to(name, path) }, ' · ')
+
 %section#piano
   %h2.h3 #{@mode.heading} au piano
   = piano_image_tag(@mode)
