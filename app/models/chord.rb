@@ -73,29 +73,35 @@ class Chord < ApplicationRecord
     key ? "#{key.french_long_name} #{name.downcase}" : name.downcase
   end
 
-  # "Accord Am7 (la mineur 7)": ASCII symbol for page titles, ♯/♭ symbol on the page
+  # The page without a key is the C page (C is the main key, /tonalite/c/... canonicalizes to it):
+  # it must answer "Cmaj7" and "do majeur 7" searches as well as the generic "accord majeur 7"
+  def in_c
+    key ? self : clone.in_key_of(Key.default)
+  end
+
+  # "Accord Am7 (la mineur 7)" with a key, "Accord majeur 7 (Cmaj7, do majeur 7)" without:
+  # ASCII symbol for page titles, ♯/♭ symbol on the page
   def heading(display: false)
-    symbol = display ? display_symbol : search_symbol
-    key ? "Accord #{symbol} (#{full_name})" : "Accord #{full_name} (#{symbol})"
+    c = in_c
+    symbol = display ? c.display_symbol : c.search_symbol
+    key ? "Accord #{symbol} (#{full_name})" : "Accord #{name.downcase} (#{symbol}, #{c.full_name})"
   end
 
   def seo_title
-    if key
-      suffixes = guitar? ? [" : notes, guitare et piano", " : guitare et piano", " : guitare"] : [" : notes et piano", " : notes"]
-      SeoTitle.fit(heading, suffixes)
-    else
-      SeoTitle.fit(heading, [" : composition et intervalles", " : composition"])
-    end
+    suffixes = guitar? ? [" : notes, guitare et piano", " : guitare et piano", " : guitare"] : [" : notes et piano", " : notes"]
+    SeoTitle.fit(heading, suffixes)
   end
 
   def seo_description
     intervals_sentence = intervals.map { |i| i.long_name.downcase }.to_sentence
+    c = in_c
+    notes = "notes #{c.keys.map(&:to_s).to_sentence} (#{c.keys.map(&:french_name).to_sentence})"
     if key
-      "Accord #{search_symbol} (#{key.french_long_name} #{name.downcase}) : notes #{keys.map(&:to_s).to_sentence} " \
-        "(#{keys.map(&:french_name).to_sentence}). Intervalles : #{intervals_sentence}. #{guitar? ? 'Diagrammes guitare, position' : 'Position'} au piano, gammes et modes associés."
+      "Accord #{search_symbol} (#{full_name}) : #{notes}. " \
+        "Intervalles : #{intervals_sentence}. #{guitar? ? 'Diagrammes guitare, position' : 'Position'} au piano, gammes et modes associés."
     else
-      "L'accord #{name.downcase} (#{search_symbol}) est composé des intervalles suivants : #{intervals_sentence}. " \
-        "Symboles, #{guitar? ? 'diagrammes guitare, ' : ''}position au piano et accord dans les 12 tonalités."
+      "Accord #{name.downcase} : en do, #{c.search_symbol} (#{c.full_name}), #{notes}. Intervalles : #{intervals_sentence}. " \
+        "#{guitar? ? 'Diagrammes guitare, position' : 'Position'} au piano et accord dans les 12 tonalités."
     end
   end
 

@@ -10,7 +10,7 @@
       %div
         %p.author__eyebrow Auteur
         %p.author__name= link_to 'Camille Roux', 'https://www.camilleroux.com/', rel: 'author', title: 'Site personnel de Camille Roux'
-        %p.author__role Entrepreneur, développeur et musicien amateur
+        %p.author__role Entrepreneur, développeur, artiste génératif et musicien amateur
     %p.author__bio
       = typo_fr("J'ai créé ce site en 2015 pour rassembler la théorie musicale utile au jazz et à l'improvisation. Je joue de la guitare et je produis de la musique électronique.")
     - if full
@@ -30,6 +30,7 @@
     .author__actions
       = link_to 'Mon site personnel', 'https://www.camilleroux.com/', class: 'btn btn-primary btn-sm', rel: 'author'
       = link_to 'Écouter mes morceaux', 'https://music.camilleroux.com/', class: 'btn btn-outline-primary btn-sm', rel: 'noopener'
+      = link_to 'Mon art génératif', 'https://art.camilleroux.com/', class: 'btn btn-outline-primary btn-sm', title: 'Art génératif et algorithmique de Camille Roux'
       - if full
         %span.author__contact
           = typo_fr('Une remarque ? Écrivez-moi sur')
