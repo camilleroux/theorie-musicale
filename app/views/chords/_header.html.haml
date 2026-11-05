@@ -4,9 +4,9 @@
     .row.g-4.align-items-center
       .col-12.col-lg-6
         %h1.detail-hero__title
-          %span.detail-hero__symbol= @chord.display_symbol
+          %span.detail-hero__symbol= @chord.in_c.display_symbol
           = ' '
-          %span.detail-hero__name Accord #{@chord.full_name}
+          %span.detail-hero__name Accord #{@chord.in_c.full_name}
         %dl.detail-hero__facts
           %dt Notes
           %dd

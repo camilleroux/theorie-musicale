@@ -60,4 +60,19 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'meta[name=description][content^=?]', 'Accord Asus2 (la sus 2) : notes A, B et E'
   end
+
+  test 'should title the keyless chord page after C, the key it shows' do
+    get '/accords/majeur-7'
+    assert_select 'title', /\AAccord majeur 7 \(Cmaj7, do majeur 7\)/
+    assert_select 'meta[name=description][content^=?]', 'Accord majeur 7 : en do, Cmaj7 (do majeur 7), notes C, E, G et B'
+    assert_select 'h1', /Cmaj7/
+
+    get '/accords/majeur'
+    assert_select 'title', /\AAccord majeur \(C, do majeur\)/
+  end
+
+  test 'should link the art site from the author box' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select 'a[href=?]', 'https://art.camilleroux.com/'
+  end
 end
