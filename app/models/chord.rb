@@ -105,6 +105,26 @@ class Chord < ApplicationRecord
     end
   end
 
+  NOTE_COUNTS = { 3 => 'trois notes (c\'est une triade)', 4 => 'quatre notes (c\'est une tétrade)', 5 => 'cinq notes', 6 => 'six notes' }
+
+  # "L'accord Am7 (la mineur 7) compte quatre notes (c'est une tétrade) : la, do, mi et sol, soit la fondamentale,
+  # une tierce mineure, une quinte juste et une septième mineure." Key-less pages define the chord, then give it in C.
+  def definition
+    c = in_c
+    count = NOTE_COUNTS.fetch(c.keys.size) { "#{c.keys.size} notes" }
+    structure = (['la fondamentale'] + intervals.map { |i| "une #{i.long_name.downcase}" }).to_sentence
+    notes = c.keys.map(&:french_name).to_sentence
+    if key
+      "L'accord #{c.display_symbol} (#{full_name}) compte #{count} : #{notes}, soit #{structure}."
+    else
+      "L'accord #{name.downcase} compte #{count} : #{structure}. En do, #{c.display_symbol} se compose de #{notes}."
+    end
+  end
+
+  def role
+    ChordRole.for(self)
+  end
+
   def guitar?
     GuitarVoicing.for(self).any?
   end

@@ -19,6 +19,11 @@
 %article#chord
   = render "chords/header"
 
+  %section.detail-intro
+    %p.lead= typo_fr(@chord.definition)
+    - if (role = @chord.role)
+      %p= chord_role_sentence(role)
+
 - guitar = GuitarVoicing.for(@chord).any?
 .row.g-4.instruments
   - if guitar

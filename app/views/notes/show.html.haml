@@ -42,6 +42,9 @@
           .staff.note-staff{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 200}
           = play_buttons([@key.to_vexflow_notation], :chord)
 
+%section.detail-intro
+  %p.lead= typo_fr(@key.seo_description.sub(/ Position .*\z/, ""))
+
 %section#piano
   %h2.h3 Note #{@key.name} au piano
   = piano_image_tag(@key)
