@@ -97,6 +97,17 @@ class Mode < ApplicationRecord
     Key[notes.first]
   end
 
+  # [tonic of the mode (usual spelling), key of its parent scale] for each key, from C: the
+  # URL key is the parent scale's, so "fa dorien" is at /tonalite/eb/gammes/majeure/modes/dorien
+  def keys_by_tonic
+    primaries = Key.primaries
+    pairs = primaries.map do |parent|
+      tonic = Key[scale.tones.in_mode(mode).in_key_of(parent).notes.first]
+      [primaries.find { |key| key.index == tonic.index }, parent]
+    end
+    pairs.rotate(pairs.index { |tonic, _| tonic.main? })
+  end
+
   def tones
     if self.key
       self.scale.tones.in_mode(self.mode).in_key_of(self.key)

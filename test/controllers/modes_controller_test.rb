@@ -16,6 +16,17 @@ class ModesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Mode do dorien : notes et piano | Théorie musicale'
   end
 
+  test 'should name the keys of the selector after the tonic of the mode' do
+    get '/tonalite/f/gammes/majeure/modes/dorien'
+    assert_select 'title', /Mode sol dorien/
+    assert_select '.key-selector .active a[aria-current=page]', 'G'
+    assert_select '.key-selector a[href=?]', '/tonalite/eb/gammes/majeure/modes/dorien', text: 'F'
+
+    get '/gammes/majeure/modes/dorien'
+    assert_select '.key-selector .active a', 'D'
+    assert_select '.key-selector a[href=?]', '/tonalite/bb/gammes/majeure/modes/dorien', text: 'C'
+  end
+
   test 'should render piano diagram' do
     get '/tonalite/d/gammes/mineure-harmonique/modes/mineure-harmonique/piano.svg'
     assert_response :success
