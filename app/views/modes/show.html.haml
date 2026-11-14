@@ -4,23 +4,7 @@
 - add_defined_term(name: @mode.heading, description: @mode.definition, url: url_for([@key, @scale, @mode, {only_path: false}]),
   set_name: 'Gammes et modes', set_url: scales_url)
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: scales_path, title: "Gammes"}
-      %span{itemprop: "name"}>= "Gammes"
-    %meta{itemprop: "position", content: "2"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: scale_path(@scale), title: "Gamme #{@scale.name.downcase}"}
-      %span{itemprop: "name"}>= "Gamme #{@scale.name.downcase}"
-    %meta{itemprop: "position", content: "3"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: url_for([@key, @scale, @mode]), title: @mode.heading, class: "disable"}
-      %span{itemprop: "name"}>= @mode.heading
-    %meta{itemprop: "position", content: "4"}
+= breadcrumb(['Gammes', scales_path], ["Gamme #{@scale.name.downcase}", scale_path(@scale)], [@mode.heading, url_for([@key, @scale, @mode])])
 
 %header.detail-hero.card
   .card-body
