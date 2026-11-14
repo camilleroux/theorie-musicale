@@ -51,4 +51,14 @@ class ProgressionsControllerTest < ActionDispatch::IntegrationTest
     get '/tonalite/f/gammes/blues/modes/blues-majeure'
     assert_select '#blues-grids a[href=?]', '/progressions/blues?tonalite=f', text: 'Grille de blues 12 mesures en fa'
   end
+
+  test 'should publish the breadcrumb and answer questions' do
+    get '/progressions/ii-v-i-majeur'
+    graph = JSON.parse(css_select('script[type="application/ld+json"]').first.text)['@graph']
+    breadcrumb = graph.find { |node| node['@type'] == 'BreadcrumbList' }
+    assert_equal ['Théorie musicale', 'Progressions', 'II-V-I majeur'], breadcrumb['itemListElement'].map { |item| item['name'] }
+    assert_equal 'http://www.example.com/progressions', breadcrumb['itemListElement'][1]['item']
+    assert_select 'ol.breadcrumb li[aria-current=page]', 'II-V-I majeur'
+    assert_select '.faq p', /En do\u00A0: Dm7 – G7 – Cmaj7/
+  end
 end

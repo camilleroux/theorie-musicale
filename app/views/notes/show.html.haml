@@ -4,19 +4,7 @@
 - add_defined_term(name: "Note #{@key.name} (#{@key.french_long_name})", code: @key.name, description: @key.seo_description.sub(/ Position .*\z/, ''),
   url: note_url(@key), set_name: 'Notes', set_url: notes_url, alternate_names: [@key.french_long_name])
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: notes_path, title: "Notes"}
-      %span{itemprop: "name"}>= "Notes"
-    %meta{itemprop: "position", content: "2"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: note_path(@key), title: @key.name_for_seo, class: "disable"}
-      %span{itemprop: "name"}>= @key.name
-    %meta{itemprop: "position", content: "3"}
+= breadcrumb(['Notes', notes_path], ["Note #{@key.name}", note_path(@key)])
 
 %header.detail-hero.card
   .card-body
@@ -33,6 +21,9 @@
           %dd= @key.long_name
           %dt En français
           %dd= @key.french_long_name
+          - if CircleOfFifths::SIGNATURES.key?(@key.name)
+            %dt Tonalité
+            %dd= link_to "#{@key.french_long_name} majeur", key_path(@key)
           - enharmonics = Key.all.uniq(&:name).select { |key| key.index == @key.index && key.name != @key.name }
           - if enharmonics.any?
             %dt Enharmonies
@@ -50,3 +41,5 @@
 %section#piano
   %h2.h3 Note #{@key.name} au piano
   = piano_image_tag(@key)
+
+= render 'shared/faq', title: "Questions sur la note #{@key.name}", items: Faq.for_note(@key)

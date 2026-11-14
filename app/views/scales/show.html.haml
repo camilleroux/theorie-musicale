@@ -1,26 +1,22 @@
--set_meta_tags canonical: url_for([@key, @scale, {only_path: false}])
+-# A scale with one mode (par tons) is that mode: in a key, its mode page holds the searches
+- canonical = @key && @scale.modes.one? ? url_for([@key, @scale, @scale.main_mode, {only_path: false}]) : url_for([@key, @scale, {only_path: false}])
+-set_meta_tags canonical: canonical
+- add_defined_term(name: @scale.heading, description: @scale.seo_description, url: canonical, set_name: 'Gammes et modes', set_url: scales_url)
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: scales_path, title: "Gammes"}
-      %span{itemprop: "name"}>= "Gammes"
-    %meta{itemprop: "position", content: "2"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: url_for([@key, @scale]), title: "Gamme #{@scale.name.downcase}", class: "disable"}
-      %span{itemprop: "name"}>= "Gamme #{@scale.name.downcase}"
-    %meta{itemprop: "position", content: "3"}
+= breadcrumb(['Gammes', scales_path], [@scale.heading, url_for([@key, @scale])])
 
 %article#scale
   %header.detail-hero.card
     .card-body
       -title @scale.seo_title
-      %h1.mb-3= "Gamme #{@scale.name.downcase}"
-      %p.mb-3= description @scale.information
+      -description @scale.seo_description
+      %h1.mb-3= @scale.heading
+      %p.mb-3= typo_fr(@scale.information)
       %dl.detail-hero__facts
+        %dt Notes
+        %dd
+          - @scale.keys.each do |key|
+            = link_to key, note_path(key), title: key.name_for_seo, class: 'badge bg-light'
         %dt Intervalles
         %dd
           - @scale.intervals.each do |i|
@@ -29,7 +25,7 @@
         %dd= @scale.modes.count
 
   %nav#modes-list
-    %h2 Modes de la gamme
+    %h2= @key ? (@scale.modes.one? ? 'Mode' : "Les #{@scale.modes.count} modes") : 'Modes de la gamme'
     .table-responsive
       %table.table.table-hover.table-striped
         %thead
@@ -41,7 +37,7 @@
             %th Séquence d'intervalles en tons
         %tbody
           - @scale.modes.order(:mode).each do |mode|
-            - mode = mode.in_key_of('C')
+            - mode = mode.in_key_of(@scale.key || 'C')
             %tr
               %td= mode.degree
               -if @scale.heptatonic?
@@ -53,5 +49,7 @@
 
   -if @scale.heptatonic?
     %nav#harmonization
-      %h2 Harmonisation de la gamme #{@scale.name.downcase}
+      %h2 Harmonisation de la #{@scale.name_in_key}
       =render partial: 'harmonization', locals: {scale: @scale}
+
+= render 'shared/faq', title: "Questions sur la #{@scale.name_in_key}", items: Faq.for_scale(@scale)

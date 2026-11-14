@@ -36,9 +36,33 @@ class Scale < ApplicationRecord
     notes.size == 7
   end
 
+  # "Gamme majeure" without key. In a key, the page is about the modes of the scale ("Modes de la gamme de ré majeur"):
+  # the notes of "Gamme de ré majeur" are on its first mode's page, which keeps that search.
+  def heading
+    key ? "Modes de la #{name_in_key}" : "Gamme #{name.downcase}"
+  end
+
+  # "gamme majeure", "gamme de ré majeur", "gamme blues de ré"
+  def name_in_key
+    return "gamme #{name.downcase}" unless key
+
+    heptatonic? ? main_mode.in_key_of(key).heading.sub(/\A\w/, &:downcase) : "gamme #{name.downcase} de #{key.french_long_name}"
+  end
+
   def seo_title
-    suffixes = heptatonic? ? [" : notes, modes et harmonisation", " : notes et modes"] : [" : notes et modes", " : notes"]
-    SeoTitle.fit("Gamme #{name.downcase}", suffixes)
+    if key
+      SeoTitle.fit(heading, heptatonic? ? [' et harmonisation', ''] : [' : notes', ''])
+    else
+      suffixes = heptatonic? ? [" : notes, modes et harmonisation", " : notes et modes"] : [" : notes et modes", " : notes"]
+      SeoTitle.fit(heading, suffixes)
+    end
+  end
+
+  def seo_description
+    return information unless key
+
+    names = modes.sort_by(&:mode).map { |mode| mode.in_key_of(key).heading.sub(/\A(Mode|Gamme) (de )?/, '').sub(/ \(.*\)\z/, '') }
+    "#{heading} : #{names.to_sentence}. #{heptatonic? ? 'Notes, intervalles et accords de chaque degré.' : 'Notes et intervalles de chaque mode.'}"
   end
 
   def self.resolve(symbol)
