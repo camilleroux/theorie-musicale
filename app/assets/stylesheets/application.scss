@@ -319,6 +319,56 @@ nav.navbar.bg-dark {
   p:last-child { margin-bottom: 0; }
 }
 
+// Cycle des quintes
+.circle-wrapper {
+  position: sticky;
+  top: 5rem;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.circle {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: $font-family-sans-serif;
+
+  &__wedge {
+    cursor: pointer;
+    text-decoration: none;
+    path { fill: $surface; stroke: $border-color; stroke-width: 1.5; transition: fill .15s; }
+    &:hover path, &:focus-visible path { fill: $primary-soft; }
+    &.is-selected path { fill: $primary; }
+    &.is-selected text { fill: #fff; }
+    &:focus-visible { outline: none; }
+    &:focus-visible path { stroke: $primary; stroke-width: 3; }
+  }
+  &__major { fill: $ink; font-size: 19px; font-weight: 800; }
+  &__minor { fill: $ink-muted; font-size: 13px; font-weight: 600; }
+  &__signature { fill: $accent-text; font-size: 11px; font-weight: 700; }
+  &__center { fill: $page-bg; stroke: $border-color; stroke-width: 1.5; }
+  &__center-label { fill: $ink-muted; font-size: 13px; font-weight: 600; }
+}
+
+.circle-panel {
+  margin-bottom: 1.5rem;
+  border-top: 4px solid $primary;
+
+  h3 { margin-top: 1.25rem; font-weight: 800; letter-spacing: .02em; }
+  &__chords { margin-bottom: 0; th { color: $ink-muted; font-weight: 600; } td { font-weight: 700; } }
+  &__progression {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+
+    a { text-decoration: none; }
+    .play-buttons { flex-direction: row; }
+  }
+}
+
 // Questions answered at the bottom of chord and mode pages
 .faq {
   max-width: 48rem;

@@ -1,5 +1,5 @@
 module PlayerHelper
-  LABELS = {chord: 'Écouter', arpeggio: 'Arpège', scale: 'Écouter'}
+  LABELS = {chord: 'Écouter', arpeggio: 'Arpège', scale: 'Écouter', progression: 'Écouter'}
 
   # Buttons playing notes written as on the staff ("Eb/4"), see app/assets/javascripts/player.js
   # The first one plays with the Space bar

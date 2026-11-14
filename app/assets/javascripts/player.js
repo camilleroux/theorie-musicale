@@ -5,8 +5,9 @@
 //   <button class="play-button" data-play="chord" data-notes='["C/4","E/4","G/4"]'>
 //
 // `data-notes` are written as on the staff (VexFlow, octave of the letter).
-// `data-play` is "chord" (struck together), "arpeggio" (one by one, held)
-// or "scale" (up and back down). Clicking a playing button stops it.
+// `data-play` is "chord" (struck together), "arpeggio" (one by one, held),
+// "scale" (up and back down) or "progression" (`data-notes` is then a list of
+// chords, one per half note). Clicking a playing button stops it.
 //
 //   <button class="play-button" data-play="sequence" data-steps='[{"notes":[38,60,65,69],"beats":4,"step":0}]'
 //           data-highlight='[data-play-key="c"]' data-loop="progression-loop"
@@ -35,6 +36,12 @@
     return (Number(octave) + 1) * 12 + LETTERS[letter] + shift
   }
 
+  // MIDI notes of data-notes: a list of chords for a progression, a flat list otherwise
+  function notes(kind, data) {
+    const toMidi = (list) => list.map(midi).filter((note) => note !== null)
+    return kind === "progression" ? data.map(toMidi) : toMidi(data.flat())
+  }
+
   function steps(kind, notes) {
     switch (kind) {
       case "arpeggio":
@@ -45,6 +52,8 @@
         const run = [...up, ...up.slice(0, -1).reverse()]
         return run.map((note, i) => ({ notes: [note], beats: i === run.length - 1 ? 2 : 0.5, hold: i === run.length - 1 ? 2 : 0.55 }))
       }
+      case "progression":
+        return notes.map((chord, i) => ({ notes: chord, beats: i === notes.length - 1 ? 4 : 2, hold: i === notes.length - 1 ? 4 : 1.9, spread: 0.008 }))
       default:
         return [{ notes, beats: 4, hold: 4, spread: 0.008 }]
     }
@@ -143,7 +152,7 @@
         },
         onEnd: done
       })
-      : new audio.Sequencer(steps(kind, JSON.parse(button.dataset.notes).flat().map(midi).filter((note) => note !== null)), { tempo: () => TEMPO, onEnd: done })
+      : new audio.Sequencer(steps(kind, notes(kind, JSON.parse(button.dataset.notes))), { tempo: () => TEMPO, onEnd: done })
 
     audio.claim(player)
     press(buttons, player)
