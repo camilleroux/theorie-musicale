@@ -13,26 +13,45 @@
     %p.lead.text-muted= @progression.roman_numerals
   %p.lead= typo_fr(@progression.summary)
 
-  - if @progression.bars
-    %section.mt-4
-      %h2.h3 Grille en #{@tonic.french_long_name}
-      %nav.key-selector.mb-3{'aria-label': 'Tonalité'}
-        %span.key-selector__label Tonalité
-        %ul.pagination.pagination-sm
-          - @tonics.each do |tonic|
-            %li.page-item{class: ('active' if tonic == @tonic)}
-              = link_to tonic, progression_path(@progression, tonalite: (tonic.to_param unless tonic.main?)), class: 'page-link', 'aria-current': (tonic == @tonic ? 'page' : nil)
-      .row.g-2.text-center
-        - @progression.bars.each_with_index do |step_index, bar|
-          .col-3
-            .card.mb-0
-              .card-body.py-3
-                .small.text-muted Mesure #{bar + 1}
-                .fs-5.fw-bold= render 'chord_link', chord: @grid_chords[step_index]
+  .progression-player
+    .progression-player__controls
+      = progression_play_button(@progression, @tonic, text: "Écouter en #{@tonic}", shortcut: true)
+      .form-check.mb-0
+        %input.form-check-input#progression-loop{type: 'checkbox', checked: true}
+        %label.form-check-label{for: 'progression-loop'} En boucle
+      .progression-player__tempo
+        %label.form-label.mb-0{for: 'progression-tempo'} Tempo
+        %input.form-range#progression-tempo{type: 'range', min: 60, max: 200, step: 5, value: 100}
+        %output{for: 'progression-tempo'} 100
+        %span.text-muted BPM
+      %span.player-hint.text-muted.small Espace pour lancer ou arrêter
+    .player-keyboard#progression-keyboard
+
+  %section.mt-4{data: {play_key: @tonic.to_param}}
+    %h2.h3 Grille en #{@tonic.french_long_name}
+    %nav.key-selector.mb-3{'aria-label': 'Tonalité'}
+      %span.key-selector__label Tonalité
+      %ul.pagination.pagination-sm
+        - @tonics.each do |tonic|
+          %li.page-item{class: ('active' if tonic == @tonic)}
+            = link_to tonic, progression_path(@progression, tonalite: (tonic.to_param unless tonic.main?)), class: 'page-link', 'aria-current': (tonic == @tonic ? 'page' : nil)
+    .row.g-2.text-center
+      - @progression.bars.each_with_index do |steps, bar|
+        .col-3
+          .card.mb-0.play-cell{data: {play_bar: bar}}
+            .card-body.py-3
+              .small.text-muted Mesure #{bar + 1}
+              .fs-5.fw-bold
+                - steps.each do |step|
+                  = render 'chord_link', chord: @grid_chords[step]
 
   %section.mt-4
     - @progression.paragraphs.each do |paragraph|
       %p= typo_fr(paragraph)
+    - if (scales = blues_scale_links(@progression, @tonic)).any?
+      %p
+        Pour improviser en #{@tonic.french_long_name} :
+        = safe_join(scales.map { |name, path| link_to(name, path) }, ' · ')
 
   %section.mt-4
     %h2.h3 #{@progression.short_name} dans les 12 tonalités
@@ -40,15 +59,18 @@
       %table.table.table-hover.table-striped
         %thead
           %tr
+            %th.play-column
+              %span.visually-hidden Écouter
             %th Tonalité
             - @progression.steps.each do |step|
               %th= step.roman
         %tbody
           - @tonics.each do |tonic|
-            %tr
+            %tr{data: {play_key: tonic.to_param}}
+              %td.play-column= progression_play_button(@progression, tonic, text: nil)
               %th= link_to "#{tonic} (#{tonic.french_long_name})", note_path(tonic), class: 'text-decoration-none'
-              - @progression.chords_in(tonic).each do |chord|
-                %td= render 'chord_link', chord: chord
+              - @progression.chords_in(tonic).each_with_index do |chord, step|
+                %td.play-cell{data: {play_step: step}}= render 'chord_link', chord: chord
 
   %nav.mt-5
     %h2.h4 Autres progressions

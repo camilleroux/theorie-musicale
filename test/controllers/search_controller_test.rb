@@ -24,6 +24,12 @@ class SearchControllerTest < ActionDispatch::IntegrationTest
 
     get '/recherche', params: { q: '2 5 1' }
     assert_redirected_to '/progressions/ii-v-i-majeur'
+
+    get '/recherche', params: { q: 'cadence rompue' }
+    assert_redirected_to '/progressions/cadence-rompue'
+
+    get '/recherche', params: { q: 'grille de blues mineur' }
+    assert_redirected_to '/progressions/blues-mineur'
   end
 
   test 'should list ambiguous results and handle no result' do

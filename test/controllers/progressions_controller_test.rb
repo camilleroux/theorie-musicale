@@ -4,7 +4,8 @@ class ProgressionsControllerTest < ActionDispatch::IntegrationTest
   test 'should list progressions' do
     get '/progressions'
     assert_response :success
-    assert_select 'h2 a', Progression.all.size
+    assert_select 'h3 a', Progression.all.size
+    assert_select 'h2', Progression::FAMILIES.size
   end
 
   test 'should show a progression in every key with correct spelling' do
@@ -26,5 +27,28 @@ class ProgressionsControllerTest < ActionDispatch::IntegrationTest
     get '/progressions/blues', params: { tonalite: 'bb' }
     assert_select 'h2', 'Grille en si bémol'
     assert_select 'link[rel=canonical][href$=?]', '/progressions/blues'
+  end
+
+  test 'should keep the titles of the first progressions' do
+    get '/progressions/ii-v-i-majeur'
+    assert_select 'title', 'Progression II-V-I majeur : accords et tonalités | Théorie musicale'
+    get '/progressions/blues'
+    assert_select 'title', 'Grille de blues 12 mesures : accords et tonalités | Théorie musicale'
+  end
+
+  test 'should show every progression with its grid' do
+    Progression.all.each do |progression|
+      get progression_path(progression)
+      assert_response :success
+      assert_select '[data-play-bar]', progression.bars.size
+    end
+  end
+
+  test 'should link the blues grids and the blues scales in the same key' do
+    get '/progressions/blues', params: { tonalite: 'f' }
+    assert_select 'a[href=?]', '/tonalite/ab/gammes/blues/modes/blues-mineure', text: 'Gamme blues mineure de fa'
+
+    get '/tonalite/f/gammes/blues/modes/blues-majeure'
+    assert_select '#blues-grids a[href=?]', '/progressions/blues?tonalite=f', text: 'Grille de blues 12 mesures en fa'
   end
 end

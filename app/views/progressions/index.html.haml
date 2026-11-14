@@ -1,5 +1,5 @@
--title SeoTitle.fit("Progressions d'accords", [" : II-V-I, anatole, blues…", " : II-V-I, blues…"])
--description "Les progressions d'accords les plus utilisées en jazz et en pop (II-V-I majeur et mineur, anatole, grille de blues, I-V-VI-IV) dans les 12 tonalités."
+-title SeoTitle.fit("Progressions d'accords", [" : cadences, II-V-I, blues…", " : II-V-I, blues…"])
+-description "Les progressions d'accords à connaître : cadences parfaite, plagale et rompue, II-V-I, anatole, grilles de blues, rhythm changes, cadence andalouse. Dans les 12 tonalités, à écouter."
 -set_meta_tags canonical: progressions_url
 
 %ol.breadcrumb
@@ -9,17 +9,19 @@
 .page-header
   %h1 Progressions d'accords
 %p.lead
-  Les enchaînements d'accords les plus courants en jazz et en pop, expliqués et transposés dans les 12 tonalités.
+  Les enchaînements d'accords les plus courants, des cadences de la formation musicale aux grilles de jazz et de pop, expliqués, transposés dans les 12 tonalités et à écouter.
 
-.row.g-4.mt-2
-  - @progressions.each do |progression|
-    - c_major = Key.default
-    .col-12.col-md-6
-      .card.h-100.shadow-sm.border-0
-        .card-body.p-4
-          %h2.h4= link_to progression.name, progression_path(progression), class: 'stretched-link text-decoration-none'
-          %p.text-muted.mb-2= progression.roman_numerals
-          %p.mb-2
-            %strong En do :
-            = progression.chords_in(c_major).map(&:display_symbol).join(' – ')
-          %p.mb-0= typo_fr(progression.summary)
+- @families.each do |family, progressions|
+  %section.mt-5
+    %h2.h3= family
+    .row.g-4.mt-0
+      - progressions.each do |progression|
+        .col-12.col-md-6
+          .card.h-100.shadow-sm.border-0
+            .card-body.p-4
+              %h3.h4= link_to progression.name, progression_path(progression), class: 'stretched-link text-decoration-none'
+              %p.text-muted.mb-2= progression.roman_numerals
+              %p.mb-2
+                %strong En do :
+                = progression.chords_in(Key.default).map(&:display_symbol).join(' – ')
+              %p.mb-0= typo_fr(progression.summary)
