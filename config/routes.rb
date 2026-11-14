@@ -45,4 +45,8 @@ Rails.application.routes.draw do
   resources :notes, only: [:index, :show] do
     get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
   end
+
+  # Old links in uppercase (/Accords, /tonalite/G/accords/Mineur-7): Rails routes are case-sensitive.
+  # Only paths with an uppercase letter reach this route, interval slugs (3M-tierce+majeure) match their own route first.
+  get '*path', to: 'redirects#lowercase', format: false, constraints: ->(request) { request.path.match?(/[A-Z]/) }
 end
