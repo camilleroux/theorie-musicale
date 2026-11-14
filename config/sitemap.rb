@@ -41,6 +41,7 @@ SitemapGenerator::Sitemap.create do
   end
 
   add progressions_path, :priority => 0.75
+  add circle_of_fifths_path, :priority => 0.8, :changefreq => 'monthly'
   Progression.all.each { |progression| add progression_path(progression), :priority => 0.75 }
 
   piano_image = ->(path) { [{ loc: SitemapGenerator::Sitemap.default_host + path }] }

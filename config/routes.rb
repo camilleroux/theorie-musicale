@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   end
 
   resources :progressions, only: [:index, :show]
+  get 'cycle-des-quintes' => 'circle_of_fifths#show', as: :circle_of_fifths
 
   get 'recherche' => 'search#show', as: :search
 

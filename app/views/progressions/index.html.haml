@@ -10,6 +10,10 @@
   %h1 Progressions d'accords
 %p.lead
   Les enchaînements d'accords les plus courants, des cadences de la formation musicale aux grilles de jazz et de pop, expliqués, transposés dans les 12 tonalités et à écouter.
+%p
+  = typo_fr("Pour voir d'un coup d'œil le II-V-I de chaque tonalité et sa substitution tritonique, utilisez le")
+  = succeed '.' do
+    = link_to 'cycle des quintes interactif', circle_of_fifths_path
 
 - @families.each do |family, progressions|
   %section.mt-5
