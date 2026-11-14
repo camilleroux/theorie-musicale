@@ -46,7 +46,12 @@ module Faq
   end
 
   def self.piano_answer(chord, symbol)
-    "Jouez #{chord.keys.map(&:to_s).to_sentence} en même temps, en partant de la fondamentale #{chord.keys.first}."
+    answer = "Jouez #{chord.keys.map(&:to_s).to_sentence} en même temps, en partant de la fondamentale #{chord.keys.first}."
+    shell = JazzVoicing.for(chord).first
+    return answer unless shell
+
+    notes = shell.notes.map { |note| note.split('/').first.tr('#b', '♯♭') }
+    "#{answer} En jazz, la main gauche se contente souvent d'un shell, #{notes.to_sentence} (#{shell.formula.tr('–', '-').delete(' ')}), et laisse les autres notes à la main droite."
   end
   private_class_method :piano_answer
 end

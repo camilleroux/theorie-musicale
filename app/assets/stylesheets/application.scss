@@ -375,6 +375,21 @@ nav.navbar.bg-dark {
   }
 }
 
+// Jazz voicings on chord pages
+.voicing {
+  &__formula { margin-bottom: .75rem; color: $accent-text; font-weight: 700; letter-spacing: .02em; }
+  &__staff {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem 1rem;
+    background-color: $gray-100;
+    border-radius: $border-radius;
+    padding: .5rem;
+  }
+}
+
 // Questions answered at the bottom of chord and mode pages
 .faq {
   max-width: 48rem;
