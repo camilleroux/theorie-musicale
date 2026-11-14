@@ -75,4 +75,14 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     get '/tonalite/a/accords/mineur-7'
     assert_select 'a[href=?]', 'https://art.camilleroux.com/'
   end
+
+  test 'should define the chord and its role in jazz' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select '.detail-intro .lead', /\AL'accord Am7 \(la mineur 7\) compte quatre notes/
+    assert_select '.detail-intro a[href=?]', '/progressions/ii-v-i-majeur?tonalite=g', text: 'II-V-I majeur'
+    assert_select '.detail-intro', /Am7 – D7 – Gmaj7 en sol majeur/
+
+    get '/accords/majeur-7'
+    assert_select '.detail-intro', /En do, Cmaj7 se compose de do, mi, sol et si/
+  end
 end

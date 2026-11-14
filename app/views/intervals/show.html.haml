@@ -45,6 +45,9 @@
   .card-footer
     = render 'shared/key_selector', current: @key, path: ->(key) { key_interval_path(key, @interval) }
 
+%section.detail-intro
+  %p.lead= typo_fr(@interval.seo_description.sub(/ Position .*\z/, ""))
+
 %section#piano
   %h2.h3 #{@interval.heading} au piano
   = piano_image_tag(@interval)

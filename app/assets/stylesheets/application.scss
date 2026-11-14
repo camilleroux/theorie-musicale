@@ -310,6 +310,15 @@ nav.navbar.bg-dark {
   }
 }
 
+// Definition right under the hero: the sentence search engines and AI assistants quote
+.detail-intro {
+  max-width: 48rem;
+  margin: -1rem 0 2.5rem;
+
+  .lead { font-size: 1.125rem; }
+  p:last-child { margin-bottom: 0; }
+}
+
 // Key selector
 .key-selector {
   display: flex;
