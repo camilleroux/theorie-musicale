@@ -1,0 +1,105 @@
+- tonic = @key
+- name = "#{tonic.french_long_name} majeur"
+- minor = @position.relative_minor
+- scale_mode = Scale.friendly.find('majeure').modes.find_by(mode: 1).in_key_of(tonic)
+- triads = @position.diatonic_triads
+- sevenths = @position.diatonic_chords
+- ii_v_i = @position.ii_v_i
+-title SeoTitle.fit("Tonalité de #{name}", [' : armure, accords et gamme', ' : armure et accords', ' : armure'])
+-description "Tonalité de #{name} (#{tonic.name}) : #{@position.signature_text} à l'armure, relative #{minor.french_long_name} mineur, gamme, accords de chaque degré, II-V-I et progressions."
+-set_meta_tags canonical: key_url(tonic)
+- definition = "La tonalité de #{name} a #{@position.signature.zero? ? 'une armure sans altération' : "#{@position.signature_text} à l'armure"}. Sa gamme : #{scale_mode.keys.map(&:french_name).to_sentence}. Sa relative mineure, #{minor.french_long_name} mineur, partage la même armure."
+- add_defined_term(name: "Tonalité de #{name}", code: tonic.name, description: definition, url: key_url(tonic), set_name: 'Cycle des quintes', set_url: circle_of_fifths_url)
+
+= breadcrumb(['Cycle des quintes', circle_of_fifths_path], ["Tonalité de #{name}", key_path(tonic)])
+
+%article#tonality
+  %header.detail-hero.card
+    .card-body
+      .row.g-4.align-items-center
+        .col-12.col-lg-6
+          %h1.detail-hero__title
+            %span.detail-hero__kicker Tonalité
+            = ' '
+            %span.detail-hero__symbol= tonic.name
+            = ' '
+            %span.detail-hero__name= name
+          %dl.detail-hero__facts
+            %dt Armure
+            %dd= typo_fr(@position.signature_text.upcase_first)
+            %dt Gamme
+            %dd
+              - scale_mode.keys.each do |key|
+                = link_to key, note_path(key), title: key.name_for_seo, class: 'badge bg-light'
+            %dt Relative
+            %dd= link_to "#{minor.french_long_name} mineur (#{minor.name}m)", circle_mode_path(tonic, 'eolien')
+            - if @position.neighbour_keys.any?
+              %dt Voisines
+              %dd
+                - @position.neighbour_keys.each do |key|
+                  = link_to "#{key.french_long_name} majeur", key_path(key), class: 'badge bg-light'
+        .col-12.col-lg-6
+          .detail-hero__staff
+            .staff.scale-staff{"data-staff" => scale_mode.octavized_notes(4, true).map { |n| [n] }.to_json, "data-staff-clef" => "treble", "width" => 360}
+            = play_buttons(scale_mode.octavized_notes(4, true), :scale)
+
+  %section.detail-intro
+    %p.lead= typo_fr(definition)
+    %p
+      = typo_fr("Sur le")
+      = succeed ',' do
+        = link_to 'cycle des quintes', "#{circle_of_fifths_path}##{@position.anchor}"
+      = typo_fr("elle se trouve entre ses deux tonalités voisines, qui ne diffèrent d'elle que d'une altération.")
+
+  %section.mt-4
+    %h2.h3 Accords de la tonalité de #{name}
+    .table-responsive
+      %table.table.table-sm.text-center.align-middle
+        %thead
+          %tr
+            %th Degré
+            - triads.each do |roman, _|
+              %th= roman.sub(/m\z|°\z/, '')
+        %tbody
+          %tr
+            %th Triade
+            - triads.each do |_, chord|
+              %td= circle_chord_link(chord)
+          %tr
+            %th Septième
+            - sevenths.each do |_, chord|
+              %td= circle_chord_link(chord)
+          %tr
+            %th Fonction
+            - CircleOfFifths::FUNCTIONS.each do |function|
+              %td.small.text-muted= function
+
+  %section.mt-4
+    %h2.h3 Progressions en #{name}
+    - [['ii-v-i-majeur', 'II-V-I'], ['anatole', 'Anatole'], ['blues', 'Blues'], ['i-v-vi-iv', 'I-V-VI-IV']].each do |slug, label|
+      - progression = Progression.find(slug)
+      - chords = progression.chords_in(tonic)
+      .circle-panel__progression.mb-2
+        %span.text-muted.small.fw-normal= label
+        = safe_join(chords.map { |chord| circle_chord_link(chord) }, ' – ')
+        = play_buttons(chords.map(&:octavized_notes), :progression)
+        - if (path = progression_in_key_path(slug, tonic))
+          = link_to 'Grille complète', path, class: 'small fw-normal'
+    %p.small.mt-3
+      = typo_fr("Substitution tritonique du V : #{ii_v_i[0].display_symbol} – #{@position.tritone_substitute.display_symbol} – #{ii_v_i[2].display_symbol}.")
+
+  %section.mt-4
+    %h2.h3 En #{minor.french_long_name} mineur
+    %p= typo_fr("La relative mineure part du 6e degré de la gamme de #{name}. Son II-V-I emprunte la dominante majeure de la gamme mineure harmonique :")
+    .circle-panel__progression.mb-2
+      = safe_join(@position.minor_ii_v_i.map { |chord| circle_chord_link(chord) }, ' – ')
+      = play_buttons(@position.minor_ii_v_i.map(&:octavized_notes), :progression)
+
+  %section.mt-4
+    %h2.h3 Modes de la gamme de #{name}
+    %ul.list-inline
+      - Scale.friendly.find('majeure').modes.order(:mode).each do |mode|
+        - mode = mode.in_key_of(tonic)
+        %li.list-inline-item.mb-2= link_to mode.heading, search_result_path(mode), class: 'badge bg-light'
+
+  = render 'shared/faq', title: "Questions sur la tonalité de #{name}", items: [Faq::Item.new("Combien d'altérations à l'armure de #{name} ?", "La tonalité de #{name} a #{@position.signature.zero? ? 'une armure sans altération' : "#{@position.signature_text} à l'armure"}."), Faq::Item.new("Quelle est la relative mineure de #{name} ?", "C'est #{minor.french_long_name} mineur (#{minor.name}m), qui a la même armure : elle part du 6e degré de la gamme de #{name}."), Faq::Item.new("Quels sont les accords de la tonalité de #{name} ?", "Triades : #{triads.map { |_, c| c.display_symbol }.to_sentence}. Accords de septième : #{sevenths.map { |_, c| c.display_symbol }.to_sentence}."), Faq::Item.new("Quel est le II-V-I en #{name} ?", "#{ii_v_i.map(&:display_symbol).join(' – ')}, soit #{ii_v_i.map { |c| c.key.french_long_name }.to_sentence}.")]

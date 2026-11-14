@@ -4,9 +4,7 @@
 - add_defined_term(name: 'Cycle des quintes', alternate_names: ['Cercle des quintes'], url: circle_of_fifths_url, set_name: 'Théorie musicale', set_url: root_url,
   description: "Le cycle des quintes range les 12 tonalités majeures en cercle, chacune une quinte au-dessus de la précédente dans le sens des aiguilles d'une montre. Deux tonalités voisines ne diffèrent que d'une altération.")
 
-%ol.breadcrumb
-  %li.breadcrumb-item= link_to 'Théorie musicale', root_path
-  %li.breadcrumb-item.active Cycle des quintes
+= breadcrumb(['Cycle des quintes', circle_of_fifths_path])
 
 %article#circle-of-fifths
   .page-header
@@ -27,7 +25,7 @@
         - minor_ii_v_i = position.minor_ii_v_i
         %section.circle-panel.card{id: position.anchor, data: { circle_panel: position.anchor }}
           .card-body
-            %h2.h3.mt-0 #{tonic.french_long_name.upcase_first} majeur (#{position.name})
+            %h2.h3.mt-0= link_to "#{tonic.french_long_name.upcase_first} majeur (#{position.name})", key_path(tonic), class: 'text-reset text-decoration-none'
             %dl.detail-hero__facts.mb-3
               %dt Armure
               %dd= typo_fr(position.signature_text.upcase_first)
@@ -59,6 +57,8 @@
               = safe_join(minor_ii_v_i.map { |chord| circle_chord_link(chord) }, ' – ')
               = play_buttons(minor_ii_v_i.map(&:octavized_notes), :progression)
             %p.small.mb-0
+              = link_to "Tonalité de #{tonic.french_long_name} majeur", key_path(tonic)
+              ·
               = link_to "Gamme de #{tonic.french_long_name} majeur", circle_mode_path(tonic, 'ionien')
               ·
               = link_to "Gamme de #{minor.french_long_name} mineur naturel", circle_mode_path(tonic, 'eolien')
