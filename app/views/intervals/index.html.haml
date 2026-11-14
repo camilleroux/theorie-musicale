@@ -1,20 +1,15 @@
 -set_meta_tags canonical: intervals_url
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: intervals_path, title: "Intervalles", class: "disable"}
-      %span{itemprop: "name"}>="Intervalles"
-    %meta{itemprop: "position", content: "2"}
+= breadcrumb(['Intervalles', intervals_path])
 
 .page-header
   %h1= title "Intervalles"
   %p.lead= description 'Les intervalles simples et redoublés, avec leur nom et leur symbole'
 
 %p.text-muted Intervalles regroupés par taille. En bleu les intervalles usuels (justes, majeurs, mineurs), en contour leurs équivalents diminués ou augmentés. La note indiquée part de do.
+%p
+  = typo_fr("Pour apprendre à les reconnaître à l'oreille :")
+  = link_to 'les intervalles dans les standards de jazz', ear_training_path
 
 - groups = [['Intervalles simples', @intervals.select { |i| i.degree < 8 }], ['Intervalles redoublés', @intervals.select { |i| i.degree >= 8 }]]
 - groups.each do |name, intervals|

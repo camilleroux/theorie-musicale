@@ -1,0 +1,16 @@
+- voicings = JazzVoicing.for(@chord)
+- if voicings.any?
+  %section#voicings.mt-5
+    %h2.h3 Voicings jazz de #{@chord.in_c.display_symbol}
+    %p.text-muted= typo_fr("Les dispositions les plus jouées en jazz, à écouter et à transposer au piano comme à la guitare.")
+    .row.g-3
+      - voicings.each do |voicing|
+        .col-12.col-md-6.col-xl-4
+          .card.h-100.voicing
+            .card-body
+              %h3.h5.mb-1= voicing.name
+              %p.voicing__formula= voicing.formula
+              .voicing__staff
+                .staff{"data-staff" => voicing.notes.to_json, "data-clef" => voicing.clef.to_s, "width" => 180}
+                = play_buttons(voicing.notes, :chord)
+              %p.small.mb-0.mt-2= typo_fr(voicing.description)

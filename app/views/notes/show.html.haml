@@ -1,6 +1,8 @@
 -title @key.seo_title
 -description @key.seo_description
 -set_meta_tags canonical: note_url(@key)
+- add_defined_term(name: "Note #{@key.name} (#{@key.french_long_name})", code: @key.name, description: @key.seo_description.sub(/ Position .*\z/, ''),
+  url: note_url(@key), set_name: 'Notes', set_url: notes_url, alternate_names: [@key.french_long_name])
 
 %ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
   %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
@@ -39,6 +41,9 @@
         .detail-hero__staff
           .staff.note-staff{"data-id" => @key.to_param, "data-staff" => ["#{@key.to_vexflow_notation}"].to_json, "data-staff-clef" => "treble", "width" => 200}
           = play_buttons([@key.to_vexflow_notation], :chord)
+
+%section.detail-intro
+  %p.lead= typo_fr(@key.seo_description.sub(/ Position .*\z/, ""))
 
 %section#piano
   %h2.h3 Note #{@key.name} au piano

@@ -32,4 +32,10 @@ class ModesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 'image/svg+xml', response.media_type
   end
+
+  test 'should define the mode and the chords it goes with' do
+    get '/tonalite/bb/gammes/majeure/modes/dorien'
+    assert_select '.detail-intro', /Le mode do dorien compte 7 notes[[:space:]]: do, ré, mi♭, fa, sol, la et si♭\. C'est le 2e mode de la gamme majeure/
+    assert_select '.detail-intro', /improviser sur Cm, Cm7/
+  end
 end

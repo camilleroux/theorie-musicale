@@ -19,8 +19,6 @@
 //= require vexflow-json
 //= require jquery-vexflow
 
-//= require paper-core.min
-//= require fretboard
 
 //= require jazzity-audio
 

@@ -5,7 +5,25 @@ class ApplicationController < ActionController::Base
 
   after_action :set_cache_headers
 
+  # /accords/Majeur matches the chord route but not the slug: retry in lowercase before giving up
+  # (interval slugs are case-sensitive and redirect themselves, see IntervalsController)
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    raise exception if controller_name == 'intervals'
+    redirect_to_lowercase_path or raise exception
+  end
+
   protected
+
+  # 301 to the same path in lowercase, percent-encodings (%C3%A8) kept as is. False when already lowercase.
+  def redirect_to_lowercase_path
+    return false unless request.get? || request.head?
+
+    path = request.path.gsub(/%\h\h|[^%]+/) { |part| part.start_with?('%') ? part : part.downcase }
+    return false if path == request.path
+
+    query = request.query_string.presence
+    redirect_to(query ? "#{path}?#{query}" : path, status: :moved_permanently)
+  end
 
   # An unknown key in the URL (e.g. /notes/null) is a 404, not a nil @key crashing the view
   def key_from_param!(value)

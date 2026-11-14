@@ -1,0 +1,7 @@
+-# items: Faq::Item list, also published as FAQPage JSON-LD
+- add_structured_data('@type' => 'FAQPage', 'mainEntity' => items.map { |item| { '@type' => 'Question', 'name' => item.question, 'acceptedAnswer' => { '@type' => 'Answer', 'text' => item.answer } } })
+%section.faq.mt-5
+  %h2.h3= title
+  - items.each do |item|
+    %h3.h6.faq__question= typo_fr(item.question)
+    %p.faq__answer= typo_fr(item.answer)

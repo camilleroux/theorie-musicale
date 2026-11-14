@@ -1,24 +1,10 @@
 -title @mode.seo_title
 -description @mode.seo_description
 -set_meta_tags canonical: url_for([@key, @scale, @mode, {only_path: false}])
+- add_defined_term(name: @mode.heading, description: @mode.definition, url: url_for([@key, @scale, @mode, {only_path: false}]),
+  set_name: 'Gammes et modes', set_url: scales_url)
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: scales_path, title: "Gammes"}
-      %span{itemprop: "name"}>= "Gammes"
-    %meta{itemprop: "position", content: "2"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: scale_path(@scale), title: "Gamme #{@scale.name.downcase}"}
-      %span{itemprop: "name"}>= "Gamme #{@scale.name.downcase}"
-    %meta{itemprop: "position", content: "3"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: url_for([@key, @scale, @mode]), title: @mode.heading, class: "disable"}
-      %span{itemprop: "name"}>= @mode.heading
-    %meta{itemprop: "position", content: "4"}
+= breadcrumb(['Gammes', scales_path], ["Gamme #{@scale.name.downcase}", scale_path(@scale)], [@mode.heading, url_for([@key, @scale, @mode])])
 
 %header.detail-hero.card
   .card-body
@@ -40,6 +26,9 @@
           = play_buttons(@mode.octavized_notes(4, true), :scale)
   .card-footer
     = render 'shared/key_selector', current: @key, path: ->(key) { url_for([key, @scale, @mode]) }, keys: @mode.keys_by_tonic
+
+%section.detail-intro
+  %p.lead= typo_fr(@mode.definition)
 
 - if (grids = blues_grid_links(@mode)).any?
   %nav#blues-grids.mb-4
@@ -63,5 +52,7 @@
     %nav.related-chords.mt-3
       %h2.h3 Accords associés
       .chords-list.row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
-        - @mode.chord_scales.each do |chord_scale|
-          = render chord_scale.chord, :key => (@scale.key || Key.default).shifted(-1 * chord_scale.offset)
+        - @mode.related_chords.each do |chord|
+          = render chord, key: chord.key
+
+= render 'shared/faq', title: "Questions sur #{@mode.heading_with_article}", items: Faq.for_mode(@mode)

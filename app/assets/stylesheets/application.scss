@@ -274,6 +274,12 @@ nav.navbar.bg-dark {
     letter-spacing: -.01em;
   }
 
+  &__note {
+    display: block;
+    color: $ink-muted;
+    font-size: .875rem;
+  }
+
   &__facts {
     display: grid;
     grid-template-columns: max-content 1fr;
@@ -308,6 +314,106 @@ nav.navbar.bg-dark {
     border-top: 1px solid $border-color;
     padding: .75rem 1.5rem;
   }
+}
+
+// Definition right under the hero: the sentence search engines and AI assistants quote
+.detail-intro {
+  max-width: 48rem;
+  margin: -1rem 0 2.5rem;
+
+  .lead { font-size: 1.125rem; }
+  p:last-child { margin-bottom: 0; }
+}
+
+// Cycle des quintes
+.circle-wrapper {
+  position: sticky;
+  top: 5rem;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.circle {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: $font-family-sans-serif;
+
+  &__wedge {
+    cursor: pointer;
+    text-decoration: none;
+    path { fill: $surface; stroke: $border-color; stroke-width: 1.5; transition: fill .15s; }
+    &:hover path, &:focus-visible path { fill: $primary-soft; }
+    &.is-selected path { fill: $primary; }
+    &.is-selected text { fill: #fff; }
+    &:focus-visible { outline: none; }
+    &:focus-visible path { stroke: $primary; stroke-width: 3; }
+  }
+  &__major { fill: $ink; font-size: 19px; font-weight: 800; }
+  &__minor { fill: $ink-muted; font-size: 13px; font-weight: 600; }
+  &__signature { fill: $accent-text; font-size: 11px; font-weight: 700; }
+  &__center { fill: $page-bg; stroke: $border-color; stroke-width: 1.5; }
+  &__center-label { fill: $ink-muted; font-size: 13px; font-weight: 600; }
+}
+
+.circle-panel {
+  margin-bottom: 1.5rem;
+  border-top: 4px solid $primary;
+
+  h3 { margin-top: 1.25rem; font-weight: 800; letter-spacing: .02em; }
+  &__chords { margin-bottom: 0; th { color: $ink-muted; font-weight: 600; } td { font-weight: 700; } }
+  &__progression {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+
+    a { text-decoration: none; }
+    .play-buttons { flex-direction: row; }
+  }
+}
+
+// Jazz voicings on chord pages
+.voicing {
+  &__formula { margin-bottom: .75rem; color: $accent-text; font-weight: 700; letter-spacing: .02em; }
+  &__staff {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem 1rem;
+    background-color: $gray-100;
+    border-radius: $border-radius;
+    padding: .5rem;
+  }
+}
+
+// Interval reference songs (ear training page, interval pages)
+.play-buttons.play-buttons--row { flex-direction: row; }
+
+.interval-songs {
+  margin-bottom: 0;
+
+  dt {
+    margin-top: .5rem;
+    color: $ink-muted;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  dd { margin-bottom: 0; }
+  cite { font-style: normal; font-weight: 700; }
+}
+
+// Questions answered at the bottom of chord and mode pages
+.faq {
+  max-width: 48rem;
+
+  &__question { margin: 1.25rem 0 .35rem; font-weight: 700; }
+  &__answer { margin-bottom: 0; color: $ink-muted; }
 }
 
 // Key selector

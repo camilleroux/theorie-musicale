@@ -5,4 +5,9 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_response :success
   end
+
+  test 'should load scripts without blocking rendering' do
+    get '/'
+    assert_select 'script[src*=application][defer]'
+  end
 end

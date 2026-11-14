@@ -1,23 +1,19 @@
 -title @chord.seo_title
 -description @chord.seo_description
 -set_meta_tags canonical: url_for([@chord.key, @chord, {only_path: false}])
+- add_defined_term(name: @chord.heading(display: true), code: @chord.in_c.display_symbol, description: @chord.definition,
+  url: url_for([@chord.key, @chord, {only_path: false}]), set_name: 'Accords', set_url: chords_url,
+  alternate_names: [@chord.in_c.search_symbol, *@chord.in_c.other_symbol_names].uniq - [@chord.in_c.display_symbol])
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: chords_path, title: "Accords"}
-      %span{itemprop: "name"}>= "Accords"
-    %meta{itemprop: "position", content: "2"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: url_for([@chord.key, @chord]), title: @chord.title, class: "disable"}
-      %span{itemprop: "name"}>= @chord.heading(display: true)
-    %meta{itemprop: "position", content: "3"}
+= breadcrumb(['Accords', chords_path], [@chord.heading(display: true), url_for([@chord.key, @chord])])
 
 %article#chord
   = render "chords/header"
+
+  %section.detail-intro
+    %p.lead= typo_fr(@chord.definition)
+    - if (role = @chord.role)
+      %p= chord_role_sentence(role)
 
 - guitar = GuitarVoicing.for(@chord).any?
 .row.g-4.instruments
@@ -28,6 +24,8 @@
     %h2.h3 #{@chord.display_symbol} au piano
     = piano_image_tag(@chord)
 
+= render 'chords/voicings'
+
 -if @chord.chord_scales.size > 1
   %nav.related-modes.mt-3
     %h2.h3 Gammes et modes associés
@@ -36,6 +34,8 @@
         - @chord.chord_scales.includes(mode: [:scale]).each do |chord_scale|
           = render chord_scale.mode, :key => (@chord.key || Key.default).shifted(chord_scale.offset)
 
+
+= render 'shared/faq', title: "Questions sur l'accord #{@chord.in_c.display_symbol}", items: Faq.for_chord(@chord)
 
 -#- if @chord.voicings.present?
 -#  %nav.related-voicings

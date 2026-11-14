@@ -13,28 +13,32 @@ class PlayButtonsTest < ApplicationSystemTestCase
   test "plays a chord, and stops when clicked again" do
     visit "/tonalite/eb/accords/majeur-7"
     listen
-    click_button "Écouter"
+    within ".detail-hero__staff" do
+      click_button "Écouter"
 
-    assert_selector ".play-button[data-play=chord][aria-pressed=true]"
-    assert_equal [63, 67, 70, 74], played_notes
+      assert_selector ".play-button[data-play=chord][aria-pressed=true]"
+      assert_equal [63, 67, 70, 74], played_notes
 
-    click_button "Écouter"
-    assert_selector ".play-button[data-play=chord][aria-pressed=false]"
+      click_button "Écouter"
+      assert_selector ".play-button[data-play=chord][aria-pressed=false]"
+    end
   end
 
   test "arpeggiates a chord, stopping the chord playing before" do
     visit "/tonalite/eb/accords/majeur-7"
     listen
-    click_button "Écouter"
-    assert_selector ".play-button[data-play=chord][aria-pressed=true]"
-    listen
-    click_button "Arpège"
+    within ".detail-hero__staff" do
+      click_button "Écouter"
+      assert_selector ".play-button[data-play=chord][aria-pressed=true]"
+      listen
+      click_button "Arpège"
 
-    assert_selector ".play-button[data-play=chord][aria-pressed=false]"
-    assert_selector ".play-button[data-play=arpeggio][aria-pressed=true]"
-    # Scheduled a little ahead of the clock, so wait for the last note
-    assert_selector ".play-button[data-play=arpeggio][aria-pressed=false]", wait: 10
-    assert_equal [63, 67, 70, 74], played_notes
+      assert_selector ".play-button[data-play=chord][aria-pressed=false]"
+      assert_selector ".play-button[data-play=arpeggio][aria-pressed=true]"
+      # Scheduled a little ahead of the clock, so wait for the last note
+      assert_selector ".play-button[data-play=arpeggio][aria-pressed=false]", wait: 10
+      assert_equal [63, 67, 70, 74], played_notes
+    end
   end
 
   test "runs a mode up and back down" do
