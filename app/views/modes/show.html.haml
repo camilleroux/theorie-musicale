@@ -39,7 +39,7 @@
           .staff.scale-staff{"data-id" => @scale.id, "data-staff" => @mode.octavized_notes(4,true).map {|n| [n]}.to_json, "data-staff-clef" => "treble", "width" => 360}
           = play_buttons(@mode.octavized_notes(4, true), :scale)
   .card-footer
-    = render 'shared/key_selector', current: @key, path: ->(key) { url_for([key, @scale, @mode]) }
+    = render 'shared/key_selector', current: @key, path: ->(key) { url_for([key, @scale, @mode]) }, keys: @mode.keys_by_tonic
 
 - if (grids = blues_grid_links(@mode)).any?
   %nav#blues-grids.mb-4
