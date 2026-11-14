@@ -12,10 +12,10 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should use searched symbols in title and description' do
+  test 'should keep the old title and description, and the searched symbol in the heading' do
     get '/tonalite/a/accords/mineur-7'
-    assert_select 'title', 'Accord Am7 (la mineur 7) : notes, guitare et piano | Théorie musicale'
-    assert_select 'meta[name=description][content^=?]', 'Accord Am7 (la mineur 7) : notes A, C, E et G'
+    assert_select 'title', 'Accord A (la) Mineur 7 | Théorie musicale'
+    assert_select 'meta[name=description][content^=?]', "L'accord Accord A Mineur 7 (Am7) est composé"
     assert_select 'h1', /Am7/
     assert_select 'img[src$=?]', '/tonalite/a/accords/mineur-7/guitare-1.svg'
     assert_select 'img[src$=?]', '/tonalite/a/accords/mineur-7/piano.svg'
@@ -53,12 +53,12 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should show extended and suspended chords with guitar diagrams' do
     get '/tonalite/g/accords/neuvieme'
-    assert_select 'title', 'Accord G9 (sol neuvième) : notes, guitare et piano | Théorie musicale'
+    assert_select 'title', 'Accord G (sol) Neuvième | Théorie musicale'
     assert_select 'img[src$=?]', '/tonalite/g/accords/neuvieme/guitare-1.svg'
 
     get '/tonalite/a/accords/sus-2'
     assert_response :success
-    assert_select 'meta[name=description][content^=?]', 'Accord Asus2 (la sus 2) : notes A, B et E'
+    assert_select 'meta[name=description][content^=?]', "L'accord Accord A Sus 2 (Asus2) est composé"
   end
 
   test 'should title the keyless chord page after C, the key it shows' do

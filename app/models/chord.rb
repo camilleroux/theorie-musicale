@@ -87,14 +87,11 @@ class Chord < ApplicationRecord
     key ? "Accord #{symbol} (#{full_name})" : "Accord #{name.downcase} (#{symbol}, #{c.full_name})"
   end
 
-  # A/B test of the search snippet, started 2026-11-14: chord pages in a key of
-  # these chords (half of the traffic) are back to the title and description they
-  # had until 2026-10-07, when the click-through rate of chord pages fell by a third
-  LEGACY_SNIPPET_SLUGS = %w[mineur septieme-de-dominante septieme-diminuee demi-diminue triade-diminuee mineur-6
-    7-diese5 triade-augmentee 7-bemol5 augmente-septieme-majeure phrygien 7-bemol9].freeze
-
+  # Chord pages in a key show the title and description they had until 2026-10-07: with
+  # "Accord Am7 (la mineur 7) : notes, guitare et piano", their click-through rate fell
+  # by a third at the same position (GSC review of 2026-11-14)
   def legacy_snippet?
-    key.present? && LEGACY_SNIPPET_SLUGS.include?(slug)
+    key.present?
   end
 
   def seo_title
