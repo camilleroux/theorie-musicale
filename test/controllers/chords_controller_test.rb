@@ -113,4 +113,11 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     get '/accords/majeur'
     assert_select '#voicings', false
   end
+
+  test 'should play only the chord of the hero with the Space bar' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select '#voicings .play-button'
+    assert_select '.play-button[data-shortcut]', 1
+    assert_select '.detail-hero__staff .play-button[data-shortcut]', 1
+  end
 end

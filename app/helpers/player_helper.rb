@@ -2,10 +2,10 @@ module PlayerHelper
   LABELS = {chord: 'Écouter', arpeggio: 'Arpège', scale: 'Écouter', progression: 'Écouter', melody: 'Écouter'}
 
   # Buttons playing notes written as on the staff ("Eb/4"), see app/assets/javascripts/player.js
-  # The first one plays with the Space bar
-  def play_buttons(notes, *kinds)
+  # The first one plays with the Space bar, unless `shortcut: false` (secondary players of a page)
+  def play_buttons(notes, *kinds, shortcut: true)
     tag.div(class: 'play-buttons', role: 'group', aria: {label: 'Écouter'}) do
-      safe_join(kinds.each_with_index.map { |kind, i| play_button(LABELS.fetch(kind), play: kind, notes: notes.to_json, shortcut: (true if i.zero?)) })
+      safe_join(kinds.each_with_index.map { |kind, i| play_button(LABELS.fetch(kind), play: kind, notes: notes.to_json, shortcut: (true if shortcut && i.zero?)) })
     end
   end
 

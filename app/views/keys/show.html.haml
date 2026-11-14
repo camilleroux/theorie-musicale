@@ -82,7 +82,7 @@
       .circle-panel__progression.mb-2
         %span.text-muted.small.fw-normal= label
         = safe_join(chords.map { |chord| circle_chord_link(chord) }, ' – ')
-        = play_buttons(chords.map(&:octavized_notes), :progression)
+        = play_buttons(chords.map(&:octavized_notes), :progression, shortcut: false)
         - if (path = progression_in_key_path(slug, tonic))
           = link_to 'Grille complète', path, class: 'small fw-normal'
     %p.small.mt-3
@@ -93,7 +93,7 @@
     %p= typo_fr("La relative mineure part du 6e degré de la gamme de #{name}. Son II-V-I emprunte la dominante majeure de la gamme mineure harmonique :")
     .circle-panel__progression.mb-2
       = safe_join(@position.minor_ii_v_i.map { |chord| circle_chord_link(chord) }, ' – ')
-      = play_buttons(@position.minor_ii_v_i.map(&:octavized_notes), :progression)
+      = play_buttons(@position.minor_ii_v_i.map(&:octavized_notes), :progression, shortcut: false)
 
   %section.mt-4
     %h2.h3 Modes de la gamme de #{name}
