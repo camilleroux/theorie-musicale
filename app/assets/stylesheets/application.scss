@@ -250,6 +250,17 @@ nav.navbar.bg-dark {
 
   &__title { margin: 0 0 1.25rem; }
 
+  &__kicker {
+    display: block;
+    margin-bottom: .35rem;
+    color: $ink-muted;
+    font-family: $font-family-sans-serif;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
   &__symbol {
     display: block;
     color: $primary;

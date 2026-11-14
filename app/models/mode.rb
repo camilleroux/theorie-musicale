@@ -52,6 +52,18 @@ class Mode < ApplicationRecord
     end
   end
 
+  # "le mode dorien", "la gamme de ré mineur harmonique"; with "de": "du mode dorien", "de la gamme…"
+  def heading_with_article(preposition = nil)
+    name = heading.sub(/\A\w/, &:downcase)
+    feminine = name.start_with?('gamme')
+    article = case preposition
+              when 'de' then feminine ? 'de la' : 'du'
+              when 'à' then feminine ? 'à la' : 'au'
+              else feminine ? 'la' : 'le'
+              end
+    "#{article} #{name}"
+  end
+
   def seo_title
     SeoTitle.fit(heading, key ? [" : notes et piano", " : notes"] : [" : notes, intervalles et piano", " : notes et intervalles", " : intervalles"])
   end

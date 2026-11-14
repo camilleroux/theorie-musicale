@@ -1,6 +1,6 @@
 - voicings = GuitarVoicing.for(@chord)
 %section#guitare
-  %h2.h3 #{@chord.display_symbol} à la guitare
+  %h2.h3 Accord #{@chord.in_c.display_symbol} à la guitare
   .row.g-3
     - voicings.each.with_index(1) do |voicing, position|
       .col-4

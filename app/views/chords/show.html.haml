@@ -25,12 +25,12 @@
     .col-12.col-lg-6
       = render "chords/guitar"
   %section#piano{class: (guitar ? 'col-12 col-lg-6' : 'col-12')}
-    %h2.h3 #{@chord.display_symbol} au piano
+    %h2.h3 Accord #{@chord.in_c.display_symbol} au piano
     = piano_image_tag(@chord)
 
 -if @chord.chord_scales.size > 1
   %nav.related-modes.mt-3
-    %h2.h3 Gammes et modes associés
+    %h2.h3 Gammes et modes à jouer sur #{@chord.in_c.display_symbol}
     .modes-list
       .row.g-3
         - @chord.chord_scales.includes(mode: [:scale]).each do |chord_scale|

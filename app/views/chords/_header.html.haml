@@ -3,10 +3,13 @@
   .card-body
     .row.g-4.align-items-center
       .col-12.col-lg-6
+        -# Reads "Accord Am7 la mineur 7" (or "Accord majeur 7 Cmaj7 do majeur 7" on the key-less page), like the searches
         %h1.detail-hero__title
+          %span.detail-hero__kicker= @chord.key ? 'Accord' : "Accord #{@chord.name.downcase}"
+          = ' '
           %span.detail-hero__symbol= @chord.in_c.display_symbol
           = ' '
-          %span.detail-hero__name Accord #{@chord.in_c.full_name}
+          %span.detail-hero__name= @chord.in_c.full_name
         %dl.detail-hero__facts
           %dt Notes
           %dd

@@ -21,9 +21,11 @@
     .row.g-4.align-items-center
       .col-12.col-lg-6
         %h1.detail-hero__title
+          %span.detail-hero__kicker Note
+          = ' '
           %span.detail-hero__symbol= @key.name
           = ' '
-          %span.detail-hero__name Note #{@key.french_long_name}
+          %span.detail-hero__name #{@key.french_long_name} en notation française
         %dl.detail-hero__facts
           %dt Nom complet
           %dd= @key.long_name

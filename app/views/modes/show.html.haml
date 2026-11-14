@@ -54,14 +54,14 @@
 
   -if @scale.heptatonic?
     %nav#harmonization.mt-3
-      %h2.h3 Harmonisation
+      %h2.h3 Harmonisation #{@mode.heading_with_article('de')}
       %p.text-muted Accords construits sur chaque degré du mode.
       =render partial: 'scales/harmonization', locals: {scale: @scale, mode: @mode}
 
 
   - unless @mode.chord_scales.empty?
     %nav.related-chords.mt-3
-      %h2.h3 Accords associés
+      %h2.h3 Accords à jouer avec #{@mode.heading_with_article}
       .chords-list.row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
         - @mode.chord_scales.each do |chord_scale|
           = render chord_scale.chord, :key => (@scale.key || Key.default).shifted(-1 * chord_scale.offset)

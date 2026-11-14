@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
   after_action :set_cache_headers
 
   # /accords/Majeur matches the chord route but not the slug: retry in lowercase before giving up
+  # (interval slugs are case-sensitive and redirect themselves, see IntervalsController)
   rescue_from ActiveRecord::RecordNotFound do |exception|
+    raise exception if controller_name == 'intervals'
     redirect_to_lowercase_path or raise exception
   end
 

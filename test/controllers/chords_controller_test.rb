@@ -75,4 +75,15 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     get '/tonalite/a/accords/mineur-7'
     assert_select 'a[href=?]', 'https://art.camilleroux.com/'
   end
+
+  test 'should put the searched name in headings' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select 'h1', /\AAccord\s+Am7\s+la mineur 7\z/
+    assert_select 'h2', 'Accord Am7 à la guitare'
+    assert_select 'h2', 'Accord Am7 au piano'
+
+    get '/accords/majeur'
+    assert_select 'h1', /\AAccord majeur\s+C\s+do majeur\z/
+    assert_select 'h2', 'Accord C à la guitare'
+  end
 end
