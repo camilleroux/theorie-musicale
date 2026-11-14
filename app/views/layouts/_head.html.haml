@@ -28,6 +28,7 @@
   <meta name="google-site-verification" content="SueIOm5OP8R5QoMCc_V3ODVd-jZZeynl1iE17FXH8vc" />
   = render :partial => 'layouts/stylesheets'
 
-  = javascript_include_tag 'application'
+  -# defer: downloaded in parallel, run once the page is parsed (staffs and play buttons wait for DOM ready anyway)
+  = javascript_include_tag 'application', defer: true
   = csrf_meta_tags
   %script{type: 'application/ld+json'}= structured_data.to_json.html_safe
