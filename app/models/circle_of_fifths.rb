@@ -9,6 +9,14 @@ class CircleOfFifths
   POSITIONS = [['C', nil, 0], ['G', nil, 1], ['D', nil, 2], ['A', nil, 3], ['E', nil, 4], ['B', nil, 5],
                ['G♭', 'F♯', -6], ['D♭', nil, -5], ['A♭', nil, -4], ['E♭', nil, -3], ['B♭', nil, -2], ['F', nil, -1]].freeze
 
+  # Major keys that can be written with a key signature, and their signature (positive: sharps, negative: flats)
+  SIGNATURES = { 'C' => 0, 'G' => 1, 'D' => 2, 'A' => 3, 'E' => 4, 'B' => 5, 'F♯' => 6, 'C♯' => 7,
+                 'F' => -1, 'B♭' => -2, 'E♭' => -3, 'A♭' => -4, 'D♭' => -5, 'G♭' => -6, 'C♭' => -7 }.freeze
+
+  # Triads on each degree of the major scale and their harmonic function
+  TRIADS = [['majeur', 'I'], ['mineur', 'IIm'], ['mineur', 'IIIm'], ['majeur', 'IV'], ['majeur', 'V'], ['mineur', 'VIm'], ['triade-diminuee', 'VII°']].freeze
+  FUNCTIONS = %w[Tonique Sous-dominante Tonique Sous-dominante Dominante Tonique Dominante].freeze
+
   # Seventh chords on each degree of the major scale: semitones above the tonic, chord slug, roman numeral
   DIATONIC = [[0, 'majeur-7', 'IΔ'], [2, 'mineur-7', 'IIm7'], [4, 'mineur-7', 'IIIm7'], [5, 'majeur-7', 'IVΔ'],
               [7, 'septieme-de-dominante', 'V7'], [9, 'mineur-7', 'VIm7'], [11, 'demi-diminue', 'VIIø']].freeze
@@ -51,6 +59,23 @@ class CircleOfFifths
       end
     end
 
+    def degree_key(degree)
+      semitones = DIATONIC[degree].first
+      Key.from_index(tonic.index + semitones, tonic.letter_index + degree)
+    end
+
+    def diatonic_triads
+      TRIADS.each_with_index.map { |(slug, roman), degree| [roman, Chord.friendly.find(slug).in_key_of(degree_key(degree))] }
+    end
+
+    # The major key a fifth above and below, when it has a key signature
+    def neighbour_keys
+      [[tonic.index + 5, tonic.letter_index + 3], [tonic.index + 7, tonic.letter_index + 4]].filter_map do |index, letter|
+        key = Key.from_index(index, letter)
+        key if SIGNATURES.key?(key.name)
+      end
+    end
+
     def ii_v_i
       diatonic_chords.values_at(1, 4, 0).map(&:last)
     end
@@ -69,6 +94,13 @@ class CircleOfFifths
     POSITIONS.each_with_index.map do |(name, enharmonic, signature), index|
       Position.new(index: index, tonic: Key.all.find { |key| key.name == name }, enharmonic: enharmonic, signature: signature)
     end
+  end
+
+  # Position of any major key with a key signature (F♯ and C♯ included), nil for theoretical keys (G♯ major)
+  def self.position_for(key)
+    signature = SIGNATURES[key.name] or return
+    index = POSITIONS.index { |name, enharmonic, _| [name, enharmonic].include?(key.name) }
+    Position.new(index: index, tonic: key, enharmonic: nil, signature: signature)
   end
 
   # Neighbours on the circle share all notes but one: the keys a fifth above and below

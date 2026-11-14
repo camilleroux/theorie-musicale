@@ -33,6 +33,10 @@ Exemple dans une autre tonalité : [Accord Am7 (la mineur 7)](<%= key_chord_url(
 - [Cycle des quintes](<%= circle_of_fifths_url %>) : les 12 tonalités majeures et leurs relatives mineures, armures, accords de chaque degré, II-V-I et substitution tritonique.
 - [Reconnaître les intervalles à l'oreille](<%= ear_training_url %>) : pour chaque intervalle, montant et descendant, les standards de jazz dont le thème commence par lui.
 
+## Tonalités
+
+Une page par tonalité majeure (armure, relative mineure, gamme, accords de chaque degré, progressions) : <%= CircleOfFifths::SIGNATURES.keys.map { |name| key = Key.all.find { |k| k.name == name }; "[#{key.french_long_name} majeur](#{key_url(key)})" }.join(', ') %>.
+
 ## Intervalles et notes
 
 - [Intervalles](<%= intervals_url %>) : intervalles simples et redoublés, nombre de tons, renversements.
