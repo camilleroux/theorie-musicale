@@ -6,8 +6,8 @@
 //
 // `data-notes` are written as on the staff (VexFlow, octave of the letter).
 // `data-play` is "chord" (struck together), "arpeggio" (one by one, held),
-// "scale" (up and back down) or "progression" (`data-notes` is then a list of
-// chords, one per half note). Clicking a playing button stops it.
+// "scale" (up and back down), "melody" (one note after the other) or
+// "progression" (`data-notes` is then a list of chords, one per half note). Clicking a playing button stops it.
 //
 //   <button class="play-button" data-play="sequence" data-steps='[{"notes":[38,60,65,69],"beats":4,"step":0}]'
 //           data-highlight='[data-play-key="c"]' data-loop="progression-loop"
@@ -52,6 +52,8 @@
         const run = [...up, ...up.slice(0, -1).reverse()]
         return run.map((note, i) => ({ notes: [note], beats: i === run.length - 1 ? 2 : 0.5, hold: i === run.length - 1 ? 2 : 0.55 }))
       }
+      case "melody":
+        return notes.map((note, i) => ({ notes: [note], beats: i === notes.length - 1 ? 2 : 1, hold: i === notes.length - 1 ? 2 : 0.95 }))
       case "progression":
         return notes.map((chord, i) => ({ notes: chord, beats: i === notes.length - 1 ? 4 : 2, hold: i === notes.length - 1 ? 4 : 1.9, spread: 0.008 }))
       default:

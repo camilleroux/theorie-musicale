@@ -1,0 +1,40 @@
+-title SeoTitle.fit("Reconnaître les intervalles à l'oreille", [' : standards de jazz', ''])
+-description "Reconnaître les intervalles à l'oreille grâce aux standards de jazz : pour chaque intervalle, montant et descendant, les thèmes qui commencent par lui (All the Things You Are, Summertime, Somewhere…), à écouter."
+-set_meta_tags canonical: ear_training_url
+
+%ol.breadcrumb
+  %li.breadcrumb-item= link_to 'Théorie musicale', root_path
+  %li.breadcrumb-item= link_to 'Intervalles', intervals_path
+  %li.breadcrumb-item.active À l'oreille
+
+%article#ear-training
+  .page-header
+    %h1 Reconnaître les intervalles à l'oreille avec les standards de jazz
+  %section.detail-intro
+    %p.lead= typo_fr("Pour reconnaître un intervalle à l'oreille, le plus efficace est de l'associer au début d'un morceau que l'on connaît par cœur. Plutôt que des comptines, voici des standards de jazz dont les deux premières notes du thème forment chaque intervalle, en montant et en descendant.")
+    %p= typo_fr("Écoutez l'intervalle, chantez le début du thème dans votre tête, puis comparez. Il suffit d'un morceau par intervalle : choisissez celui que vous entendez le plus clairement.")
+
+  .row.g-4
+    - @intervals.each do |interval|
+      - songs = IntervalSong.for(interval)
+      .col-12.col-md-6.col-xl-4
+        %section.card.h-100.ear-interval{id: interval.symbol.downcase}
+          .card-body
+            %h2.h4.mt-0= link_to (interval.symbol == '4aug' ? "#{interval.long_name} (triton)" : interval.long_name), interval_path(interval)
+            %p.text-muted.small.mb-2= "#{interval.tones_label} · #{interval.semitones} demi-ton#{'s' if interval.semitones > 1} · de do à #{interval.keys.last.french_name}"
+            .play-buttons.play-buttons--row.mb-3{role: 'group', 'aria-label': "Écouter : #{interval.long_name.downcase}"}
+              = play_notes_button(interval.octavized_notes, :melody, 'Montant')
+              = play_notes_button(interval.octavized_notes.reverse, :melody, 'Descendant')
+            = render 'intervals/songs', songs: songs
+
+  %section.mt-5
+    %h2 Comment s'entraîner
+    %ol
+      %li= typo_fr("Commencez par trois intervalles très différents, par exemple la tierce majeure, la quinte juste et l'octave, et ajoutez-en un nouveau quand ils ne vous posent plus de problème.")
+      %li= typo_fr("Travaillez les deux sens : un intervalle descendant ne sonne pas comme le même intervalle en montant, d'où des morceaux différents.")
+      %li= typo_fr("Chantez les intervalles plutôt que de seulement les écouter : la voix fixe la mémoire bien mieux que l'oreille seule.")
+      %li= typo_fr("Écoutez aussi les deux notes ensemble (intervalle harmonique), comme dans un accord : c'est ce qui permet ensuite d'entendre la tierce ou la septième d'un accord.")
+      %li= typo_fr("Passez enfin aux mélodies : en relevant un thème à l'oreille, chaque saut est un intervalle que vous savez maintenant nommer.")
+    %p.small.text-muted= typo_fr("L'intervalle est celui des deux premières notes du thème, parfois après une courte introduction ou une anacrouse. Les tonalités changent selon les versions, l'intervalle reste le même.")
+
+  = render 'shared/faq', title: "Questions sur les intervalles à l'oreille", items: ear_training_faq
