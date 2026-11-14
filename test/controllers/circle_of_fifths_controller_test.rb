@@ -19,4 +19,9 @@ class CircleOfFifthsControllerTest < ActionDispatch::IntegrationTest
     assert_select '#tonalite-c', /on remplace G7 par D♭7/
     assert_select '#tonalite-gb', /on remplace D♭7 par G7/
   end
+
+  test 'should leave the Space bar alone, every key having its own panel' do
+    get '/cycle-des-quintes'
+    assert_select '.play-button[data-shortcut]', 0
+  end
 end

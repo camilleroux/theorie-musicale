@@ -12,5 +12,5 @@
               %p.voicing__formula= voicing.formula
               .voicing__staff
                 .staff{"data-staff" => voicing.notes.to_json, "data-clef" => voicing.clef.to_s, "width" => 180}
-                = play_buttons(voicing.notes, :chord)
+                = play_buttons(voicing.notes, :chord, shortcut: false)
               %p.small.mb-0.mt-2= typo_fr(voicing.description)

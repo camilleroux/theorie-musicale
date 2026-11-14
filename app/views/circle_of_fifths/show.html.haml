@@ -47,7 +47,7 @@
             %h3.h6 II-V-I
             .circle-panel__progression.mb-3
               = safe_join(ii_v_i.map { |chord| circle_chord_link(chord) }, ' – ')
-              = play_buttons(ii_v_i.map(&:octavized_notes), :progression)
+              = play_buttons(ii_v_i.map(&:octavized_notes), :progression, shortcut: false)
             %p.small
               = typo_fr("Substitution tritonique : on remplace #{ii_v_i[1].display_symbol} par #{substitute.display_symbol}, à l'opposé sur le cercle, ce qui donne")
               = succeed '.' do
@@ -55,7 +55,7 @@
             %h3.h6 En #{minor.french_long_name} mineur
             .circle-panel__progression.mb-3
               = safe_join(minor_ii_v_i.map { |chord| circle_chord_link(chord) }, ' – ')
-              = play_buttons(minor_ii_v_i.map(&:octavized_notes), :progression)
+              = play_buttons(minor_ii_v_i.map(&:octavized_notes), :progression, shortcut: false)
             %p.small.mb-0
               = link_to "Tonalité de #{tonic.french_long_name} majeur", key_path(tonic)
               ·
