@@ -105,6 +105,57 @@ class Chord < ApplicationRecord
     end
   end
 
+  NOTE_COUNTS = { 3 => 'trois notes (c\'est une triade)', 4 => 'quatre notes (c\'est une tétrade)', 5 => 'cinq notes', 6 => 'six notes' }
+
+  # "L'accord Am7 (la mineur 7) compte quatre notes (c'est une tétrade) : la, do, mi et sol, soit la fondamentale,
+  # une tierce mineure, une quinte juste et une septième mineure." Key-less pages define the chord, then give it in C.
+  def definition
+    c = in_c
+    count = NOTE_COUNTS.fetch(c.keys.size) { "#{c.keys.size} notes" }
+    structure = (['la fondamentale'] + intervals.map { |i| "une #{i.long_name.downcase}" }).to_sentence
+    notes = c.keys.map(&:french_name).to_sentence
+    if key
+      "L'accord #{c.display_symbol} (#{full_name}) compte #{count} : #{notes}, soit #{structure}."
+    else
+      "L'accord #{name.downcase} compte #{count} : #{structure}. En do, #{c.display_symbol} se compose de #{notes}."
+    end
+  end
+
+  # "Tétrade (4 notes)"
+  def kind
+    { 3 => 'Triade (3 notes)', 4 => 'Tétrade (4 notes)' }.fetch(keys.size) { "Accord de #{keys.size} notes" }
+  end
+
+  # Modes to improvise on the chord, built on its root
+  def related_modes
+    root = key || Key.default
+    chord_scales.includes(mode: :scale).map { |chord_scale| chord_scale.mode.in_key_of(root.shifted(chord_scale.offset)) }
+  end
+
+  TENSION_NAMES = { 1 => '♭9', 2 => '9', 3 => '♯9', 5 => '11', 6 => '♯11', 8 => '♭13', 9 => '13' }.freeze
+  Tensions = Data.define(:mode, :available, :avoid)
+
+  # Notes of a related mode that are not in the chord: tensions, or "avoid notes" when a half step above a chord tone
+  # (the 11 on a major chord), except the ♭9 and ♭13 of a dominant chord. Only for seventh and sixth chords, with the first
+  # related mode built on the root that gives a tension (related modes are listed from the most common).
+  def tensions
+    return if keys.size < 4
+
+    root = keys.first
+    chord_steps = keys.map { |k| (k.index - root.index) % 12 }
+    candidates = related_modes.select { |mode| mode.keys.first.index == root.index }.map do |mode|
+      extra = mode.keys.map { |k| [(k.index - root.index) % 12, k] }.reject { |step, _| chord_steps.include?(step) }.select { |step, _| TENSION_NAMES.key?(step) }
+      dominant = chord_steps.include?(4) && chord_steps.include?(10)
+      avoid, available = extra.partition { |step, _| chord_steps.include?((step - 1) % 12) && !(dominant && [1, 8].include?(step)) }
+      Tensions.new(mode, available.map { |step, k| [TENSION_NAMES[step], k] }, avoid.map { |step, k| [TENSION_NAMES[step], k] })
+    end
+    candidates.find { |t| t.available.any? }
+  end
+
+  def role
+    ChordRole.for(self)
+  end
+
   def guitar?
     GuitarVoicing.for(self).any?
   end

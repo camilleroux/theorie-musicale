@@ -3,10 +3,13 @@
   .card-body
     .row.g-4.align-items-center
       .col-12.col-lg-6
+        -# Reads "Accord Am7 la mineur 7" (or "Accord majeur 7 Cmaj7 do majeur 7" on the key-less page), like the searches
         %h1.detail-hero__title
+          %span.detail-hero__kicker= @chord.key ? 'Accord' : "Accord #{@chord.name.downcase}"
+          = ' '
           %span.detail-hero__symbol= @chord.in_c.display_symbol
           = ' '
-          %span.detail-hero__name Accord #{@chord.in_c.full_name}
+          %span.detail-hero__name= @chord.in_c.full_name
         %dl.detail-hero__facts
           %dt Notes
           %dd
@@ -16,6 +19,21 @@
           %dd
             - @chord.intervals.each do |i|
               = link_to i.long_name, interval_path(i), class: 'badge bg-primary'
+          %dt Type
+          %dd= @chord.kind
+          - if (tensions = @chord.tensions)
+            %dt Tensions
+            %dd
+              = tensions.available.map { |name, key| "#{name} (#{key})" }.join(', ')
+              %span.detail-hero__note
+                = typo_fr("avec #{tensions.mode.heading_with_article}")
+                - if tensions.avoid.any?
+                  = typo_fr("; à éviter : #{tensions.avoid.map { |name, key| "#{name} (#{key})" }.join(', ')}")
+          - if (modes = @chord.related_modes.uniq(&:heading).first(3)).any?
+            %dt Gammes
+            %dd
+              - modes.each do |mode|
+                = link_to mode.heading, search_result_path(mode), class: 'badge bg-light'
           - if @chord.other_symbol_names.present?
             %dt Autres symboles
             %dd= @chord.other_symbol_names.join(', ')

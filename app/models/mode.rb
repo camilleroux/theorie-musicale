@@ -52,6 +52,18 @@ class Mode < ApplicationRecord
     end
   end
 
+  # "le mode dorien", "la gamme de ré mineur harmonique"; with "de": "du mode dorien", "de la gamme…"
+  def heading_with_article(preposition = nil)
+    name = heading.sub(/\A\w/, &:downcase)
+    feminine = name.start_with?('gamme')
+    article = case preposition
+              when 'de' then feminine ? 'de la' : 'du'
+              when 'à' then feminine ? 'à la' : 'au'
+              else feminine ? 'la' : 'le'
+              end
+    "#{article} #{name}"
+  end
+
   def seo_title
     SeoTitle.fit(heading, key ? [" : notes et piano", " : notes"] : [" : notes, intervalles et piano", " : notes et intervalles", " : intervalles"])
   end
@@ -75,6 +87,28 @@ class Mode < ApplicationRecord
     when 'ton-ton' then 'par tons'
     else name.downcase
     end
+  end
+
+  # Chords to improvise on with this mode, in the mode's key
+  def related_chords
+    chord_scales.includes(:chord).map { |chord_scale| chord_scale.chord.in_key_of((scale.key || Key.default).shifted(-chord_scale.offset)) }
+  end
+
+  ORDINALS = { 1 => '1er' }
+
+  # "Le mode dorien compte 7 notes, par exemple à partir de ré : ré, mi, fa, sol, la, si et do. C'est le 2e mode de la gamme
+  # majeure, joué à partir de son 2e degré. On l'utilise pour improviser sur Dm7, Dm6 et Dm9."
+  def definition
+    notes = keys.map(&:french_name).to_sentence
+    sentences = [key ? "#{heading_with_article.upcase_first} compte #{keys.size} notes : #{notes}." :
+                       "#{heading_with_article.upcase_first} compte #{keys.size} notes, par exemple à partir de #{mode_key.french_long_name} : #{notes}."]
+    unless main?
+      ordinal = ORDINALS.fetch(mode) { "#{mode}e" }
+      sentences << "C'est le #{ordinal} mode de la gamme #{scale.name.downcase}, joué à partir de son #{ordinal} degré."
+    end
+    chords = related_chords.map(&:display_symbol).uniq
+    sentences << "On l'utilise pour improviser sur #{chords.to_sentence}." if chords.any?
+    sentences.join(' ')
   end
 
   def main?

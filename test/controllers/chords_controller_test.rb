@@ -75,4 +75,53 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     get '/tonalite/a/accords/mineur-7'
     assert_select 'a[href=?]', 'https://art.camilleroux.com/'
   end
+
+  test 'should put the searched name in headings' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select 'h1', /\AAccord\s+Am7\s+la mineur 7\z/
+    assert_select 'h2', 'Accord Am7 à la guitare'
+    assert_select 'h2', 'Accord Am7 au piano'
+
+    get '/accords/majeur'
+    assert_select 'h1', /\AAccord majeur\s+C\s+do majeur\z/
+    assert_select 'h2', 'Accord C à la guitare'
+  end
+
+  test 'should define the chord and its role in jazz' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select '.detail-intro .lead', /\AL'accord Am7 \(la mineur 7\) compte quatre notes/
+    assert_select '.detail-intro a[href=?]', '/progressions/ii-v-i-majeur?tonalite=g', text: 'II-V-I majeur'
+    assert_select '.detail-intro', /Am7 – D7 – Gmaj7 en sol majeur/
+
+    get '/accords/majeur-7'
+    assert_select '.detail-intro', /En do, Cmaj7 se compose de do, mi, sol et si/
+  end
+
+  test 'should answer questions and publish them as structured data' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select '.faq h3', "Quelles sont les notes de l'accord Am7\u00A0?"
+    graph = JSON.parse(css_select('script[type="application/ld+json"]').first.text)['@graph']
+    term = graph.find { |node| node['@type'] == 'DefinedTerm' }
+    assert_equal 'Am7', term['termCode']
+    faq = graph.find { |node| node['@type'] == 'FAQPage' }
+    assert_includes faq['mainEntity'].map { |q| q['name'] }, 'Comment jouer Am7 à la guitare ?'
+  end
+
+  test 'should sum up the chord type, tensions and scales' do
+    get '/tonalite/g/accords/septieme-de-dominante'
+    assert_select '.detail-hero__facts dd', 'Tétrade (4 notes)'
+    assert_select '.detail-hero__facts dd', /\A9 \(A\), 13 \(E\)/
+    assert_select '.detail-hero__facts dd', /à éviter[[:space:]]: 11 \(C\)/
+    assert_select '.detail-hero__facts a[href=?]', '/gammes/majeure/modes/mixolydien', text: 'Mode sol mixolydien'
+  end
+
+  test 'should show jazz voicings on a staff' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select '#voicings h2', 'Voicings jazz de Am7'
+    assert_select '#voicings .staff[data-clef=bass][data-staff=?]', '["A/3","C/4","G/4"]'
+    assert_select '.faq p', /un shell, A, C et G \(1-♭3-♭7\)/
+
+    get '/accords/majeur'
+    assert_select '#voicings', false
+  end
 end

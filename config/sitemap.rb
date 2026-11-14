@@ -41,6 +41,9 @@ SitemapGenerator::Sitemap.create do
   end
 
   add progressions_path, :priority => 0.75
+  add circle_of_fifths_path, :priority => 0.8, :changefreq => 'monthly'
+  CircleOfFifths::SIGNATURES.each_key { |name| add key_path(Key.all.find { |key| key.name == name }), :priority => 0.75 }
+  add ear_training_path, :priority => 0.8, :changefreq => 'monthly'
   Progression.all.each { |progression| add progression_path(progression), :priority => 0.75 }
 
   piano_image = ->(path) { [{ loc: SitemapGenerator::Sitemap.default_host + path }] }
@@ -73,6 +76,10 @@ SitemapGenerator::Sitemap.create do
 
   Scale.includes(:modes).find_each do |scale|
     add scale_path(scale), :priority => 0.75
+    # In a key, a scale page lists its modes ("Modes de la gamme de ré majeur"); a one-mode scale is canonicalized to that mode
+    if scale.modes.size > 1
+      Key.primaries.reject(&:main?).each { |key| add key_scale_path(key, scale), :priority => 0.6 }
+    end
     scale.modes.find_each do |mode|
       add scale_mode_path(scale,mode), :priority => 0.70, :images => piano_image.(piano_scale_mode_path(scale, mode, format: :svg))
       # C pages are canonicalized to the key-less mode page

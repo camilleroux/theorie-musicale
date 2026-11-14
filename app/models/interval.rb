@@ -105,8 +105,10 @@ class Interval
     end
   end
 
+  # "4aug-quarte+augmentée": URL helpers percent-encode the accents themselves (escaping here encoded them twice,
+  # as in "augment%25C3%25A9e"; IntervalsController redirects those old URLs)
   def to_param
-    symbol + '-' + Rack::Utils.escape(long_name.downcase)
+    symbol + '-' + long_name.downcase.tr(' ', '+')
   end
 
 

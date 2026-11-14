@@ -1,11 +1,9 @@
 -title @progression.seo_title
 -description @progression.seo_description
 -set_meta_tags canonical: progression_url(@progression)
+- add_defined_term(name: @progression.name, code: @progression.roman_numerals, description: @progression.summary, url: progression_url(@progression), set_name: "Progressions d'accords", set_url: progressions_url)
 
-%ol.breadcrumb
-  %li.breadcrumb-item= link_to 'Théorie musicale', root_path
-  %li.breadcrumb-item= link_to 'Progressions', progressions_path
-  %li.breadcrumb-item.active= @progression.short_name
+= breadcrumb(['Progressions', progressions_path], [@progression.short_name, progression_path(@progression)])
 
 %article#progression
   .page-header
@@ -72,8 +70,13 @@
               - @progression.chords_in(tonic).each_with_index do |chord, step|
                 %td.play-cell{data: {play_step: step}}= render 'chord_link', chord: chord
 
+  = render 'shared/faq', title: "Questions sur la progression #{@progression.short_name}", items: Faq.for_progression(@progression, @tonic)
+
   %nav.mt-5
     %h2.h4 Autres progressions
     %ul
       - (Progression.all - [@progression]).each do |progression|
         %li= link_to progression.name, progression_path(progression)
+    %p.mt-3
+      = typo_fr('Toutes les tonalités sur un seul schéma :')
+      = link_to 'le cycle des quintes interactif', circle_of_fifths_path

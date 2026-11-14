@@ -5,8 +5,9 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
+  get 'llms.txt' => 'llms#show', as: :llms, format: false
+
   resources :keys, only: [:show], path: 'tonalite' do
-    resources :chord_qualities, only: [:index, :show], path: 'qualite'
     resources :chords, only: [:index, :show], path: 'accords' do
       get 'guitare-:position', action: :guitar, on: :member, as: :guitar, format: true, constraints: {position: /[1-3]/, format: 'svg'}
       get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
@@ -39,10 +40,16 @@ Rails.application.routes.draw do
   end
 
   resources :progressions, only: [:index, :show]
+  get 'cycle-des-quintes' => 'circle_of_fifths#show', as: :circle_of_fifths
+  get 'reconnaitre-les-intervalles' => 'ear_training#show', as: :ear_training
 
   get 'recherche' => 'search#show', as: :search
 
   resources :notes, only: [:index, :show] do
     get 'piano', action: :piano, on: :member, as: :piano, format: true, constraints: {format: 'svg'}
   end
+
+  # Old links in uppercase (/Accords, /tonalite/G/accords/Mineur-7): Rails routes are case-sensitive.
+  # Only paths with an uppercase letter reach this route, interval slugs (3M-tierce+majeure) match their own route first.
+  get '*path', to: 'redirects#lowercase', format: false, constraints: ->(request) { request.path.match?(/[A-Z]/) }
 end

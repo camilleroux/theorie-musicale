@@ -34,4 +34,10 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 'image/svg+xml', response.media_type
   end
+
+  test 'should answer questions on the note and link its key' do
+    get '/notes/fd'
+    assert_select 'a[href=?]', '/tonalite/fd', text: 'fa dièse majeur'
+    assert_select '.faq h3', /enharmonies de F♯/
+  end
 end

@@ -31,4 +31,10 @@
           %p= typo_fr(text)
           %span.home-section__more{'aria-hidden': true} Explorer →
 
+%section.home-tools.mt-4
+  %h2.h5 Outils
+  %ul.list-inline.mb-0
+    %li.list-inline-item= link_to 'Cycle des quintes interactif', circle_of_fifths_path, class: 'btn btn-outline-primary btn-sm'
+    %li.list-inline-item= link_to "Reconnaître les intervalles à l'oreille", ear_training_path, class: 'btn btn-outline-primary btn-sm'
+
 = render "layouts/author"

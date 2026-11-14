@@ -1,20 +1,10 @@
 -title @interval.seo_title
 -description @interval.seo_description
 -set_meta_tags canonical: @key ? key_interval_url(@key, @interval) : interval_url(@interval)
+- add_defined_term(name: @interval.heading, code: @interval.symbol, description: @interval.seo_description.sub(/ Position .*\z/, ''),
+  url: (@key ? key_interval_url(@key, @interval) : interval_url(@interval)), set_name: 'Intervalles', set_url: intervals_url)
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: intervals_path, title: "Intervalles"}
-      %span{itemprop: "name"}>= "Intervalles"
-    %meta{itemprop: "position", content: "2"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: (@key ? key_interval_path(@key, @interval) : interval_path(@interval)), title: @interval.heading, class: "disable"}
-      %span{itemprop: "name"}>= @interval.heading
-    %meta{itemprop: "position", content: "3"}
+= breadcrumb(['Intervalles', intervals_path], [@interval.heading, (@key ? key_interval_path(@key, @interval) : interval_path(@interval))])
 
 %header.detail-hero.card
   .card-body
@@ -45,6 +35,23 @@
   .card-footer
     = render 'shared/key_selector', current: @key, path: ->(key) { key_interval_path(key, @interval) }
 
+%section.detail-intro
+  %p.lead= typo_fr(@interval.seo_description.sub(/ Position .*\z/, ""))
+
 %section#piano
   %h2.h3 #{@interval.heading} au piano
   = piano_image_tag(@interval)
+
+- if (songs = IntervalSong.for(@interval))
+  %section#oreille.mt-5
+    - name = @interval.long_name.downcase
+    %h2.h3 Reconnaître #{name.start_with?('o') ? "l'" : 'la '}#{name} à l'oreille
+    %p= typo_fr("Ces standards de jazz commencent par une #{@interval.long_name.downcase} : chantez leurs deux premières notes pour retrouver l'intervalle.")
+    .play-buttons.play-buttons--row.mb-3{role: 'group', 'aria-label': "Écouter : #{name}"}
+      = play_notes_button(@interval.octavized_notes, :melody, 'Montant')
+      = play_notes_button(@interval.octavized_notes.reverse, :melody, 'Descendant')
+    = render 'intervals/songs', songs: songs
+    %p.mt-3
+      = link_to "Tous les intervalles à l'oreille", ear_training_path
+
+= render 'shared/faq', title: "Questions sur #{@interval.heading.start_with?('O') ? "l'" : 'la '}#{@interval.heading.sub(/\A\w/, &:downcase)}", items: Faq.for_interval(@interval)

@@ -1,0 +1,11 @@
+-# songs: IntervalSong.for(interval), { up: [...], down: [...] }
+%dl.interval-songs
+  - { up: 'En montant', down: 'En descendant' }.each do |direction, label|
+    - next if songs[direction].blank?
+    %dt= label
+    %dd
+      %ul.list-unstyled.mb-0
+        - songs[direction].each do |song|
+          %li
+            %cite= song.title
+            %span.text-muted= "(#{song.composer})"
