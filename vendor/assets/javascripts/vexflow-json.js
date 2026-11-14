@@ -90,12 +90,13 @@
     };
 
     Vex.Flow.JSON.prototype.stave_notes = function(notes) {
+        var clef = this.note_clef;
         return _(notes).map(function(note) {
             if (note.barnote) { return new Vex.Flow.BarNote(); }
 
             var stave_note;
             note.duration || (note.duration = "h");
-            note.clef = "treble"; // Forcing to treble for now, even though bass may be present (we just line it up properly)
+            note.clef = clef; // Treble unless the staff only has a bass clef (theorie-musicale: jazz shell voicings)
             stave_note = new Vex.Flow.StaveNote(note);
 
             _(note.keys).each(function(key, i) {
@@ -112,7 +113,7 @@
     };
 
     Vex.Flow.JSON.prototype.draw_notes = function(notes) {
-        Vex.Flow.Formatter.FormatAndDraw(this.context, this.staves["treble"], notes);
+        Vex.Flow.Formatter.FormatAndDraw(this.context, this.staves[this.note_clef], notes);
     };
 
     Vex.Flow.JSON.prototype.stave_voices = function(voices) {
@@ -132,7 +133,7 @@
     Vex.Flow.JSON.prototype.draw_voices = function(voices) {
         var formatter = new Vex.Flow.Formatter().joinVoices(voices).format(voices, this.width - 120);
         _(voices).each(function(voice) {
-            voice.draw(this.context, this.staves["treble"]);
+            voice.draw(this.context, this.staves[this.note_clef]);
         }, this);
     };
 
@@ -141,6 +142,8 @@
         this.width = options.width || element.width || 600;
         this.height = options.height || element.height || 120;
         this.clef = options.clef;
+        // Notes go on the treble staff, or on the bass staff when it is the only one
+        this.note_clef = (this.clef === "bass" || (this.clef instanceof Array && this.clef.length === 1 && this.clef[0] === "bass")) ? "bass" : "treble";
         this.scale = options.scale || 2;
         this.keySignature = options.keySignature || 'C';
 

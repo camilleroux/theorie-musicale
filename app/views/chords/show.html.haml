@@ -36,6 +36,8 @@
     %h2.h3 Accord #{@chord.in_c.display_symbol} au piano
     = piano_image_tag(@chord)
 
+= render 'chords/voicings'
+
 -if @chord.chord_scales.size > 1
   %nav.related-modes.mt-3
     %h2.h3 Gammes et modes à jouer sur #{@chord.in_c.display_symbol}

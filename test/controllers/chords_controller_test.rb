@@ -114,4 +114,14 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     assert_select '.detail-hero__facts dd', /à éviter[[:space:]]: 11 \(C\)/
     assert_select '.detail-hero__facts a[href=?]', '/gammes/majeure/modes/mixolydien', text: 'Mode sol mixolydien'
   end
+
+  test 'should show jazz voicings on a staff' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select '#voicings h2', 'Voicings jazz de Am7'
+    assert_select '#voicings .staff[data-clef=bass][data-staff=?]', '["A/3","C/4","G/4"]'
+    assert_select '.faq p', /un shell, A, C et G \(1-♭3-♭7\)/
+
+    get '/accords/majeur'
+    assert_select '#voicings', false
+  end
 end
