@@ -1,5 +1,5 @@
 module PlayerHelper
-  LABELS = {chord: 'Écouter', arpeggio: 'Arpège', scale: 'Écouter', progression: 'Écouter'}
+  LABELS = {chord: 'Écouter', arpeggio: 'Arpège', scale: 'Écouter', progression: 'Écouter', melody: 'Écouter'}
 
   # Buttons playing notes written as on the staff ("Eb/4"), see app/assets/javascripts/player.js
   # The first one plays with the Space bar
@@ -16,6 +16,11 @@ module PlayerHelper
     play_button(text, label: "Écouter #{progression.short_name} en #{tonic}", play: :sequence,
       steps: progression.playback(tonic).to_json, highlight: %([data-play-key="#{tonic.to_param}"]),
       loop: 'progression-loop', tempo: 'progression-tempo', keyboard: 'progression-keyboard', shortcut: (true if shortcut))
+  end
+
+  # A single button with its own label, e.g. "Montant" for an interval played upwards
+  def play_notes_button(notes, kind, label = LABELS.fetch(kind))
+    play_button(label, play: kind, notes: notes.to_json)
   end
 
   private

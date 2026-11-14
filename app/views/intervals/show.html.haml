@@ -53,3 +53,15 @@
 %section#piano
   %h2.h3 #{@interval.heading} au piano
   = piano_image_tag(@interval)
+
+- if (songs = IntervalSong.for(@interval))
+  %section#oreille.mt-5
+    - name = @interval.long_name.downcase
+    %h2.h3 Reconnaître #{name.start_with?('o') ? "l'" : 'la '}#{name} à l'oreille
+    %p= typo_fr("Ces standards de jazz commencent par une #{@interval.long_name.downcase} : chantez leurs deux premières notes pour retrouver l'intervalle.")
+    .play-buttons.play-buttons--row.mb-3{role: 'group', 'aria-label': "Écouter : #{name}"}
+      = play_notes_button(@interval.octavized_notes, :melody, 'Montant')
+      = play_notes_button(@interval.octavized_notes.reverse, :melody, 'Descendant')
+    = render 'intervals/songs', songs: songs
+    %p.mt-3
+      = link_to "Tous les intervalles à l'oreille", ear_training_path

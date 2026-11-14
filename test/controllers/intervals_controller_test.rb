@@ -41,4 +41,22 @@ class IntervalsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 'image/svg+xml', response.media_type
   end
+
+  test 'should give standards to recognize the interval by ear' do
+    # Names with accents are linked double-encoded (augment%25C3%25A9e): follow the redirect to that URL
+    get "/intervalles/#{Interval.new(4, :aug).to_param}"
+    follow_redirect!
+    assert_select '#oreille cite', 'Maria'
+
+    # The tritone has the same sound under both names
+    get "/intervalles/#{Interval.new(5, :dim).to_param}"
+    follow_redirect!
+    assert_select '#oreille cite', 'Maria'
+
+    get "/intervalles/#{Interval.new(8, :J).to_param}"
+    assert_select '#oreille h2', "Reconnaître l'octave juste à l'oreille"
+
+    get "/intervalles/#{Interval.new(9, :M).to_param}"
+    assert_select '#oreille', false
+  end
 end

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   resources :progressions, only: [:index, :show]
   get 'cycle-des-quintes' => 'circle_of_fifths#show', as: :circle_of_fifths
+  get 'reconnaitre-les-intervalles' => 'ear_training#show', as: :ear_training
 
   get 'recherche' => 'search#show', as: :search
 

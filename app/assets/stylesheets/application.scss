@@ -401,6 +401,24 @@ nav.navbar.bg-dark {
   }
 }
 
+// Interval reference songs (ear training page, interval pages)
+.play-buttons.play-buttons--row { flex-direction: row; }
+
+.interval-songs {
+  margin-bottom: 0;
+
+  dt {
+    margin-top: .5rem;
+    color: $ink-muted;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  dd { margin-bottom: 0; }
+  cite { font-style: normal; font-weight: 700; }
+}
+
 // Questions answered at the bottom of chord and mode pages
 .faq {
   max-width: 48rem;
