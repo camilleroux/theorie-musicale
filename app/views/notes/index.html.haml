@@ -1,14 +1,6 @@
 -set_meta_tags canonical: notes_url
 
-%ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
-  %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: root_path, title: "Théorie de la musique"}
-      %span{itemprop: "name"}>= "Théorie musicale"
-    %meta{itemprop: "position", content: "1"}
-  %li.breadcrumb-item.active{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
-    %a{itemprop: "item", href: notes_path, title: "Notes", class: "disable"}
-      %span{itemprop: "name"}>="Notes"
-    %meta{itemprop: "position", content: "2"}
+= breadcrumb(['Notes', notes_path])
 
 .page-header
   %h1= title "Notes"

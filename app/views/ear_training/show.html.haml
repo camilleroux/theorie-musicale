@@ -2,10 +2,7 @@
 -description "Reconnaître les intervalles à l'oreille grâce aux standards de jazz : pour chaque intervalle, montant et descendant, les thèmes qui commencent par lui (All the Things You Are, Summertime, Somewhere…), à écouter."
 -set_meta_tags canonical: ear_training_url
 
-%ol.breadcrumb
-  %li.breadcrumb-item= link_to 'Théorie musicale', root_path
-  %li.breadcrumb-item= link_to 'Intervalles', intervals_path
-  %li.breadcrumb-item.active À l'oreille
+= breadcrumb(['Intervalles', intervals_path], ["À l'oreille", ear_training_path])
 
 %article#ear-training
   .page-header
