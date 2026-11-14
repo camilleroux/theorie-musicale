@@ -274,6 +274,12 @@ nav.navbar.bg-dark {
     letter-spacing: -.01em;
   }
 
+  &__note {
+    display: block;
+    color: $ink-muted;
+    font-size: .875rem;
+  }
+
   &__facts {
     display: grid;
     grid-template-columns: max-content 1fr;

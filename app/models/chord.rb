@@ -138,6 +138,37 @@ class Chord < ApplicationRecord
     end
   end
 
+  # "Tétrade (4 notes)"
+  def kind
+    { 3 => 'Triade (3 notes)', 4 => 'Tétrade (4 notes)' }.fetch(keys.size) { "Accord de #{keys.size} notes" }
+  end
+
+  # Modes to improvise on the chord, built on its root
+  def related_modes
+    root = key || Key.default
+    chord_scales.includes(mode: :scale).map { |chord_scale| chord_scale.mode.in_key_of(root.shifted(chord_scale.offset)) }
+  end
+
+  TENSION_NAMES = { 1 => '♭9', 2 => '9', 3 => '♯9', 5 => '11', 6 => '♯11', 8 => '♭13', 9 => '13' }.freeze
+  Tensions = Data.define(:mode, :available, :avoid)
+
+  # Notes of a related mode that are not in the chord: tensions, or "avoid notes" when a half step above a chord tone
+  # (the 11 on a major chord), except the ♭9 and ♭13 of a dominant chord. Only for seventh and sixth chords, with the first
+  # related mode built on the root that gives a tension (related modes are listed from the most common).
+  def tensions
+    return if keys.size < 4
+
+    root = keys.first
+    chord_steps = keys.map { |k| (k.index - root.index) % 12 }
+    candidates = related_modes.select { |mode| mode.keys.first.index == root.index }.map do |mode|
+      extra = mode.keys.map { |k| [(k.index - root.index) % 12, k] }.reject { |step, _| chord_steps.include?(step) }.select { |step, _| TENSION_NAMES.key?(step) }
+      dominant = chord_steps.include?(4) && chord_steps.include?(10)
+      avoid, available = extra.partition { |step, _| chord_steps.include?((step - 1) % 12) && !(dominant && [1, 8].include?(step)) }
+      Tensions.new(mode, available.map { |step, k| [TENSION_NAMES[step], k] }, avoid.map { |step, k| [TENSION_NAMES[step], k] })
+    end
+    candidates.find { |t| t.available.any? }
+  end
+
   def role
     ChordRole.for(self)
   end

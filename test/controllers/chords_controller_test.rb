@@ -95,4 +95,12 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     faq = graph.find { |node| node['@type'] == 'FAQPage' }
     assert_includes faq['mainEntity'].map { |q| q['name'] }, 'Comment jouer Am7 à la guitare ?'
   end
+
+  test 'should sum up the chord type, tensions and scales' do
+    get '/tonalite/g/accords/septieme-de-dominante'
+    assert_select '.detail-hero__facts dd', 'Tétrade (4 notes)'
+    assert_select '.detail-hero__facts dd', /\A9 \(A\), 13 \(E\)/
+    assert_select '.detail-hero__facts dd', /à éviter[[:space:]]: 11 \(C\)/
+    assert_select '.detail-hero__facts a[href=?]', '/gammes/majeure/modes/mixolydien', text: 'Mode sol mixolydien'
+  end
 end
