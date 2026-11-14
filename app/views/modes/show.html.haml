@@ -1,6 +1,8 @@
 -title @mode.seo_title
 -description @mode.seo_description
 -set_meta_tags canonical: url_for([@key, @scale, @mode, {only_path: false}])
+- add_defined_term(name: @mode.heading, description: @mode.definition, url: url_for([@key, @scale, @mode, {only_path: false}]),
+  set_name: 'Gammes et modes', set_url: scales_url)
 
 %ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
   %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
@@ -68,3 +70,5 @@
       .chords-list.row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
         - @mode.related_chords.each do |chord|
           = render chord, key: chord.key
+
+= render 'shared/faq', title: "Questions sur #{@mode.heading_with_article}", items: Faq.for_mode(@mode)

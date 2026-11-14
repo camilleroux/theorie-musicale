@@ -96,4 +96,14 @@ class ChordsControllerTest < ActionDispatch::IntegrationTest
     get '/accords/majeur-7'
     assert_select '.detail-intro', /En do, Cmaj7 se compose de do, mi, sol et si/
   end
+
+  test 'should answer questions and publish them as structured data' do
+    get '/tonalite/a/accords/mineur-7'
+    assert_select '.faq h3', "Quelles sont les notes de l'accord Am7\u00A0?"
+    graph = JSON.parse(css_select('script[type="application/ld+json"]').first.text)['@graph']
+    term = graph.find { |node| node['@type'] == 'DefinedTerm' }
+    assert_equal 'Am7', term['termCode']
+    faq = graph.find { |node| node['@type'] == 'FAQPage' }
+    assert_includes faq['mainEntity'].map { |q| q['name'] }, 'Comment jouer Am7 à la guitare ?'
+  end
 end

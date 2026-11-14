@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
+  get 'llms.txt' => 'llms#show', as: :llms, format: false
+
   resources :keys, only: [:show], path: 'tonalite' do
     resources :chord_qualities, only: [:index, :show], path: 'qualite'
     resources :chords, only: [:index, :show], path: 'accords' do

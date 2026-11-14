@@ -1,6 +1,8 @@
 -title @interval.seo_title
 -description @interval.seo_description
 -set_meta_tags canonical: @key ? key_interval_url(@key, @interval) : interval_url(@interval)
+- add_defined_term(name: @interval.heading, code: @interval.symbol, description: @interval.seo_description.sub(/ Position .*\z/, ''),
+  url: (@key ? key_interval_url(@key, @interval) : interval_url(@interval)), set_name: 'Intervalles', set_url: intervals_url)
 
 %ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
   %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}

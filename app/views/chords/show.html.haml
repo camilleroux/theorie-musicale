@@ -1,6 +1,9 @@
 -title @chord.seo_title
 -description @chord.seo_description
 -set_meta_tags canonical: url_for([@chord.key, @chord, {only_path: false}])
+- add_defined_term(name: @chord.heading(display: true), code: @chord.in_c.display_symbol, description: @chord.definition,
+  url: url_for([@chord.key, @chord, {only_path: false}]), set_name: 'Accords', set_url: chords_url,
+  alternate_names: [@chord.in_c.search_symbol, *@chord.in_c.other_symbol_names].uniq - [@chord.in_c.display_symbol])
 
 %ol.breadcrumb{itemscope: true, itemtype: "https://schema.org/BreadcrumbList"}
   %li.breadcrumb-item{itemprop: "itemListElement", itemscope: true, itemtype: "https://schema.org/ListItem"}
@@ -41,6 +44,8 @@
         - @chord.chord_scales.includes(mode: [:scale]).each do |chord_scale|
           = render chord_scale.mode, :key => (@chord.key || Key.default).shifted(chord_scale.offset)
 
+
+= render 'shared/faq', title: "Questions sur l'accord #{@chord.in_c.display_symbol}", items: Faq.for_chord(@chord)
 
 -#- if @chord.voicings.present?
 -#  %nav.related-voicings
