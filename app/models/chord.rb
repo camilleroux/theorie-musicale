@@ -87,12 +87,29 @@ class Chord < ApplicationRecord
     key ? "Accord #{symbol} (#{full_name})" : "Accord #{name.downcase} (#{symbol}, #{c.full_name})"
   end
 
+  # A/B test of the search snippet, started 2026-11-14: chord pages in a key of
+  # these chords (half of the traffic) are back to the title and description they
+  # had until 2026-10-07, when the click-through rate of chord pages fell by a third
+  LEGACY_SNIPPET_SLUGS = %w[mineur septieme-de-dominante septieme-diminuee demi-diminue triade-diminuee mineur-6
+    7-diese5 triade-augmentee 7-bemol5 augmente-septieme-majeure phrygien 7-bemol9].freeze
+
+  def legacy_snippet?
+    key.present? && LEGACY_SNIPPET_SLUGS.include?(slug)
+  end
+
   def seo_title
+    return title(true) if legacy_snippet?
+
     suffixes = guitar? ? [" : notes, guitare et piano", " : guitare et piano", " : guitare"] : [" : notes et piano", " : notes"]
     SeoTitle.fit(heading, suffixes)
   end
 
   def seo_description
+    if legacy_snippet?
+      return "L'accord #{title} (#{main_symbol_name}) est composé des intervalles suivants : " \
+        "#{tones.from(1).map(&:to_interval).map(&:long_name).to_sentence}"
+    end
+
     intervals_sentence = intervals.map { |i| i.long_name.downcase }.to_sentence
     c = in_c
     notes = "notes #{c.keys.map(&:to_s).to_sentence} (#{c.keys.map(&:french_name).to_sentence})"
