@@ -319,6 +319,14 @@ nav.navbar.bg-dark {
   p:last-child { margin-bottom: 0; }
 }
 
+// Questions answered at the bottom of chord and mode pages
+.faq {
+  max-width: 48rem;
+
+  &__question { margin: 1.25rem 0 .35rem; font-weight: 700; }
+  &__answer { margin-bottom: 0; color: $ink-muted; }
+}
+
 // Key selector
 .key-selector {
   display: flex;

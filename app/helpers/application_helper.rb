@@ -18,11 +18,26 @@ module ApplicationHelper
     text.to_s.gsub(/ ([;:!?»])/, "\u00A0\\1").gsub(/« /, "«\u00A0")
   end
 
-  # JSON-LD describing the site and its author (E-E-A-T, link with camilleroux.com)
+  # Page-specific JSON-LD nodes (DefinedTerm, FAQPage…), added by views and output in the head with the site's
+  def add_structured_data(node)
+    (@structured_data ||= []) << node
+    nil
+  end
+
+  # DefinedTerm for a chord, mode, interval or note page: the term, its definition and the set it belongs to
+  def add_defined_term(name:, description:, url:, set_name:, set_url:, code: nil, alternate_names: [])
+    add_structured_data({
+      '@type' => 'DefinedTerm', 'name' => name, 'description' => description, 'url' => url, 'inLanguage' => 'fr-FR',
+      'termCode' => code, 'alternateName' => alternate_names.presence,
+      'inDefinedTermSet' => { '@type' => 'DefinedTermSet', 'name' => set_name, 'url' => set_url }
+    }.compact)
+  end
+
+  # JSON-LD describing the site and its author (E-E-A-T, link with camilleroux.com), and the page's own nodes
   def structured_data
     {
       '@context' => 'https://schema.org',
-      '@graph' => [
+      '@graph' => (@structured_data || []) + [
         {
           '@type' => 'WebSite', '@id' => "#{root_url}#website", 'name' => 'Théorie musicale', 'url' => root_url,
           'inLanguage' => 'fr-FR', 'author' => { '@id' => AUTHOR_ID }, 'publisher' => { '@id' => AUTHOR_ID }

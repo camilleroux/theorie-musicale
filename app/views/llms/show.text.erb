@@ -1,0 +1,39 @@
+# Théorie musicale
+
+> Théorie musicale pour le jazz et l'improvisation, en français : accords, gammes, modes, intervalles, notes et progressions d'accords, avec leurs notes, leurs positions à la guitare et au piano, dans les 12 tonalités. Site gratuit créé en 2015 et maintenu par Camille Roux (<%= 'https://www.camilleroux.com/' %>).
+
+Chaque page d'accord, de mode et d'intervalle existe en do et dans les 11 autres tonalités : remplacer la tonalité dans l'URL `/tonalite/{tonalité}/…` (c, db, d, eb, e, f, gb, g, ab, a, bb, b ; `d` après une lettre signifie dièse, `b` bémol, ex. `fd` pour fa dièse). Les pages en do n'ont pas de préfixe `/tonalite/c`. Les notes sont écrites en notation anglaise (C, D, E…) avec leur équivalent français (do, ré, mi…).
+
+## Accords
+
+<% @chords.each do |chord| -%>
+<% c = chord.in_c -%>
+- [<%= chord.heading %>](<%= chord_url(chord) %>) : <%= c.keys.map(&:to_s).join(' ') %> en do<%= " — #{chord.role.text}" if chord.role && !chord.role.progression %>
+<% end -%>
+
+Exemple dans une autre tonalité : [Accord Am7 (la mineur 7)](<%= key_chord_url(Key['A'], Chord.friendly.find('mineur-7')) %>).
+
+## Gammes et modes
+
+<% @scales.each do |scale| -%>
+- [Gamme <%= scale.name.downcase %>](<%= scale_url(scale) %>) : <%= scale.information %>
+<% scale.modes.sort_by(&:mode).each do |mode| -%>
+  - [<%= mode.heading %>](<%= scale_mode_url(scale, mode) %>)
+<% end -%>
+<% end -%>
+
+## Progressions d'accords
+
+<% Progression.all.each do |progression| -%>
+- [<%= progression.name %>](<%= progression_url(progression) %>) : <%= progression.summary %>
+<% end -%>
+
+## Intervalles et notes
+
+- [Intervalles](<%= intervals_url %>) : intervalles simples et redoublés, nombre de tons, renversements.
+- [Notes](<%= notes_url %>) : correspondance entre notation anglaise et française, enharmonies.
+
+## À propos
+
+- [À propos](<%= page_url('a-propos') %>) : l'auteur et l'histoire du site.
+- [Ressources](<%= page_url('ressources') %>) : livres et sites recommandés pour apprendre la théorie musicale.
