@@ -60,11 +60,14 @@ module ApplicationHelper
         {
           '@type' => 'Person', '@id' => AUTHOR_ID, 'name' => 'Camille Roux', 'url' => 'https://www.camilleroux.com/',
           'image' => AUTHOR_PHOTO_URL, 'jobTitle' => 'Entrepreneur et développeur, co-fondateur de Human Coders',
+          'worksFor' => { '@type' => 'Organization', 'name' => 'Human Coders', 'url' => 'https://www.humancoders.com/' },
           'knowsAbout' => ['Théorie musicale', 'Jazz', 'Guitare', 'Développement web'],
+          # Same @id as the Person on www.camilleroux.com: keep both in sync, Wikidata first
           'sameAs' => [
-            'https://music.camilleroux.com/', 'https://art.camilleroux.com/', 'https://x.com/CamilleRoux',
-            'https://bsky.app/profile/camilleroux.com', 'https://mastodon.social/@camilleroux',
-            'https://www.linkedin.com/in/camilleroux', 'https://github.com/camilleroux'
+            'https://www.wikidata.org/wiki/Q141371390', 'https://art.camilleroux.com/', 'https://music.camilleroux.com/',
+            'https://www.humancoders.com/formateurs/camille-roux', 'https://www.linkedin.com/in/camilleroux',
+            'https://x.com/CamilleRoux', 'https://bsky.app/profile/camilleroux.com', 'https://mastodon.social/@camilleroux',
+            'https://github.com/camilleroux'
           ]
         }
       ]
