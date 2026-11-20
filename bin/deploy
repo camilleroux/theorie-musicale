@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploys HEAD to GitHub and to the kamal server, refreshes the sitemap and purges the Cloudflare cache.
+# Deploys HEAD to GitHub and to the kamal server (the image build regenerates the sitemap) and purges the Cloudflare cache.
 # Purges Cloudflare immediately if CLOUDFLARE_API_TOKEN (Zone > Cache Purge) and CLOUDFLARE_ZONE_ID are in .env;
 # otherwise pages refresh within the hour.
 set -euo pipefail
@@ -8,7 +8,6 @@ HOST=theoriemusicale.camilleroux.com
 
 git push origin HEAD:master
 bin/kamal deploy
-bin/kamal sitemap
 
 token=$(grep '^CLOUDFLARE_API_TOKEN=' .env | cut -d= -f2- || true)
 zone=$(grep '^CLOUDFLARE_ZONE_ID=' .env | cut -d= -f2- || true)

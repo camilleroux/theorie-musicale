@@ -36,7 +36,6 @@ gem 'meta-tags'
 gem 'responders'
 gem 'roman-numerals'
 
-gem 'fog-aws'
 gem 'sitemap_generator'
 
 # Reference data only, rebuilt from db/seeds.rb when the Docker image is built

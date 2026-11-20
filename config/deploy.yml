@@ -33,13 +33,7 @@ registry:
 env:
   secret:
     - SECRET_KEY_BASE
-    - AWS_ACCESS_KEY_ID
-    - AWS_SECRET_ACCESS_KEY
-    # Sitemap bucket, not secret, but kept out of the repo like the keys
-    - FOG_DIRECTORY
-    - FOG_REGION
   clear:
-    FOG_PROVIDER: AWS
     RAILS_LOG_LEVEL: info
     WEB_CONCURRENCY: 0
 
@@ -47,7 +41,6 @@ aliases:
   console: app exec --interactive --reuse "bin/rails console"
   shell: app exec --interactive --reuse "bash"
   logs: app logs -f
-  sitemap: app exec --reuse "bin/rails sitemap:refresh:no_ping"
 
 asset_path: /rails/public/assets
 

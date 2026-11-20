@@ -37,7 +37,8 @@ COPY . .
 
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
 
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile db:schema:load db:seed
+# The sitemap only depends on the seeded data, so it is generated here too (served by SitemapsController)
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile db:schema:load db:seed sitemap:refresh:no_ping
 
 FROM base
 

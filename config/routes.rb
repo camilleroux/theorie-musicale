@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get 'llms.txt' => 'llms#show', as: :llms, format: false
+  get 'sitemap.xml' => 'sitemaps#show', as: :sitemap, format: false
 
   resources :keys, only: [:show], path: 'tonalite' do
     resources :chords, only: [:index, :show], path: 'accords' do

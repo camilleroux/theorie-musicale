@@ -23,9 +23,9 @@ $ open http://localhost:3000
 $ bin/deploy
 ```
 
-Pousse sur GitHub, déploie avec [Kamal](https://kamal-deploy.org/) sur le serveur partagé avec feedcast et bskyfollow, puis régénère le sitemap. Le build de l'image Docker construit aussi la base SQLite depuis `db/seeds` : modifier les seeds puis déployer suffit, il n'y a pas de base à migrer en prod. Cloudflare garde les pages 1 h (`s-maxage=3600`) : un déploiement est visible partout dans l'heure. Pour vider le cache immédiatement, ajouter `CLOUDFLARE_API_TOKEN` (permission *Zone > Cache Purge*) et `CLOUDFLARE_ZONE_ID` dans `.env`.
+Pousse sur GitHub et déploie avec [Kamal](https://kamal-deploy.org/) sur le serveur partagé avec feedcast et bskyfollow. Le build de l'image Docker construit aussi la base SQLite depuis `db/seeds` et génère le sitemap (servi sur `/sitemap.xml`) : modifier les seeds puis déployer suffit, il n'y a pas de base à migrer en prod. En local, `bin/rails sitemap:refresh:no_ping` génère le sitemap dans `tmp/sitemaps/`. Cloudflare garde les pages 1 h (`s-maxage=3600`) : un déploiement est visible partout dans l'heure. Pour vider le cache immédiatement, ajouter `CLOUDFLARE_API_TOKEN` (permission *Zone > Cache Purge*) et `CLOUDFLARE_ZONE_ID` dans `.env`.
 
-Les secrets sont lus dans `.env` (ignoré par git, voir `.kamal/secrets`) : `KAMAL_REGISTRY_PASSWORD`, `SECRET_KEY_BASE`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `FOG_DIRECTORY`, `FOG_REGION`.
+Les secrets sont lus dans `.env` (ignoré par git, voir `.kamal/secrets`) : `KAMAL_REGISTRY_PASSWORD`, `SECRET_KEY_BASE`.
 
 ### TODO
 - [ ] Tests
